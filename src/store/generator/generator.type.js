@@ -1,0 +1,3 @@
+export const GENERATOR_ACTION_TYPES = {
+    SET_NUMBER_OF_ROWS: 'SET_NUMBER_OF_ROWS',
+};

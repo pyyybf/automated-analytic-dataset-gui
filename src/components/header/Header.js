@@ -1,9 +1,12 @@
 import './Header.css';
 import {TextField} from "@mui/material";
-import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {setNumberOfRows} from "../../store/generator/generator.action";
 
 export default function Header() {
-    var [numberOfRows, setNumberOfRows] = useState(1000);
+    const dispatch = useDispatch();
+
+    const numberOfRows = useSelector(state => state.generator.numberOfRows);
 
     return (
         <header style={{
@@ -22,7 +25,7 @@ export default function Header() {
                            type="number"
                            value={numberOfRows}
                            onChange={e => {
-                               setNumberOfRows(e.target.value)
+                               dispatch(setNumberOfRows(e.target.value))
                            }}/>
             </div>
         </header>
