@@ -17,6 +17,24 @@ export const setShowUniqueIdentifierDialog = (val) => {
 export const addUniqueIdentifier = (newUniqueIdentifier) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER,
-        payload: newUniqueIdentifier
+        payload: [newUniqueIdentifier]
+    }
+};
+
+export const addName = () => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_NAME,
+        payload: [{type: 'NAME', name: 'Name'}]
+    }
+};
+
+export const addAddress = () => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_ADDRESS,
+        payload: [
+            {type: 'ADDRESS_ADDRESS', name: 'Address'},
+            {type: 'ADDRESS_CITY', name: 'City'},
+            {type: 'ADDRESS_STATE', name: 'State'}
+        ]
     }
 };

@@ -18,7 +18,9 @@ export const generatorReducer = (
         case GENERATOR_ACTION_TYPES.SET_SHOW_UNIQUE_IDENTIFIER_DIALOG:
             return {...state, showUniqueIdentifierDialog: payload};
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
-            return {...state, fieldList: [...state.fieldList, payload]};
+        case GENERATOR_ACTION_TYPES.ADD_NAME:
+        case GENERATOR_ACTION_TYPES.ADD_ADDRESS:
+            return {...state, fieldList: [...state.fieldList, ...payload]};
         default:
             return state;
     }
