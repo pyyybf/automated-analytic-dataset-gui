@@ -6,8 +6,8 @@ export default function Graph() {
 
     return (
         <React.Fragment>
-            {fieldList.map(field =>
-                <p key={field.name}>{field.name}</p>
+            {fieldList.map((field, index) =>
+                <p key={index}>{field.name}</p>
             )}
         </React.Fragment>
     );
