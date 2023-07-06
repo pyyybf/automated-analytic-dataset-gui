@@ -1,10 +1,21 @@
 import './App.css';
+import {Grid} from "@mui/material";
 import Header from "./components/header/Header";
+import Options from "./components/options/Options";
 
 function App() {
     return (
         <div className="App">
             <Header/>
+            <Grid container>
+                <Grid item xs={12} md={3} sx={{
+                    borderRight: '1px lightgray solid',
+                    height: 'calc(100vh - 60px)',
+                    paddingY: '16px'
+                }}>
+                    <Options/>
+                </Grid>
+            </Grid>
         </div>
     );
 }
