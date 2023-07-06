@@ -24,7 +24,7 @@ export default function UniqueIdentifierDialog() {
         numberOfDigits: 6
     });
 
-    const handleCloseDialog = e => {
+    const handleCloseDialog = () => {
         dispatch(setShowUniqueIdentifierDialog(false));
     };
 
@@ -65,7 +65,7 @@ export default function UniqueIdentifierDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={e => {
+                        onClick={() => {
                             dispatch(addUniqueIdentifier(uniqueIdentifier));
                             handleCloseDialog();
                         }}>OK</Button>
