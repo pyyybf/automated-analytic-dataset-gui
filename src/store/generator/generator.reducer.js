@@ -1,7 +1,8 @@
 import {GENERATOR_ACTION_TYPES} from './generator.type';
 
 export const GENERATOR_INITIAL_STATE = {
-    numberOfRows: 1000
+    numberOfRows: 1000,
+    fieldList: []
 };
 
 export const generatorReducer = (
@@ -13,6 +14,8 @@ export const generatorReducer = (
     switch (type) {
         case GENERATOR_ACTION_TYPES.SET_NUMBER_OF_ROWS:
             return {...state, numberOfRows: payload};
+        case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
+            return {...state, fieldList: [...state.fieldList, payload]};
         default:
             return state;
     }
