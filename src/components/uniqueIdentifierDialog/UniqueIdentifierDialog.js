@@ -64,11 +64,13 @@ export default function UniqueIdentifierDialog() {
                 />
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={e => {
-                    dispatch(addUniqueIdentifier(uniqueIdentifier));
-                    handleCloseDialog();
-                }}>OK</Button>
-                <Button variant="outlined" onClick={handleCloseDialog}>Cancel</Button>
+                <Button sx={{textTransform: 'none'}}
+                        onClick={e => {
+                            dispatch(addUniqueIdentifier(uniqueIdentifier));
+                            handleCloseDialog();
+                        }}>OK</Button>
+                <Button sx={{textTransform: 'none'}}
+                        onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>
         </Dialog>
     );
