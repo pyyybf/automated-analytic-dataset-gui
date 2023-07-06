@@ -1,9 +1,14 @@
+import React from "react";
 import {useSelector} from "react-redux";
 
 export default function Graph() {
-    const numberOfRows = useSelector(state => state.generator.numberOfRows);
+    const fieldList = useSelector(state => state.generator.fieldList);
 
     return (
-        <div>{numberOfRows}</div>
+        <React.Fragment>
+            {fieldList.map(field =>
+                <p key={field.name}>{field.name}</p>
+            )}
+        </React.Fragment>
     );
 }
