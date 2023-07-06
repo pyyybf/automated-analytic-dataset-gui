@@ -21,7 +21,7 @@ export default function Options() {
                         size="large"
                         sx={buttonStyle}
                         onClick={() => {
-                            dispatch(setShowUniqueIdentifierDialog(true))
+                            dispatch(setShowUniqueIdentifierDialog(true));
                         }}
                 >Unique Identifier</Button>
             </Box>

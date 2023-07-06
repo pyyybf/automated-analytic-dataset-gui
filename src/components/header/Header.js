@@ -19,7 +19,7 @@ export default function Header() {
                            type="number"
                            value={numberOfRows}
                            onChange={e => {
-                               dispatch(setNumberOfRows(e.target.value))
+                               dispatch(setNumberOfRows(e.target.value));
                            }}/>
             </div>
         </header>

@@ -41,7 +41,7 @@ export default function UniqueIdentifierDialog() {
                             setUniqueIdentifier({
                                 ...uniqueIdentifier,
                                 alphanumeric: e.target.value
-                            })
+                            });
                         }}
                     >
                         <FormControlLabel value="alphanumeric" control={<Radio/>} label="Alphanumeric"/>
@@ -59,7 +59,7 @@ export default function UniqueIdentifierDialog() {
                         setUniqueIdentifier({
                             ...uniqueIdentifier,
                             numberOfDigits: e.target.value
-                        })
+                        });
                     }}
                 />
             </DialogContent>
