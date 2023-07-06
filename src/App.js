@@ -4,6 +4,7 @@ import Header from "./components/header/Header";
 import Options from "./components/options/Options";
 import Graph from "./components/graph/Graph";
 import UniqueIdentifierDialog from "./components/uniqueIdentifierDialog/UniqueIdentifierDialog";
+import MultivariateNormalDialog from "./components/multivariateNormalDialog/MultivariateNormalDialog";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                 </Grid>
             </Grid>
             <UniqueIdentifierDialog/>
+            <MultivariateNormalDialog/>
         </div>
     );
 }

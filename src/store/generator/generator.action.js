@@ -14,6 +14,13 @@ export const setShowUniqueIdentifierDialog = (val) => {
     }
 };
 
+export const setShowMultivariateNormalDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_MULTIVARIATE_NORMAL_DIALOG,
+        payload: val
+    }
+};
+
 export const addUniqueIdentifier = (newUniqueIdentifier) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER,
@@ -36,5 +43,12 @@ export const addAddress = () => {
             {type: 'ADDRESS_CITY', name: 'City'},
             {type: 'ADDRESS_STATE', name: 'State'}
         ]
+    }
+};
+
+export const addMultivariateNormal = (multivariateNormal) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_MULTIVARIATE_NORMAL,
+        payload: multivariateNormal
     }
 };

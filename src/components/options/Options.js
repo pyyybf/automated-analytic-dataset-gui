@@ -1,6 +1,11 @@
 import React from 'react';
 import {Button, Box} from "@mui/material";
-import {addAddress, addName, setShowUniqueIdentifierDialog} from "../../store/generator/generator.action";
+import {
+    addAddress,
+    addName,
+    setShowMultivariateNormalDialog,
+    setShowUniqueIdentifierDialog
+} from "../../store/generator/generator.action";
 import {useDispatch} from "react-redux";
 
 export default function Options() {
@@ -47,6 +52,9 @@ export default function Options() {
                 <Button variant="contained"
                         size="large"
                         sx={buttonStyle}
+                        onClick={() => {
+                            dispatch(setShowMultivariateNormalDialog(true));
+                        }}
                 >Multivariate Normal</Button>
             </Box>
             <Box sx={buttonBoxStyle}>
