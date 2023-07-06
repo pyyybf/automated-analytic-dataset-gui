@@ -1,7 +1,11 @@
 import React from 'react';
 import {Button, Box} from "@mui/material";
+import {setShowUniqueIdentifierDialog} from "../../store/generator/generator.action";
+import {useDispatch} from "react-redux";
 
 export default function Options() {
+    const dispatch = useDispatch();
+
     const buttonBoxStyle = {
         padding: '12px 24px'
     };
@@ -16,6 +20,9 @@ export default function Options() {
                 <Button variant="contained"
                         size="large"
                         sx={buttonStyle}
+                        onClick={() => {
+                            dispatch(setShowUniqueIdentifierDialog(true))
+                        }}
                 >Unique Identifier</Button>
             </Box>
             <Box sx={buttonBoxStyle}>

@@ -3,6 +3,7 @@ import {Grid} from "@mui/material";
 import Header from "./components/header/Header";
 import Options from "./components/options/Options";
 import Graph from "./components/graph/Graph";
+import UniqueIdentifierDialog from "./components/uniqueIdentifierDialog/UniqueIdentifierDialog";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Graph/>
                 </Grid>
             </Grid>
+            <UniqueIdentifierDialog/>
         </div>
     );
 }
