@@ -9,13 +9,7 @@ export default function Header() {
     const numberOfRows = useSelector(state => state.generator.numberOfRows);
 
     return (
-        <header style={{
-            borderBottom: '1px lightgray solid',
-            display: 'flex',
-            justifyContent: 'space-between',
-            height: '60px',
-            padding: '0 12px'
-        }}>
+        <header>
             <div className="header-item">
                 <h1 style={{color: '#1976d2'}}>Predictor Matrix Definition</h1>
             </div>
