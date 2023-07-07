@@ -18,12 +18,14 @@ export default function UniqueIdentifierDialog() {
     const dispatch = useDispatch();
     const showUniqueIdentifierDialog = useSelector(state => state.generator.showUniqueIdentifierDialog);
 
-    const [uniqueIdentifier, setUniqueIdentifier] = useState({
+    const INITIAL_UNIQUE_IDENTIFIER = {
         type: 'UNIQUE_IDENTIFIER',
         name: 'ID',
         alphanumeric: 'alphanumeric',
         numberOfDigits: 6
-    });
+    };
+
+    const [uniqueIdentifier, setUniqueIdentifier] = useState({...INITIAL_UNIQUE_IDENTIFIER});
 
     const handleCloseDialog = () => {
         dispatch(setShowUniqueIdentifierDialog(false));
@@ -68,6 +70,7 @@ export default function UniqueIdentifierDialog() {
                 <Button sx={{textTransform: 'none'}}
                         onClick={() => {
                             dispatch(addUniqueIdentifier(uniqueIdentifier));
+                            setUniqueIdentifier({...INITIAL_UNIQUE_IDENTIFIER});
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
