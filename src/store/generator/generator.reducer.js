@@ -23,8 +23,9 @@ export const generatorReducer = (
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
         case GENERATOR_ACTION_TYPES.ADD_NAME:
         case GENERATOR_ACTION_TYPES.ADD_ADDRESS:
-        case GENERATOR_ACTION_TYPES.ADD_MULTIVARIATE_NORMAL:
             return {...state, fieldList: [...state.fieldList, ...payload]};
+        case GENERATOR_ACTION_TYPES.ADD_MULTIVARIATE_NORMAL:
+            return {...state, fieldList: [...state.fieldList, ...payload.multivariateNormal]};
         default:
             return state;
     }

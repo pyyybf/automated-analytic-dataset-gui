@@ -46,9 +46,12 @@ export const addAddress = () => {
     }
 };
 
-export const addMultivariateNormal = (multivariateNormal) => {
+export const addMultivariateNormal = (newMultivariateNormal, newCovarianceMatrix) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_MULTIVARIATE_NORMAL,
-        payload: multivariateNormal
+        payload: {
+            multivariateNormal: newMultivariateNormal,
+            covarianceMatrix: newCovarianceMatrix
+        }
     }
 };
