@@ -16,6 +16,8 @@ export const generatorReducer = (
     switch (type) {
         case GENERATOR_ACTION_TYPES.SET_NUMBER_OF_ROWS:
             return {...state, numberOfRows: payload};
+        case GENERATOR_ACTION_TYPES.SET_FIELD_LIST:
+            return {...state, fieldList: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_UNIQUE_IDENTIFIER_DIALOG:
             return {...state, showUniqueIdentifierDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_MULTIVARIATE_NORMAL_DIALOG:

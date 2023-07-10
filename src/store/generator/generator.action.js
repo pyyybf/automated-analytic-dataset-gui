@@ -7,6 +7,13 @@ export const setNumberOfRows = (newVal) => {
     }
 };
 
+export const setFieldList = (newVal) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_FIELD_LIST,
+        payload: newVal
+    }
+};
+
 export const setShowUniqueIdentifierDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_UNIQUE_IDENTIFIER_DIALOG,
