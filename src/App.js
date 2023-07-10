@@ -20,7 +20,8 @@ function App() {
                 </Grid>
                 <Grid item xs={12} md={9} sx={{
                     height: 'calc(100vh - 60px)',
-                    paddingY: '16px'
+                    paddingY: '16px',
+                    overflowY: 'scroll'
                 }}>
                     <Graph/>
                 </Grid>
