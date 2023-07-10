@@ -7,6 +7,15 @@ import UniqueIdentifierDialog from "./components/uniqueIdentifierDialog/UniqueId
 import MultivariateNormalDialog from "./components/multivariateNormalDialog/MultivariateNormalDialog";
 
 function App() {
+    console.log(`
+                          _     
+__      ____  ___   _ ___| |__  
+\\ \\ /\\ / /\\ \\/ / | | / __| '_ \\ 
+ \\ V  V /  >  <| |_| \\__ \\ |_) |
+  \\_/\\_/  /_/\\_\\\\__, |___/_.__/ 
+                |___/
+`);
+
     return (
         <div className="App">
             <Header/>
