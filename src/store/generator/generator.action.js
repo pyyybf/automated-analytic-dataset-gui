@@ -64,9 +64,9 @@ export const addMultivariateNormal = (newMultivariateNormal, newCovarianceMatrix
     }
 };
 
-export const generateFile = (data) => {
+export const generateFile = (data, format) => {
     return new Promise((resolve, reject) => {
-        generateFileAPI(data).then(response => {
+        generateFileAPI(data, format).then(response => {
             if (response.data.hasOwnProperty('success') && !response.data.success) {
                 reject(response.data.message);
             } else {

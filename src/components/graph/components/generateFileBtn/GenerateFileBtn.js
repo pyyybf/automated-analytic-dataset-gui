@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {Button, ButtonGroup, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper} from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import {useSelector} from "react-redux";
@@ -9,8 +9,8 @@ export default function GenerateFileBtn() {
     const numberOfRows = useSelector(state => state.generator.numberOfRows);
 
     const [format, setFormat] = useState('csv');
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef(null);
 
     const FILE_TYPES = ['csv', 'json'];
 
@@ -24,7 +24,7 @@ export default function GenerateFileBtn() {
     };
 
     const onGenerateFile = () => {
-        generateFile({fieldList, numberOfRows, format}).then(res => {
+        generateFile({fieldList, numberOfRows}, format).then(res => {
             let blob = res;
             let fileName = `data.${format}`;
             if (format === 'csv') {
