@@ -23,7 +23,7 @@ export default function MultivariateNormalDialog() {
     const dispatch = useDispatch();
     const showMultivariateNormalDialog = useSelector(state => state.generator.showMultivariateNormalDialog);
 
-    const INITIAL_FIELD_LIST = [{name: '', mean: 0}];
+    const INITIAL_FIELD_LIST = [{type: 'MULTIVARIATE_NORMAL', name: '', mean: 0}];
 
     const [fieldList, setFieldList] = useState([...INITIAL_FIELD_LIST]);
     const [covarianceMatrix, setCovarianceMatrix] = useState([[0]]);
@@ -37,6 +37,7 @@ export default function MultivariateNormalDialog() {
     const addField = () => {
         // add a field into field list
         setFieldList([...fieldList, {
+            type: 'MULTIVARIATE_NORMAL',
             name: '',
             mean: 0
         }]);
@@ -147,7 +148,7 @@ export default function MultivariateNormalDialog() {
                                 </Grid>
                             )}
                         </Grid>
-                        <Grid item sm={12} md={8}>
+                        <Grid item sm={12} md={8} sx={{overflowX: 'scroll'}}>
                             <Table sx={{minWidth: 275, width: '20%', marginTop: '12px'}} aria-label="field table">
                                 <TableBody>
                                     {covarianceMatrix.map((row, index) => (
