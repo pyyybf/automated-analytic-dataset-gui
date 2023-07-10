@@ -1,9 +1,15 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Box} from "@mui/material";
+import {
+    Box,
+    Button,
+    Snackbar
+} from "@mui/material";
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import {Container, Draggable} from "react-smooth-dnd";
 import {setFieldList} from "../../store/generator/generator.action";
 import FieldPaper from "./components/fieldPaper/FieldPaper";
+import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
 
 export default function Graph() {
     const dispatch = useDispatch();
@@ -47,6 +53,20 @@ export default function Graph() {
                     </Draggable>
                 ))}
             </Container>
+            <Snackbar open={true} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+                <Box>
+                    <GenerateFileBtn/>
+                    <Button variant="outlined"
+                            sx={{
+                                textTransform: 'none',
+                                marginLeft: '12px'
+                            }}
+                            startIcon={<RestartAltIcon/>}
+                            onClick={() => {
+                                dispatch(setFieldList([]));
+                            }}>Clear</Button>
+                </Box>
+            </Snackbar>
         </Box>
     );
 }

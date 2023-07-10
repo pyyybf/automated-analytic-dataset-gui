@@ -1,4 +1,5 @@
 import {GENERATOR_ACTION_TYPES} from "./generator.type";
+import {generateFileAPI} from "../../api/generator";
 
 export const setNumberOfRows = (newVal) => {
     return {
@@ -61,4 +62,18 @@ export const addMultivariateNormal = (newMultivariateNormal, newCovarianceMatrix
             covarianceMatrix: newCovarianceMatrix
         }
     }
+};
+
+export const generateFile = (data) => {
+    return new Promise((resolve, reject) => {
+        generateFileAPI(data).then(response => {
+            if (response.data.hasOwnProperty('success') && !response.data.success) {
+                reject(response.data.message);
+            } else {
+                resolve(response.data);
+            }
+        }).catch(error => {
+            reject(error);
+        });
+    });
 };
