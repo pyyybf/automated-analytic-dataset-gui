@@ -7,6 +7,7 @@ import {
     setShowUniqueIdentifierDialog
 } from "../../store/generator/generator.action";
 import {useDispatch} from "react-redux";
+import {Container, Draggable} from 'react-smooth-dnd';
 
 export default function Options() {
     const dispatch = useDispatch();
@@ -19,56 +20,65 @@ export default function Options() {
         textTransform: 'none'
     };
 
+    const buttonList = [
+        {
+            text: 'Unique Identifier',
+            onClick: () => {
+                dispatch(setShowUniqueIdentifierDialog(true));
+            }
+        },
+        {
+            text: 'Name',
+            onClick: () => {
+                dispatch(addName());
+            }
+        },
+        {
+            text: 'Address',
+            onClick: () => {
+                dispatch(addAddress());
+            }
+        },
+        {
+            text: 'Multivariate Normal',
+            onClick: () => {
+                dispatch(setShowMultivariateNormalDialog(true));
+            }
+        },
+        {
+            text: 'Category - General',
+            onClick: () => {
+                // TODO
+            }
+        },
+        {
+            text: 'Poisson - General',
+            onClick: () => {
+                // TODO
+            }
+        },
+    ];
+
+    const getChildPayload = key => {
+        if (key < buttonList.length) {
+            return {action: buttonList[key].onClick};
+        }
+    };
+
     return (
         <React.Fragment>
-            <Box sx={buttonBoxStyle}>
-                <Button variant="contained"
-                        size="large"
-                        sx={buttonStyle}
-                        onClick={() => {
-                            dispatch(setShowUniqueIdentifierDialog(true));
-                        }}
-                >Unique Identifier</Button>
-            </Box>
-            <Box sx={buttonBoxStyle}>
-                <Button variant="contained"
-                        size="large"
-                        sx={buttonStyle}
-                        onClick={() => {
-                            dispatch(addName());
-                        }}
-                >Name</Button>
-            </Box>
-            <Box sx={buttonBoxStyle}>
-                <Button variant="contained"
-                        size="large"
-                        sx={buttonStyle}
-                        onClick={() => {
-                            dispatch(addAddress());
-                        }}
-                >Address</Button>
-            </Box>
-            <Box sx={buttonBoxStyle}>
-                <Button variant="contained"
-                        size="large"
-                        sx={buttonStyle}
-                        onClick={() => {
-                            dispatch(setShowMultivariateNormalDialog(true));
-                        }}
-                >Multivariate Normal</Button>
-            </Box>
-            <Box sx={buttonBoxStyle}>
-                <Button variant="contained"
-                        size="large"
-                        sx={buttonStyle}
-                >Category - General</Button>
-            </Box>
-            <Box sx={buttonBoxStyle}>
-                <Button variant="contained"
-                        size="large"
-                        sx={buttonStyle}
-                >Poisson - General</Button>
-            </Box>
+            <Container groupName="1" behaviour="copy" getChildPayload={getChildPayload}>
+                {buttonList.map((btn, index) =>
+                    <Draggable key={index}>
+                        <Box sx={buttonBoxStyle}>
+                            <Button variant="contained"
+                                    size="large"
+                                    sx={buttonStyle}
+                                    onClick={btn.onClick}
+                            >{btn.text}</Button>
+                        </Box>
+                    </Draggable>)}
+            </Container>
         </React.Fragment>
     );
 }

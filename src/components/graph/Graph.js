@@ -1,27 +1,52 @@
 import React from "react";
-import {useSelector} from "react-redux";
-import {Box, Table, TableBody, TableCell, TableContainer, TableRow} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
+import {Box} from "@mui/material";
+import {Container, Draggable} from "react-smooth-dnd";
+import {setFieldList} from "../../store/generator/generator.action";
+import FieldPaper from "./components/fieldPaper/FieldPaper";
 
 export default function Graph() {
+    const dispatch = useDispatch();
+
     const fieldList = useSelector(state => state.generator.fieldList);
 
+    const onDrop = e => {
+        if (e.payload?.action) {
+            e.payload.action();
+        } else {
+            const {removedIndex, addedIndex, payload} = e;
+            if (removedIndex === null && addedIndex === null) return;
+
+            const newFieldList = [...fieldList];
+            let itemToAdd = payload;
+
+            if (removedIndex !== null) {
+                itemToAdd = newFieldList.splice(removedIndex, 1)[0];
+            }
+            if (addedIndex !== null) {
+                newFieldList.splice(addedIndex, 0, itemToAdd);
+            }
+
+            dispatch(setFieldList(newFieldList));
+        }
+    };
+
     return (
-        <Box sx={{padding: '12px 24px'}}>
-            <TableContainer>
-                <Table sx={{minWidth: 100, width: '20%'}} aria-label="field table">
-                    <TableBody>
-                        {fieldList.map((field, index) => (
-                            <TableRow
-                                key={index}
-                                sx={{border: '1px lightgray solid'}}>
-                                <TableCell component="td" scope="row" align="center">
-                                    {field.name}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+        <Box sx={{padding: '12px 24px', height: 'calc(100% - 24px)'}}>
+            <Container groupName="1" onDrop={onDrop} style={{height: '100%'}}>
+                {fieldList.map((field, index) => (
+                    <Draggable key={index}>
+                        <Box sx={{
+                            p: 1,
+                            bgcolor: 'transparent',
+                            display: 'grid',
+                            width: '25%',
+                        }}>
+                            <FieldPaper index={index} name={field.name}></FieldPaper>
+                        </Box>
+                    </Draggable>
+                ))}
+            </Container>
         </Box>
     );
 }
