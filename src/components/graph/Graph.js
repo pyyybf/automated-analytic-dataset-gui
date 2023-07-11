@@ -53,7 +53,9 @@ export default function Graph() {
                     </Draggable>
                 ))}
             </Container>
-            <Snackbar open={true} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+            <Snackbar open={true}
+                      transitionDuration={0}
+                      anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Box>
                     <GenerateFileBtn/>
                     <Button variant="outlined"
