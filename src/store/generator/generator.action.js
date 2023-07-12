@@ -82,7 +82,7 @@ export const generateFile = (data, format) => {
                 resolve(response.data);
             }
         }).catch(error => {
-            reject(error);
+            reject(error.message);
         });
     });
 };
