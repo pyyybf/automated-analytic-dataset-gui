@@ -1,20 +1,16 @@
 import './App.css';
-import {Grid} from "@mui/material";
+import {Alert, Grid, Snackbar} from "@mui/material";
 import Header from "./components/header/Header";
 import Options from "./components/options/Options";
 import Graph from "./components/graph/Graph";
 import UniqueIdentifierDialog from "./components/uniqueIdentifierDialog/UniqueIdentifierDialog";
 import MultivariateNormalDialog from "./components/multivariateNormalDialog/MultivariateNormalDialog";
+import {useSelector} from "react-redux";
 
 function App() {
-    console.log(`
-                          _     
-__      ____  ___   _ ___| |__  
-\\ \\ /\\ / /\\ \\/ / | | / __| '_ \\ 
- \\ V  V /  >  <| |_| \\__ \\ |_) |
-  \\_/\\_/  /_/\\_\\\\__, |___/_.__/ 
-                |___/
-`);
+    const alertOpen = useSelector(state => state.generator.alertOpen);
+    const alertText = useSelector(state => state.generator.alertText);
+    const alertType = useSelector(state => state.generator.alertType);
 
     return (
         <div className="App">
