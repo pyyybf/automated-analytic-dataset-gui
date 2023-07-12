@@ -29,6 +29,15 @@ export const setShowMultivariateNormalDialog = (val) => {
     }
 };
 
+export const setAlert = (open, text = '', type = 'error') => {
+    let payload = {alertOpen: open, alertType: type};
+    if (text !== '') payload.alertText = text;
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_ALERT,
+        payload: payload
+    }
+};
+
 export const addUniqueIdentifier = (newUniqueIdentifier) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER,

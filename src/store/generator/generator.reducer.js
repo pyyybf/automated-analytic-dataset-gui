@@ -5,6 +5,9 @@ export const GENERATOR_INITIAL_STATE = {
     fieldList: [],
     showUniqueIdentifierDialog: false,
     showMultivariateNormalDialog: false,
+    alertOpen: false,
+    alertText: '',
+    alertType: 'error',
 };
 
 export const generatorReducer = (
@@ -22,6 +25,8 @@ export const generatorReducer = (
             return {...state, showUniqueIdentifierDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_MULTIVARIATE_NORMAL_DIALOG:
             return {...state, showMultivariateNormalDialog: payload};
+        case GENERATOR_ACTION_TYPES.SET_ALERT:
+            return {...state, ...payload};
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
         case GENERATOR_ACTION_TYPES.ADD_NAME:
         case GENERATOR_ACTION_TYPES.ADD_ADDRESS:

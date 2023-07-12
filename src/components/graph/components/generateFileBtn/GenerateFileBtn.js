@@ -1,10 +1,15 @@
 import React, {useRef, useState} from "react";
 import {Button, ButtonGroup, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper} from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import {useSelector} from "react-redux";
-import {generateFile} from "../../../../store/generator/generator.action";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    generateFile,
+    setAlert,
+} from "../../../../store/generator/generator.action";
 
 export default function GenerateFileBtn() {
+    const dispatch = useDispatch();
+
     const fieldList = useSelector(state => state.generator.fieldList);
     const numberOfRows = useSelector(state => state.generator.numberOfRows);
 
@@ -46,6 +51,10 @@ export default function GenerateFileBtn() {
             }
         }).catch(err => {
             console.log(err);
+            dispatch(setAlert(true, err));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, 3000)
         });
     };
     return (

@@ -35,6 +35,9 @@ __      ____  ___   _ ___| |__
                     <Graph/>
                 </Grid>
             </Grid>
+            <Snackbar open={alertOpen} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+                <Alert severity={alertType}>{alertText}</Alert>
+            </Snackbar>
             <UniqueIdentifierDialog/>
             <MultivariateNormalDialog/>
         </div>
