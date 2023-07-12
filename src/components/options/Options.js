@@ -13,11 +13,12 @@ export default function Options() {
     const dispatch = useDispatch();
 
     const buttonBoxStyle = {
-        padding: '12px 24px'
+        padding: '16px 24px'
     };
     const buttonStyle = {
         width: '80%',
-        textTransform: 'none'
+        textTransform: 'none',
+        paddingY: '16px',
     };
 
     const buttonList = [

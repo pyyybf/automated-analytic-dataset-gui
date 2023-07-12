@@ -46,7 +46,7 @@ export default function Graph() {
                             p: 1,
                             bgcolor: 'transparent',
                             display: 'grid',
-                            width: '25%',
+                            width: '30%',
                         }}>
                             <FieldPaper index={index} name={field.name}></FieldPaper>
                         </Box>
