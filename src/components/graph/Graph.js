@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     Box,
     Button,
+    Grid,
     Snackbar
 } from "@mui/material";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -38,23 +39,25 @@ export default function Graph() {
     };
 
     return (
-        <Box sx={{padding: '12px 24px', height: 'calc(100% - 24px)'}}>
-            <Container groupName="1" onDrop={onDrop} style={{height: '100%'}}>
-                {fieldList.map((field, index) => (
-                    <Draggable key={index}>
-                        <Box sx={{
-                            p: 1,
-                            bgcolor: 'transparent',
-                            display: 'grid',
-                            width: '30%',
-                        }}>
-                            <FieldPaper index={index} name={field.name}></FieldPaper>
-                        </Box>
-                    </Draggable>
-                ))}
-            </Container>
-            <Snackbar open={true}
-                      transitionDuration={0}
+        <React.Fragment>
+            <Grid container sx={{padding: '12px 24px', height: 'calc(100% - 24px)'}}>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Container groupName="1" onDrop={onDrop} style={{height: '100%'}}>
+                        {fieldList.map((field, index) => (
+                            <Draggable key={index}>
+                                <Box item sx={{
+                                    p: 1,
+                                    bgcolor: 'transparent',
+                                    display: 'grid',
+                                }}>
+                                    <FieldPaper index={index} name={field.name}></FieldPaper>
+                                </Box>
+                            </Draggable>
+                        ))}
+                    </Container>
+                </Grid>
+            </Grid>
+            <Snackbar open transitionDuration={0}
                       anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Box>
                     <GenerateFileBtn/>
@@ -69,6 +72,6 @@ export default function Graph() {
                             }}>Clear</Button>
                 </Box>
             </Snackbar>
-        </Box>
+        </React.Fragment>
     );
 }

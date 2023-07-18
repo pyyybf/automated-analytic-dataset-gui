@@ -38,25 +38,28 @@ export default function FieldPaper(props) {
                         <TextField size="small"
                                    variant="standard"
                                    value={currentName}
+                                   sx={{width: '47%'}}
                                    onChange={e => {
                                        setCurrentName(e.target.value);
                                    }}></TextField>
-                        <IconButton aria-label="check"
-                                    color="primary"
-                                    onClick={() => {
-                                        let newFieldList = [...fieldList];
-                                        newFieldList[props.index].name = currentName;
-                                        dispatch(setFieldList(newFieldList));
-                                        setEdit(false);
-                                    }}>
-                            <CheckIcon/>
-                        </IconButton>
-                        <IconButton aria-label="close"
-                                    onClick={() => {
-                                        setEdit(false);
-                                    }}>
-                            <CloseIcon/>
-                        </IconButton>
+                        <Box>
+                            <IconButton aria-label="check"
+                                        color="primary"
+                                        onClick={() => {
+                                            let newFieldList = [...fieldList];
+                                            newFieldList[props.index].name = currentName;
+                                            dispatch(setFieldList(newFieldList));
+                                            setEdit(false);
+                                        }}>
+                                <CheckIcon/>
+                            </IconButton>
+                            <IconButton aria-label="close"
+                                        onClick={() => {
+                                            setEdit(false);
+                                        }}>
+                                <CloseIcon/>
+                            </IconButton>
+                        </Box>
                     </React.Fragment>
                     :
                     <React.Fragment>
