@@ -45,7 +45,7 @@ export default function Graph() {
                     <Container groupName="1" onDrop={onDrop} style={{height: '100%'}}>
                         {fieldList.map((field, index) => (
                             <Draggable key={index}>
-                                <Box item sx={{
+                                <Box sx={{
                                     p: 1,
                                     bgcolor: 'transparent',
                                     display: 'grid',
