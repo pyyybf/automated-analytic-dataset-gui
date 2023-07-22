@@ -36,17 +36,13 @@ export default function UniqueIdentifierDialog() {
             <DialogTitle>Unique Identifier</DialogTitle>
             <DialogContent>
                 <FormControl>
-                    <RadioGroup
-                        aria-labelledby="demo-controlled-radio-buttons-group"
-                        name="controlled-radio-buttons-group"
-                        value={uniqueIdentifier.alphanumeric}
-                        onChange={e => {
-                            setUniqueIdentifier({
-                                ...uniqueIdentifier,
-                                alphanumeric: e.target.value
-                            });
-                        }}
-                    >
+                    <RadioGroup value={uniqueIdentifier.alphanumeric}
+                                onChange={e => {
+                                    setUniqueIdentifier({
+                                        ...uniqueIdentifier,
+                                        alphanumeric: e.target.value
+                                    });
+                                }}>
                         <FormControlLabel value="alphanumeric" control={<Radio/>} label="Alphanumeric"/>
                         <FormControlLabel value="numeric" control={<Radio/>} label="Numeric"/>
                     </RadioGroup>
