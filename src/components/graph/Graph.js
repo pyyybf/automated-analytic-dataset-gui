@@ -10,7 +10,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import {Container, Draggable} from "react-smooth-dnd";
 import {setFieldList} from "../../store/generator/generator.action";
 import FieldPaper from "./components/fieldPaper/FieldPaper";
-import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
+// import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
 
 export default function Graph() {
     const dispatch = useDispatch();
@@ -60,7 +60,7 @@ export default function Graph() {
             <Snackbar open transitionDuration={0}
                       anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Box>
-                    <GenerateFileBtn/>
+                    {/*<GenerateFileBtn/>*/}
                     <Button variant="outlined"
                             sx={{
                                 textTransform: 'none',
