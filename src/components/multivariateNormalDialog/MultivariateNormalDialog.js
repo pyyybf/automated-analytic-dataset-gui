@@ -152,16 +152,19 @@ export default function MultivariateNormalDialog() {
                             <Table sx={{minWidth: 275, width: '20%', marginTop: '12px'}} aria-label="field table">
                                 <TableBody>
                                     {covarianceMatrix.map((row, index) => (
-                                        <TableRow
-                                            key={index}
-                                            sx={{border: '1px lightgray solid', height: '60px', padding: '0'}}>
+                                        <TableRow key={index}
+                                                  sx={{
+                                                      border: '1px lightgray solid',
+                                                      height: '60px',
+                                                      padding: '0'
+                                                  }}>
                                             {row.map((col, colIndex) =>
                                                 colIndex < row.length - index ?
-                                                    <TableCell
-                                                        component="td"
-                                                        scope="row"
-                                                        align="center"
-                                                        sx={{border: '1px lightgray solid', padding: '0 12px'}}>
+                                                    <TableCell key={colIndex}
+                                                               component="td"
+                                                               scope="row"
+                                                               align="center"
+                                                               sx={{border: '1px lightgray solid', padding: '0 12px'}}>
                                                         <TextField variant="standard"
                                                                    size="small"
                                                                    type="number"
@@ -176,7 +179,8 @@ export default function MultivariateNormalDialog() {
                                                                        setCovarianceMatrix(newCovarianceMatrix);
                                                                    }}/>
                                                     </TableCell> :
-                                                    <TableCell component="td"
+                                                    <TableCell key={colIndex}
+                                                               component="td"
                                                                scope="row"
                                                                align="center"
                                                                sx={{
