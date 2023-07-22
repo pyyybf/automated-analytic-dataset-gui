@@ -17,7 +17,10 @@ export default function GenerateFileBtn() {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
 
-    const FILE_TYPES = ['csv', 'json'];
+    const FILE_CONTENT_CONVERTER = {
+        csv: blob => blob,
+        json: blob => JSON.stringify(blob, null, 2),
+    };
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -32,23 +35,11 @@ export default function GenerateFileBtn() {
         generateFile({fieldList, numberOfRows}, format).then(res => {
             let blob = res;
             let fileName = `data.${format}`;
-            if (format === 'csv') {
-                if (window.navigator.msSaveOrOpenBlob) {  // IE
-                    navigator.msSaveBlob(blob, fileName);
-                } else {
-                    let link = document.createElement("a");
-                    link.href = window.URL.createObjectURL(new Blob([blob]));
-                    link.download = fileName;
-                    link.click();
-                    window.URL.revokeObjectURL(link.href);
-                }
-            } else if (format === 'json') {
-                let link = document.createElement("a");
-                link.href = `data:,${JSON.stringify(blob, null, 2)}`;
-                link.download = fileName;
-                link.click();
-                window.URL.revokeObjectURL(link.href);
-            }
+            let link = document.createElement("a");
+            link.href = `data:,${FILE_CONTENT_CONVERTER[format](blob)}`;
+            link.download = fileName;
+            link.click();
+            window.URL.revokeObjectURL(link.href);
         }).catch(err => {
             console.log(err);
             dispatch(setAlert(true, err));
@@ -82,7 +73,7 @@ export default function GenerateFileBtn() {
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList autoFocusItem>
-                                    {FILE_TYPES.map((fileType) =>
+                                    {Object.keys(FILE_CONTENT_CONVERTER).map((fileType) =>
                                         <MenuItem
                                             key={fileType}
                                             selected={format === fileType}
