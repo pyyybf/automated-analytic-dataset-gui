@@ -8,9 +8,12 @@ export const GENERATOR_INITIAL_STATE = {
     showUniqueIdentifierDialog: false,
     showMultivariateNormalDialog: false,
     showResponseVectorDialog: false,
+    showCodeDialog: false,
     alertOpen: false,
     alertText: '',
     alertType: 'error',
+    code: '',
+    importCode: '',
 };
 
 export const generatorReducer = (
@@ -30,7 +33,11 @@ export const generatorReducer = (
             return {...state, showMultivariateNormalDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG:
             return {...state, showResponseVectorDialog: payload};
+        case GENERATOR_ACTION_TYPES.SET_SHOW_CODE_DIALOG:
+            return {...state, showCodeDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_ALERT:
+            return {...state, ...payload};
+        case GENERATOR_ACTION_TYPES.SET_CODE:
             return {...state, ...payload};
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
         case GENERATOR_ACTION_TYPES.ADD_NAME:

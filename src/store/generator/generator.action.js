@@ -1,5 +1,6 @@
 import {GENERATOR_ACTION_TYPES} from "./generator.type";
 import {generateFileAPI} from "../../api/generator";
+import generate from "../../utils/codeGenerator";
 
 export const setNumberOfRows = (newVal) => {
     return {
@@ -36,12 +37,28 @@ export const setShowResponseVectorDialog = (val) => {
     }
 };
 
+export const setShowCodeDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_CODE_DIALOG,
+        payload: val
+    }
+};
+
 export const setAlert = (open, text = '', type = 'error') => {
     let payload = {alertOpen: open, alertType: type};
     if (text !== '') payload.alertText = text;
     return {
         type: GENERATOR_ACTION_TYPES.SET_ALERT,
         payload: payload
+    }
+};
+
+export const setCode = (newVal) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_CODE,
+        payload: {
+            code: newVal
+        }
     }
 };
 
@@ -99,4 +116,11 @@ export const generateFile = (data, format) => {
             reject(error.message);
         });
     });
+};
+
+export const generateCode = (numberOfRows = 1000, fieldList = [], covarianceMatrix = []) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_CODE,
+        payload: generate(numberOfRows, fieldList, covarianceMatrix)
+    };
 };

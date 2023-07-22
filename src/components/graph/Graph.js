@@ -7,8 +7,15 @@ import {
     Snackbar
 } from "@mui/material";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import {Container, Draggable} from "react-smooth-dnd";
-import {setFieldList} from "../../store/generator/generator.action";
+import {
+    addMultivariateNormal,
+    generateCode,
+    setAlert,
+    setFieldList,
+    setShowCodeDialog
+} from "../../store/generator/generator.action";
 import FieldPaper from "./components/fieldPaper/FieldPaper";
 // import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
 
@@ -16,6 +23,8 @@ export default function Graph() {
     const dispatch = useDispatch();
 
     const fieldList = useSelector(state => state.generator.fieldList);
+    const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
+    const numberOfRows = useSelector(state => state.generator.numberOfRows);
 
     const onDrop = e => {
         if (e.payload?.action) {
@@ -35,6 +44,23 @@ export default function Graph() {
             }
 
             dispatch(setFieldList(newFieldList));
+        }
+    };
+    const onGenerate = () => {
+        const responseVector = fieldList.filter(field => field.type.startsWith('RESPONSE_VECTOR_'))[0] || null;
+        if (responseVector === null) {
+            dispatch(setAlert(true, `Please add a Response Vector!`));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, 3000);
+        } else if (fieldList.length === 0 && covarianceMatrix.length === 0) {
+            dispatch(setAlert(true, "The definition can't be empty!"));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, 3000);
+        } else {
+            dispatch(generateCode(numberOfRows, fieldList, covarianceMatrix));
+            dispatch(setShowCodeDialog(true));
         }
     };
 
@@ -61,6 +87,10 @@ export default function Graph() {
                       anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Box>
                     {/*<GenerateFileBtn/>*/}
+                    <Button variant="contained"
+                            sx={{textTransform: 'none'}}
+                            startIcon={<UploadFileOutlinedIcon/>}
+                            onClick={onGenerate}>Generate</Button>
                     <Button variant="outlined"
                             sx={{
                                 textTransform: 'none',
@@ -69,6 +99,8 @@ export default function Graph() {
                             startIcon={<RestartAltIcon/>}
                             onClick={() => {
                                 dispatch(setFieldList([]));
+                                dispatch(addMultivariateNormal([], []));
+                                dispatch(setShowCodeDialog(false));
                             }}>Clear</Button>
                 </Box>
             </Snackbar>
