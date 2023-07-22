@@ -4,6 +4,7 @@ export const GENERATOR_INITIAL_STATE = {
     numberOfRows: 1000,
     fieldList: [],
     covarianceMatrix: [],
+    addressGroupNum: 1,
     showUniqueIdentifierDialog: false,
     showMultivariateNormalDialog: false,
     alertOpen: false,
@@ -31,7 +32,7 @@ export const generatorReducer = (
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
         case GENERATOR_ACTION_TYPES.ADD_NAME:
         case GENERATOR_ACTION_TYPES.ADD_ADDRESS:
-            return {...state, fieldList: [...state.fieldList, ...payload]};
+            return {...state, fieldList: [...state.fieldList, ...payload], addressGroupNum: state.addressGroupNum + 1};
         case GENERATOR_ACTION_TYPES.ADD_MULTIVARIATE_NORMAL:
             return {
                 ...state,

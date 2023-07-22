@@ -52,13 +52,13 @@ export const addName = () => {
     }
 };
 
-export const addAddress = () => {
+export const addAddress = (number) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_ADDRESS,
         payload: [
-            {type: 'ADDRESS_ADDRESS', name: 'Address'},
-            {type: 'ADDRESS_CITY', name: 'City'},
-            {type: 'ADDRESS_STATE', name: 'State'}
+            {type: 'ADDRESS_ADDRESS', name: 'Address', groupNum: number},
+            {type: 'ADDRESS_CITY', name: 'City', groupNum: number},
+            {type: 'ADDRESS_STATE', name: 'State', groupNum: number}
         ]
     }
 };

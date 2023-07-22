@@ -6,11 +6,13 @@ import {
     setShowMultivariateNormalDialog,
     setShowUniqueIdentifierDialog
 } from "../../store/generator/generator.action";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Container, Draggable} from 'react-smooth-dnd';
 
 export default function Options() {
     const dispatch = useDispatch();
+
+    const addressGroupNum = useSelector(state => state.generator.addressGroupNum);
 
     const buttonBoxStyle = {
         padding: '16px 24px'
@@ -37,7 +39,7 @@ export default function Options() {
         {
             text: 'Address',
             onClick: () => {
-                dispatch(addAddress());
+                dispatch(addAddress(addressGroupNum));
             }
         },
         {
