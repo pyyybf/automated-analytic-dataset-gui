@@ -7,6 +7,7 @@ export const GENERATOR_INITIAL_STATE = {
     addressGroupNum: 1,
     showUniqueIdentifierDialog: false,
     showMultivariateNormalDialog: false,
+    showResponseVectorDialog: false,
     alertOpen: false,
     alertText: '',
     alertType: 'error',
@@ -27,10 +28,14 @@ export const generatorReducer = (
             return {...state, showUniqueIdentifierDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_MULTIVARIATE_NORMAL_DIALOG:
             return {...state, showMultivariateNormalDialog: payload};
+        case GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG:
+            return {...state, showResponseVectorDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_ALERT:
             return {...state, ...payload};
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
         case GENERATOR_ACTION_TYPES.ADD_NAME:
+        case GENERATOR_ACTION_TYPES.ADD_RESPONSE_VECTOR:
+            return {...state, fieldList: [...state.fieldList, ...payload]};
         case GENERATOR_ACTION_TYPES.ADD_ADDRESS:
             return {...state, fieldList: [...state.fieldList, ...payload], addressGroupNum: state.addressGroupNum + 1};
         case GENERATOR_ACTION_TYPES.ADD_MULTIVARIATE_NORMAL:

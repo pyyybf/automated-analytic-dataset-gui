@@ -29,6 +29,13 @@ export const setShowMultivariateNormalDialog = (val) => {
     }
 };
 
+export const setShowResponseVectorDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG,
+        payload: val
+    }
+};
+
 export const setAlert = (open, text = '', type = 'error') => {
     let payload = {alertOpen: open, alertType: type};
     if (text !== '') payload.alertText = text;
@@ -70,6 +77,13 @@ export const addMultivariateNormal = (newMultivariateNormal, newCovarianceMatrix
             multivariateNormal: newMultivariateNormal,
             covarianceMatrix: newCovarianceMatrix
         }
+    }
+};
+
+export const addResponseVector = (responseVector) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_RESPONSE_VECTOR,
+        payload: [responseVector]
     }
 };
 

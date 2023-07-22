@@ -3,7 +3,9 @@ import {Button, Box} from "@mui/material";
 import {
     addAddress,
     addName,
+    setAlert,
     setShowMultivariateNormalDialog,
+    setShowResponseVectorDialog,
     setShowUniqueIdentifierDialog
 } from "../../store/generator/generator.action";
 import {useDispatch, useSelector} from "react-redux";
@@ -13,6 +15,7 @@ export default function Options() {
     const dispatch = useDispatch();
 
     const addressGroupNum = useSelector(state => state.generator.addressGroupNum);
+    const fieldList = useSelector(state => state.generator.fieldList);
 
     const buttonBoxStyle = {
         padding: '16px 24px'
@@ -58,6 +61,20 @@ export default function Options() {
             text: 'Poisson - General',
             onClick: () => {
                 // TODO
+            }
+        },
+        {
+            text: 'Response Vector',
+            onClick: () => {
+                const responseVector = fieldList.filter(field => field.type.startsWith('RESPONSE_VECTOR_'))[0] || null;
+                if (responseVector) {
+                    dispatch(setAlert(true, `Response Vector ${responseVector.name} exists!`));
+                    setTimeout(() => {
+                        dispatch(setAlert(false));
+                    }, 3000);
+                } else {
+                    dispatch(setShowResponseVectorDialog(true));
+                }
             }
         },
     ];

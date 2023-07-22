@@ -6,6 +6,7 @@ import Graph from "./components/graph/Graph";
 import UniqueIdentifierDialog from "./components/uniqueIdentifierDialog/UniqueIdentifierDialog";
 import MultivariateNormalDialog from "./components/multivariateNormalDialog/MultivariateNormalDialog";
 import {useSelector} from "react-redux";
+import ResponseVectorDialog from "./components/responseVectorDialog/ResponseVectorDialog";
 
 function App() {
     const alertOpen = useSelector(state => state.generator.alertOpen);
@@ -36,6 +37,7 @@ function App() {
             </Snackbar>
             <UniqueIdentifierDialog/>
             <MultivariateNormalDialog/>
+            <ResponseVectorDialog/>
         </div>
     );
 }
