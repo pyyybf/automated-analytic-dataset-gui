@@ -33,7 +33,7 @@ export default function CategoricalToNumericalDialog() {
     };
     const updateCategoricalMapping = (categoryList) => {
         let newCategoricalMapping = {};
-        categoryList.forEach(category => {
+        (categoryList || []).forEach(category => {
             newCategoricalMapping[category.name] = 0;
         });
         setCategoricalMapping(newCategoricalMapping);

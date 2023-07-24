@@ -294,7 +294,8 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     // categorical value to numerical value
     const convertList = fieldList.filter(field => field.type === 'CATEGORICAL_TO_NUMERICAL');
     for (let field of convertList) {
-        code += `\n\n# create a new predictor column, change categorical value into numerical value`;
+        code += '\n';
+        code += `\n# create a new predictor column, change categorical value into numerical value`;
         code += `\n${generateCategoricalToNumerical(field.name, field.target, field.categoricalMapping, field.inplace)}`;
     }
 
