@@ -5,7 +5,8 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setFieldList} from "../../../../store/generator/generator.action";
+import {setCovarianceMatrix, setFieldList} from "../../../../store/generator/generator.action";
+import {CATEGORY_TYPE_LIST, NUMERIC_TYPE_LIST} from "../../../../utils/codeGenerator";
 
 export const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -19,6 +20,7 @@ export default function FieldPaper(props) {
     const dispatch = useDispatch();
 
     const fieldList = useSelector(state => state.generator.fieldList);
+    const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
 
     const [edit, setEdit] = useState(false);
     const [currentName, setCurrentName] = useState(props.name);
@@ -33,7 +35,43 @@ export default function FieldPaper(props) {
     const handleDelete = () => {
         let newFieldList = [...fieldList];
         let delField = newFieldList.splice(props.index, 1)[0];
-        // TODO: manage the deleted field in other fields
+        // manage the deleted field in other fields
+        if (delField.type === 'MULTIVARIATE_NORMAL') {
+            // delete it from covariance matrix
+            let newCovarianceMatrix = {...covarianceMatrix};
+            const groupId = `GROUP_${delField.groupNum}`;
+            newCovarianceMatrix[groupId].splice(delField.index, 1);
+            newCovarianceMatrix[groupId].forEach(row => {
+                row.splice(delField.index, 1);
+            });
+            dispatch(setCovarianceMatrix(newCovarianceMatrix));
+        }
+        let deletedFieldList = [];
+        if (NUMERIC_TYPE_LIST.includes(delField.type)) {
+            deletedFieldList.push(delField);
+        }
+        if (CATEGORY_TYPE_LIST.includes(delField.type)) {
+            // delete it from categorical to numerical, then delete the categorical to numerical from multicollinear and response vector
+            let delIdxList = [];
+            newFieldList.forEach((field, index) => {
+                if (field.type === 'CATEGORICAL_TO_NUMERICAL' && field.target === delField.name) {
+                    delIdxList.push(index);
+                }
+            });
+            delIdxList.forEach((delIdx, index) => {
+                deletedFieldList.push(newFieldList.splice(delIdx - index, 1)[0]);
+            });
+        }
+        // delete numerical fields from multicollinear and response vector
+        for (let deletedField of deletedFieldList) {
+            newFieldList.forEach(field => {
+                if (field.type === 'MULTICOLLINEAR' || field.type.startsWith('RESPONSE_VECTOR_')) {
+                    if (Object.keys(field.predictorList).includes(deletedField.name)) {
+                        delete field.predictorList[deletedField.name];
+                    }
+                }
+            });
+        }
         dispatch(setFieldList(newFieldList));
     };
 
