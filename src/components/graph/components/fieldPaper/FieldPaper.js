@@ -23,6 +23,13 @@ export default function FieldPaper(props) {
     const [edit, setEdit] = useState(false);
     const [currentName, setCurrentName] = useState(props.name);
 
+    const handleDelete = () => {
+        let newFieldList = [...fieldList];
+        let delField = newFieldList.splice(props.index, 1)[0];
+        // TODO: manage the deleted field in other fields
+        dispatch(setFieldList(newFieldList));
+    };
+
     return (
         <Item elevation={3}>
             <Box sx={{
@@ -75,11 +82,7 @@ export default function FieldPaper(props) {
                             </IconButton>
                             <IconButton aria-label="delete"
                                         color="error"
-                                        onClick={() => {
-                                            let newFieldList = [...fieldList];
-                                            newFieldList.splice(props.index, 1);
-                                            dispatch(setFieldList(newFieldList));
-                                        }}>
+                                        onClick={handleDelete}>
                                 <DeleteOutlinedIcon/>
                             </IconButton>
                         </Box>
