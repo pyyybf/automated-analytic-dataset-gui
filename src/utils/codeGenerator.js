@@ -55,8 +55,9 @@ const ADDRESS_LIST = [
     }
 ];
 const NAME_LIST = ['Mary', 'Tom', 'Jerry', 'Mike', 'David', 'Jack', 'Helen', 'Nancy', 'Lily', 'John'];
+
 export const CATEGORY_TYPE_LIST = ['NAME', 'ADDRESS_ADDRESS', 'ADDRESS_CITY', 'ADDRESS_STATE', 'CATEGORICAL'];
-export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL'];
+export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL', 'CATEGORICAL_TO_NUMERICAL'];
 
 const booleanString = (bool = false) => {
     const str = String(bool);
