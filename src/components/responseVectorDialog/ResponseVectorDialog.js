@@ -18,12 +18,12 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {addResponseVector, setShowResponseVectorDialog} from "../../store/generator/generator.action";
 import React, {useState} from "react";
-import {CATEGORY_TYPE_LIST} from "../../utils/codeGenerator";
+import {NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
 
 export default function ResponseVectorDialog() {
     const dispatch = useDispatch();
     const showResponseVectorDialog = useSelector(state => state.generator.showResponseVectorDialog);
-    const fieldList = useSelector(state => state.generator.fieldList.filter(field => !CATEGORY_TYPE_LIST.includes(field.type)));
+    const fieldList = useSelector(state => state.generator.fieldList.filter(field => NUMERIC_TYPE_LIST.includes(field.type)));
 
     const [type, setType] = useState('LINEAR');
     const [name, setName] = useState('Y');
