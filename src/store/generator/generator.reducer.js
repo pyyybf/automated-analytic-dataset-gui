@@ -32,6 +32,8 @@ export const generatorReducer = (
             return {...state, numberOfRows: payload};
         case GENERATOR_ACTION_TYPES.SET_FIELD_LIST:
             return {...state, fieldList: payload};
+        case GENERATOR_ACTION_TYPES.SET_COVARIANCE_MATRIX:
+            return {...state, covarianceMatrix: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_UNIQUE_IDENTIFIER_DIALOG:
             return {...state, showUniqueIdentifierDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_MULTIVARIATE_NORMAL_DIALOG:

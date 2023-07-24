@@ -16,6 +16,13 @@ export const setFieldList = (newVal) => {
     }
 };
 
+export const setCovarianceMatrix = (newVal) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_COVARIANCE_MATRIX,
+        payload: newVal
+    }
+};
+
 export const setShowUniqueIdentifierDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_UNIQUE_IDENTIFIER_DIALOG,
