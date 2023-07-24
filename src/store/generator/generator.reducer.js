@@ -3,8 +3,9 @@ import {GENERATOR_ACTION_TYPES} from './generator.type';
 export const GENERATOR_INITIAL_STATE = {
     numberOfRows: 1000,
     fieldList: [],
-    covarianceMatrix: [],
+    covarianceMatrix: {},
     addressGroupNum: 1,
+    multivariateNormalGroupNum: 1,
     showUniqueIdentifierDialog: false,
     showMultivariateNormalDialog: false,
     showUniformDialog: false,
@@ -65,7 +66,11 @@ export const generatorReducer = (
             return {
                 ...state,
                 fieldList: [...state.fieldList, ...payload.multivariateNormal],
-                covarianceMatrix: payload.covarianceMatrix
+                covarianceMatrix: {
+                    ...state.covarianceMatrix,
+                    ...payload.covarianceMatrix,
+                },
+                multivariateNormalGroupNum: state.multivariateNormalGroupNum + 1,
             };
         case GENERATOR_ACTION_TYPES.CLEAR_GRAPH:
             return {...GENERATOR_INITIAL_STATE};

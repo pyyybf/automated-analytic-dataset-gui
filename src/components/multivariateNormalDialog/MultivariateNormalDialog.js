@@ -21,7 +21,9 @@ import React, {useState} from "react";
 
 export default function MultivariateNormalDialog() {
     const dispatch = useDispatch();
+
     const showMultivariateNormalDialog = useSelector(state => state.generator.showMultivariateNormalDialog);
+    const multivariateNormalGroupNum = useSelector(state => state.generator.multivariateNormalGroupNum);
 
     const INITIAL_FIELD_LIST = [{type: 'MULTIVARIATE_NORMAL', name: '', mean: 0}];
 
@@ -207,7 +209,20 @@ export default function MultivariateNormalDialog() {
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
                         onClick={() => {
-                            dispatch(addMultivariateNormal(fieldList, covarianceMatrix));
+                            let newFieldList = [];
+                            fieldList.forEach((field, index) => {
+                                newFieldList.push({
+                                    ...field,
+                                    groupNum: multivariateNormalGroupNum,
+                                    index: index
+                                });
+                            });
+                            let newCovarianceMatrix = {};
+                            newCovarianceMatrix[`GROUP_${multivariateNormalGroupNum}`] = covarianceMatrix;
+
+                            dispatch(addMultivariateNormal(newFieldList, newCovarianceMatrix));
+
+                            // init form
                             setFieldList([...INITIAL_FIELD_LIST]);
                             setCovarianceMatrix([[0]]);
                             handleCloseDialog();

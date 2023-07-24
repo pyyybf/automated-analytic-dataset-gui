@@ -168,16 +168,18 @@ const generateDef = (funcName, params, body, result) => {
     return `def ${funcName}(${paramsStr.join(', ')}):\n${TAB_SPACE}${body.replaceAll('\n', `\n${TAB_SPACE}`)}\n${TAB_SPACE}return ${result}`;
 };
 
-const generateMultivariateNormal = (multivariateNormalList, covarianceMatrix) => {
+const generateMultivariateNormal = (multivariateNormalList, covarianceMatrix, count) => {
+    const suffix = count > 1 ? count : '';
+
     // generate covariance_matrix
-    const arrPrefix = 'covariance_matrix = np.array(';
+    const arrPrefix = `covariance_matrix${suffix} = np.array(`;
     let code = `${arrPrefix}${numberArray2Dim(covarianceMatrix, arrPrefix.length)})`;
 
     // generate expression for update_predictor_normal
     const funcPrefix = 'ad.update_predictor_normal(';
     code += `\n${funcPrefix}predictor_name_list=${stringArray(multivariateNormalList.map(field => field.name))},`;
     code += `\n${' '.repeat(funcPrefix.length)}mean=${numberArray(multivariateNormalList.map(field => field.mean))},`;
-    code += `\n${' '.repeat(funcPrefix.length)}covariance_matrix=covariance_matrix)`;
+    code += `\n${' '.repeat(funcPrefix.length)}covariance_matrix=covariance_matrix${suffix})`;
     return code;
 };
 
@@ -267,9 +269,24 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
 
     // multivariate normal
     const multivariateNormalList = fieldList.filter(field => field.type === 'MULTIVARIATE_NORMAL');
-    if (covarianceMatrix.length > 0) {
+    let multivariateNormalMapping = {};
+    for (let multivariateNormal of multivariateNormalList) {
+        if (!Object.keys(multivariateNormalMapping).includes(`GROUP_${multivariateNormal.groupNum}`)) {
+            multivariateNormalMapping[`GROUP_${multivariateNormal.groupNum}`] = {
+                fieldList: [],
+                covarianceMatrix: covarianceMatrix[`GROUP_${multivariateNormal.groupNum}`],
+            };
+        }
+        multivariateNormalMapping[`GROUP_${multivariateNormal.groupNum}`].fieldList.push(multivariateNormal);
+    }
+    let multivariateNormalCount = 0;
+    for (let multivariateNormalGroupKey of Object.keys(multivariateNormalMapping)) {
+        multivariateNormalCount += 1;
+        let fieldList = multivariateNormalMapping[multivariateNormalGroupKey].fieldList.sort((currentVal, nextVal) => currentVal.index - nextVal.index);
+        code += `\n${generateMultivariateNormal(fieldList, multivariateNormalMapping[multivariateNormalGroupKey].covarianceMatrix, multivariateNormalCount)}`;
+    }
+    if (multivariateNormalCount > 0) {
         importCode.push(IMPORT_NUMPY);
-        code += `\n${generateMultivariateNormal(multivariateNormalList, covarianceMatrix)}`;
     }
 
     // uniform
