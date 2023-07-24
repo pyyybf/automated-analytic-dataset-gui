@@ -47,7 +47,7 @@ export default function CodeDialog() {
     };
     const handleDownload = () => {
         let link = document.createElement("a");
-        link.href = `data:,${importCode}\n\n\n${code}`;
+        link.href = `data:,${importCode}\n\n\n${escape(code)}`;
         link.download = 'predictor_generator.py';
         link.click();
         window.URL.revokeObjectURL(link.href);
