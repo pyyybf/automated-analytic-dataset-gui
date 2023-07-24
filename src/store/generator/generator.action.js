@@ -30,6 +30,13 @@ export const setShowMultivariateNormalDialog = (val) => {
     }
 };
 
+export const setShowUniformDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_UNIFORM_DIALOG,
+        payload: val
+    }
+};
+
 export const setShowResponseVectorDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG,
@@ -94,6 +101,13 @@ export const addMultivariateNormal = (newMultivariateNormal, newCovarianceMatrix
             multivariateNormal: newMultivariateNormal,
             covarianceMatrix: newCovarianceMatrix
         }
+    }
+};
+
+export const addUniform = (newUniform) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_UNIFORM,
+        payload: [newUniform]
     }
 };
 

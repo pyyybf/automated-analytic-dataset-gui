@@ -240,7 +240,7 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     // uniform
     const uniformList = fieldList.filter(field => field.type === 'UNIFORM');
     for (let uniform of uniformList) {
-        code += `\n${generateUniform(uniform.predictorName, uniform.lowerBound, uniform.upperBound)}`;
+        code += `\n${generateUniform(uniform.name, uniform.lowerBound, uniform.upperBound)}`;
     }
 
     // category: name & address (address+city+state)

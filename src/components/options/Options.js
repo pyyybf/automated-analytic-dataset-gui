@@ -6,6 +6,7 @@ import {
     setAlert,
     setShowMultivariateNormalDialog,
     setShowResponseVectorDialog,
+    setShowUniformDialog,
     setShowUniqueIdentifierDialog
 } from "../../store/generator/generator.action";
 import {useDispatch, useSelector} from "react-redux";
@@ -61,6 +62,12 @@ export default function Options() {
             text: 'Poisson - General',
             onClick: () => {
                 // TODO
+            }
+        },
+        {
+            text: 'Uniformly Distributed',
+            onClick: () => {
+                dispatch(setShowUniformDialog(true));
             }
         },
         {
