@@ -6,9 +6,9 @@ import Graph from "./components/graph/Graph";
 import UniqueIdentifierDialog from "./components/uniqueIdentifierDialog/UniqueIdentifierDialog";
 import MultivariateNormalDialog from "./components/multivariateNormalDialog/MultivariateNormalDialog";
 import UniformDialog from "./components/uniformDialog/UniformDialog";
-import {useSelector} from "react-redux";
 import CodeDialog from "./components/codeDialog/CodeDialog";
 import ResponseVectorDialog from "./components/responseVectorDialog/ResponseVectorDialog";
+import {useSelector} from "react-redux";
 
 function App() {
     const alertOpen = useSelector(state => state.generator.alertOpen);
@@ -22,7 +22,8 @@ function App() {
                 <Grid item xs={12} md={3} sx={{
                     borderRight: '1px lightgray solid',
                     height: 'calc(100vh - 60px)',
-                    paddingY: '16px'
+                    paddingY: '16px',
+                    overflowY: 'scroll'
                 }}>
                     <Options/>
                 </Grid>
