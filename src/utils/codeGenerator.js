@@ -299,13 +299,11 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     }
 
     // response vector
-    if (responseVector) {
-        if (responseVector.type === 'RESPONSE_VECTOR_LINEAR') {
-            code += `\n\n${generateResponseVectorLinear(responseVector)}`;
-        } else {
-            importCode += `\n${IMPORT_NUMPY}`;
-            code += `\n\n${generateResponseVectorPolynomial(responseVector)}`;
-        }
+    if (responseVector.type === 'RESPONSE_VECTOR_LINEAR') {
+        code += `\n\n${generateResponseVectorLinear(responseVector)}`;
+    } else {
+        importCode += `\n${IMPORT_NUMPY}`;
+        code += `\n\n${generateResponseVectorPolynomial(responseVector)}`;
     }
 
     code = generateDef('generate_ad', {seed: 'None'}, code, 'ad');
