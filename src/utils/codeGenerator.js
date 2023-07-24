@@ -58,12 +58,12 @@ const NAME_LIST = ['Mary', 'Tom', 'Jerry', 'Mike', 'David', 'Jack', 'Helen', 'Na
 export const CATEGORY_TYPE_LIST = ['NAME', 'ADDRESS_ADDRESS', 'ADDRESS_CITY', 'ADDRESS_STATE', 'CATEGORICAL'];
 export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL'];
 
-const booleanString = (bool) => {
+const booleanString = (bool = false) => {
     const str = String(bool);
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const numberArray = (arr) => {
+const numberArray = (arr = []) => {
     let res = '[';
     for (let item of arr) {
         res += `${Number(item) || 0}, `;
@@ -75,7 +75,7 @@ const numberArray = (arr) => {
     return res;
 };
 
-const numberArray2Dim = (arr, prefixLen = 0) => {
+const numberArray2Dim = (arr = [], prefixLen = 0) => {
     const space = prefixLen + 1;  // plus 1 for the first [
     let res = '[';
     for (let arrItem of arr) {
@@ -88,7 +88,7 @@ const numberArray2Dim = (arr, prefixLen = 0) => {
     return res;
 };
 
-const stringArray = (arr) => {
+const stringArray = (arr = []) => {
     let res = '[';
     for (let item of arr) {
         res += `"${item || ""}", `;
@@ -100,7 +100,7 @@ const stringArray = (arr) => {
     return res;
 };
 
-const mappingObject = (mapping) => {
+const mappingObject = (mapping = {}) => {
     let res = '{';
     for (let key of Object.keys(mapping)) {
         res += `"${key || ""}": ${mapping[key]}, `;
@@ -112,7 +112,7 @@ const mappingObject = (mapping) => {
     return res;
 };
 
-const generateProbVector = (probVector) => {
+const generateProbVector = (probVector = [1]) => {
     const sum = probVector.reduce((acc, val) => acc + val, 0);
     probVector = probVector.map(val => parseFloat((val / sum).toFixed(2)));
 
