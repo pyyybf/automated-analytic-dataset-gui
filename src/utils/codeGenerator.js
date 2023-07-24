@@ -95,8 +95,7 @@ const stringArray = (arr) => {
     return res;
 };
 
-const generateProbVector = (n) => {
-    let probVector = Array.from({length: n}, () => Math.random());
+const generateProbVector = (probVector) => {
     const sum = probVector.reduce((acc, val) => acc + val, 0);
     probVector = probVector.map(val => parseFloat((val / sum).toFixed(2)));
 
@@ -118,7 +117,7 @@ const randomName = () => {
         categoryNames.push(name);
     }
 
-    let probVector = generateProbVector(n);
+    let probVector = generateProbVector(Array.from({length: n}, () => Math.random()));
     return {categoryNames, probVector};
 };
 
@@ -134,7 +133,7 @@ const randomAddress = () => {
         categoryNames.push(address);
     }
 
-    let probVector = generateProbVector(n);
+    let probVector = generateProbVector(Array.from({length: n}, () => Math.random()));
     return {categoryNames, probVector};
 };
 
