@@ -71,10 +71,10 @@ export default function CategoricalToNumericalDialog() {
                     </Grid>
                 </Grid>
                 <h5>Categorical Mapping</h5>
-                <Grid container spacing={1}>
+                <Grid container spacing={2} direction="row" justifyContent="flex-start" alignItems="center">
                     {Object.keys(categoricalMapping).map((category, index) =>
                         <React.Fragment key={index}>
-                            <Grid item xs={6} sm={2} sx={{margin: 'auto', textAlign: 'right'}}>
+                            <Grid item xs={6} sm={2} sx={{textAlign: 'right'}}>
                                 {category}
                             </Grid>
                             <Grid item xs={6} sm={4}>
