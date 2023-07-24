@@ -23,6 +23,13 @@ export default function FieldPaper(props) {
     const [edit, setEdit] = useState(false);
     const [currentName, setCurrentName] = useState(props.name);
 
+    const handleEdit = () => {
+        let newFieldList = [...fieldList];
+        newFieldList[props.index].name = currentName;
+        // TODO: manage the field name in other fields
+        dispatch(setFieldList(newFieldList));
+        setEdit(false);
+    };
     const handleDelete = () => {
         let newFieldList = [...fieldList];
         let delField = newFieldList.splice(props.index, 1)[0];
@@ -52,12 +59,7 @@ export default function FieldPaper(props) {
                         <Box>
                             <IconButton aria-label="check"
                                         color="primary"
-                                        onClick={() => {
-                                            let newFieldList = [...fieldList];
-                                            newFieldList[props.index].name = currentName;
-                                            dispatch(setFieldList(newFieldList));
-                                            setEdit(false);
-                                        }}>
+                                        onClick={handleEdit}>
                                 <CheckIcon/>
                             </IconButton>
                             <IconButton aria-label="close"
