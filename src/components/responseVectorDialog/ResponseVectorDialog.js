@@ -23,7 +23,7 @@ import {NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
 export default function ResponseVectorDialog() {
     const dispatch = useDispatch();
     const showResponseVectorDialog = useSelector(state => state.generator.showResponseVectorDialog);
-    const fieldList = useSelector(state => state.generator.fieldList.filter(field => NUMERIC_TYPE_LIST.includes(field.type)));
+    const numericalFieldList = useSelector(state => state.generator.fieldList.filter(field => NUMERIC_TYPE_LIST.includes(field.type)));
 
     const [type, setType] = useState('LINEAR');
     const [name, setName] = useState('Y');
@@ -74,7 +74,7 @@ export default function ResponseVectorDialog() {
                     <React.Fragment>
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={3} lg={2} sx={{marginTop: '69px'}}>
-                                {fieldList.map((field, index) =>
+                                {numericalFieldList.map((field, index) =>
                                     <Grid container sx={{height: '60px'}} key={index}>
                                         <Grid item xs={12} sx={{margin: 'auto'}}>{field.name}</Grid>
                                     </Grid>
@@ -84,20 +84,20 @@ export default function ResponseVectorDialog() {
                                 <Table stickyHeader sx={{marginTop: '12px'}}>
                                     <TableHead>
                                         <TableRow sx={{border: 'none'}}>
-                                            {fieldList.map((field, index) =>
+                                            {numericalFieldList.map((field, index) =>
                                                 <TableCell align="center" key={index}>{field.name}</TableCell>
                                             )}
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {fieldList.map((row, index) =>
+                                        {numericalFieldList.map((row, index) =>
                                             <TableRow key={index}
                                                       sx={{
                                                           border: '1px lightgray solid',
                                                           height: '60px',
                                                           padding: '0'
                                                       }}>
-                                                {fieldList.map((col, colIndex) =>
+                                                {numericalFieldList.map((col, colIndex) =>
                                                     <TableCell key={colIndex}
                                                                component="td"
                                                                scope="row"
@@ -112,9 +112,9 @@ export default function ResponseVectorDialog() {
                                                                    value={interactionTermBetas[index]?.[colIndex] || ''}
                                                                    onChange={e => {
                                                                        let newInteractionTermBetas = [];
-                                                                       if (interactionTermBetas.length !== fieldList.length) {
-                                                                           for (let i = 0; i < fieldList.length; i++) {
-                                                                               newInteractionTermBetas.push(new Array(fieldList.length));
+                                                                       if (interactionTermBetas.length !== numericalFieldList.length) {
+                                                                           for (let i = 0; i < numericalFieldList.length; i++) {
+                                                                               newInteractionTermBetas.push(new Array(numericalFieldList.length).fill(0));
                                                                            }
                                                                        } else {
                                                                            for (let row of interactionTermBetas) {
@@ -155,7 +155,7 @@ export default function ResponseVectorDialog() {
                                            }}></TextField>
                             </Grid>
                         </Grid>
-                        {fieldList.map((field, index) =>
+                        {numericalFieldList.map((field, index) =>
                             <Grid container spacing={1} sx={{marginTop: '12px'}} key={index}>
                                 <Grid item sm={4}
                                       sx={{
@@ -239,19 +239,30 @@ export default function ResponseVectorDialog() {
                                     epsilonVariance
                                 }));
                             } else {
-                                if (interactionTermBetas.length !== fieldList.length) {
-                                    let newInteractionTermBetas = [];
-                                    for (let i = 0; i < fieldList.length; i++) {
-                                        newInteractionTermBetas.push(new Array(fieldList.length).fill(0));
+                                let newInteractionTermBetas = [];
+                                if (interactionTermBetas.length !== numericalFieldList.length) {
+                                    for (let i = 0; i < numericalFieldList.length; i++) {
+                                        newInteractionTermBetas.push(new Array(numericalFieldList.length).fill(0));
                                     }
-                                    setInteractionTermBetas(newInteractionTermBetas);
+                                } else {
+                                    newInteractionTermBetas = [...interactionTermBetas];
                                 }
+                                let newPredictorList = {...predictorList};
+                                for (let field of numericalFieldList) {
+                                    if (!Object.keys(newPredictorList).includes(field.name)) {
+                                        newPredictorList[field.name] = {
+                                            beta: 0,
+                                            polynomialOrder: 1
+                                        };
+                                    }
+                                }
+                                setPredictorList(newPredictorList);
                                 dispatch(addResponseVector({
                                     type: 'RESPONSE_VECTOR_POLYNOMIAL',
                                     name,
-                                    predictorList,
+                                    predictorList: newPredictorList,
                                     intercept,
-                                    interactionTermBetas,
+                                    interactionTermBetas: newInteractionTermBetas,
                                     epsilonVariance
                                 }));
                             }
