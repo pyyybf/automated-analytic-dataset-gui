@@ -3,7 +3,9 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogTitle, Grid, TextField,
+    DialogTitle,
+    Grid,
+    TextField,
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {addUniqueIdentifier, setShowUniformDialog} from "../../store/generator/generator.action";
