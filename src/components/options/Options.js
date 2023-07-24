@@ -6,6 +6,7 @@ import {
     setAlert,
     setShowCategoricalDialog,
     setShowCategoricalToNumericalDialog,
+    setShowMultiCollinearDialog,
     setShowMultivariateNormalDialog,
     setShowResponseVectorDialog,
     setShowUniformDialog,
@@ -76,6 +77,12 @@ export default function Options() {
             text: 'Category to Numerical',
             onClick: () => {
                 dispatch(setShowCategoricalToNumericalDialog(true));
+            }
+        },
+        {
+            text: 'Multicollinear',
+            onClick: () => {
+                dispatch(setShowMultiCollinearDialog(true));
             }
         },
         {

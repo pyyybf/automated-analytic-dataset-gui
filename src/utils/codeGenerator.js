@@ -57,7 +57,7 @@ const ADDRESS_LIST = [
 const NAME_LIST = ['Mary', 'Tom', 'Jerry', 'Mike', 'David', 'Jack', 'Helen', 'Nancy', 'Lily', 'John'];
 
 export const CATEGORY_TYPE_LIST = ['NAME', 'ADDRESS_ADDRESS', 'ADDRESS_CITY', 'ADDRESS_STATE', 'CATEGORICAL'];
-export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL', 'CATEGORICAL_TO_NUMERICAL'];
+export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL', 'CATEGORICAL_TO_NUMERICAL', 'MULTICOLLINEAR'];
 
 const booleanString = (bool = false) => {
     const str = String(bool);
@@ -206,6 +206,15 @@ const generateUniform = (predictorName, lowerBound = 0, upperBound = 1.0) => {
     return `ad.update_predictor_uniform("${predictorName}", ${lowerBound}, ${upperBound})`;
 };
 
+const generateMulticollinear = (targetPredictorName, dependentPredictorsList, beta, epsilonVariance) => {
+    const funcPrefix = 'ad.update_predictor_multicollinear(';
+    let code = `${funcPrefix}target_predictor_name="${targetPredictorName}",`;
+    code += `\n${' '.repeat(funcPrefix.length)}dependent_predictors_list=${stringArray(dependentPredictorsList)},`;
+    code += `\n${' '.repeat(funcPrefix.length)}beta=${numberArray(beta)},`;
+    code += `\n${' '.repeat(funcPrefix.length)}epsilon_variance=${epsilonVariance})`;
+    return code;
+};
+
 const generateResponseVectorLinear = (responseVector) => {
     const funcPrefix = 'ad.generate_response_vector_linear(';
     let predictorList = [], beta = [responseVector.intercept];
@@ -290,6 +299,17 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
             }
             code += `\n${generateCategorical(category.name, categoryNames, generateProbVector(probVector))}`;
         }
+    }
+
+    // multicollinear
+    const multicollinearList = fieldList.filter(field => field.type === 'MULTICOLLINEAR');
+    for (let multicollinear of multicollinearList) {
+        let dependentList = [], beta = [multicollinear.intercept];
+        for (let key of Object.keys(multicollinear.predictorList)) {
+            dependentList.push(key);
+            beta.push(multicollinear.predictorList[key]);
+        }
+        code += `\n${generateMulticollinear(multicollinear.name, dependentList, beta, multicollinear.epsilonVariance)}`;
     }
 
     // categorical value to numerical value

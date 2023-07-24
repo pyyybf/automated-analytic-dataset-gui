@@ -10,6 +10,7 @@ export const GENERATOR_INITIAL_STATE = {
     showUniformDialog: false,
     showCategoricalDialog: false,
     showCategoricalToNumericalDialog: false,
+    showMulticollinearDialog: false,
     showResponseVectorDialog: false,
     showCodeDialog: false,
     alertOpen: false,
@@ -40,6 +41,8 @@ export const generatorReducer = (
             return {...state, showCategoricalDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_CATEGORICAL_TO_NUMERICAL_DIALOG:
             return {...state, showCategoricalToNumericalDialog: payload};
+        case GENERATOR_ACTION_TYPES.SET_SHOW_MULTICOLLINEAR_DIALOG:
+            return {...state, showMulticollinearDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG:
             return {...state, showResponseVectorDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_CODE_DIALOG:
@@ -53,6 +56,7 @@ export const generatorReducer = (
         case GENERATOR_ACTION_TYPES.ADD_UNIFORM:
         case GENERATOR_ACTION_TYPES.ADD_CATEGORICAL:
         case GENERATOR_ACTION_TYPES.ADD_CATEGORICAL_TO_NUMERICAL:
+        case GENERATOR_ACTION_TYPES.ADD_MULTICOLLINEAR:
         case GENERATOR_ACTION_TYPES.ADD_RESPONSE_VECTOR:
             return {...state, fieldList: [...state.fieldList, ...payload]};
         case GENERATOR_ACTION_TYPES.ADD_ADDRESS:

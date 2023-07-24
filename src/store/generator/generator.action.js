@@ -51,6 +51,13 @@ export const setShowCategoricalToNumericalDialog = (val) => {
     }
 };
 
+export const setShowMultiCollinearDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_MULTICOLLINEAR_DIALOG,
+        payload: val
+    }
+};
+
 export const setShowResponseVectorDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG,
@@ -136,6 +143,13 @@ export const addCategoricalToNumerical = (newCategoricalToNumerical) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_CATEGORICAL_TO_NUMERICAL,
         payload: [newCategoricalToNumerical]
+    }
+};
+
+export const addMulticollinear = (newMulticollinear) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_MULTICOLLINEAR,
+        payload: [newMulticollinear]
     }
 };
 

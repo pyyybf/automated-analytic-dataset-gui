@@ -8,6 +8,7 @@ import MultivariateNormalDialog from "./components/multivariateNormalDialog/Mult
 import UniformDialog from "./components/uniformDialog/UniformDialog";
 import CategoricalDialog from "./components/categoricalDialog/CategoricalDialog";
 import CategoricalToNumericalDialog from "./components/categoricalToNumericalDialog/CategoricalToNumericalDialog";
+import MulticollinearDialog from "./components/multicollinearDialog/MulticollinearDialog";
 import CodeDialog from "./components/codeDialog/CodeDialog";
 import ResponseVectorDialog from "./components/responseVectorDialog/ResponseVectorDialog";
 import {useSelector} from "react-redux";
@@ -45,6 +46,7 @@ function App() {
             <UniformDialog/>
             <CategoricalDialog/>
             <CategoricalToNumericalDialog/>
+            <MulticollinearDialog/>
             <ResponseVectorDialog/>
             <CodeDialog/>
         </div>
