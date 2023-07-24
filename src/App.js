@@ -20,18 +20,18 @@ function App() {
     return (
         <div className="App">
             <Header/>
-            <Grid container>
+            <Grid container sx={{height: 'calc(100vh - 61px)'}}>
                 <Grid item xs={12} md={3} sx={{
                     borderRight: '1px lightgray solid',
-                    height: 'calc(100vh - 60px)',
                     paddingY: '16px',
+                    height: '100%',
                     overflowY: 'scroll'
                 }}>
                     <Options/>
                 </Grid>
                 <Grid item xs={12} md={9} sx={{
-                    height: 'calc(100vh - 60px)',
                     paddingY: '16px',
+                    height: '100%',
                     overflowY: 'scroll'
                 }}>
                     <Graph/>
