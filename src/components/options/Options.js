@@ -60,12 +60,12 @@ export default function Options() {
                 dispatch(setShowCategoricalDialog(true));
             }
         },
-        {
-            text: 'Poisson - General',
-            onClick: () => {
-                // TODO
-            }
-        },
+        // {
+        //     text: 'Poisson - General',
+        //     onClick: () => {
+        //         // TODO
+        //     }
+        // },
         {
             text: 'Uniformly Distributed',
             onClick: () => {
