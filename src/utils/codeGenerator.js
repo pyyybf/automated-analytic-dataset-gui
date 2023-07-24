@@ -263,12 +263,12 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
 
     // init dataframe and import code
     let code = `ad = AnalyticsDataframe(${numberOfRows}, ${fieldList.length - 1}, ${stringArray(fieldList.filter(field => !field.type.startsWith('RESPONSE_VECTOR_')).map(field => field.name))}, "${responseVector.name}", seed=seed)`;
-    let importCode = IMPORT_ANALYTICS_DF;
+    let importCode = [IMPORT_ANALYTICS_DF];
 
     // multivariate normal
     const multivariateNormalList = fieldList.filter(field => field.type === 'MULTIVARIATE_NORMAL');
     if (covarianceMatrix.length > 0) {
-        importCode += `\n${IMPORT_NUMPY}`;
+        importCode.push(IMPORT_NUMPY);
         code += `\n${generateMultivariateNormal(multivariateNormalList, covarianceMatrix)}`;
     }
 
@@ -324,12 +324,12 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     if (responseVector.type === 'RESPONSE_VECTOR_LINEAR') {
         code += `\n\n${generateResponseVectorLinear(responseVector)}`;
     } else {
-        importCode += `\n${IMPORT_NUMPY}`;
+        importCode.push(IMPORT_NUMPY);
         code += `\n\n${generateResponseVectorPolynomial(responseVector)}`;
     }
 
     code = generateDef('generate_ad', {seed: 'None'}, code, 'ad');
-    return {code, importCode};
+    return {code, importCode: Array.from(new Set(importCode)).join('\n')};
 };
 
 /* Sample Python Code #1
