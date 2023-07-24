@@ -37,6 +37,13 @@ export const setShowUniformDialog = (val) => {
     }
 };
 
+export const setShowCategoricalDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_CATEGORICAL_DIALOG,
+        payload: val
+    }
+};
+
 export const setShowResponseVectorDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG,
@@ -108,6 +115,13 @@ export const addUniform = (newUniform) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIFORM,
         payload: [newUniform]
+    }
+};
+
+export const addCategorical = (newCategorical) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_CATEGORICAL,
+        payload: [newCategorical]
     }
 };
 

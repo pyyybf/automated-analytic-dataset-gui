@@ -6,6 +6,7 @@ import Graph from "./components/graph/Graph";
 import UniqueIdentifierDialog from "./components/uniqueIdentifierDialog/UniqueIdentifierDialog";
 import MultivariateNormalDialog from "./components/multivariateNormalDialog/MultivariateNormalDialog";
 import UniformDialog from "./components/uniformDialog/UniformDialog";
+import CategoricalDialog from "./components/categoricalDialog/CategoricalDialog";
 import CodeDialog from "./components/codeDialog/CodeDialog";
 import ResponseVectorDialog from "./components/responseVectorDialog/ResponseVectorDialog";
 import {useSelector} from "react-redux";
@@ -41,6 +42,7 @@ function App() {
             <UniqueIdentifierDialog/>
             <MultivariateNormalDialog/>
             <UniformDialog/>
+            <CategoricalDialog/>
             <ResponseVectorDialog/>
             <CodeDialog/>
         </div>

@@ -4,6 +4,7 @@ import {
     addAddress,
     addName,
     setAlert,
+    setShowCategoricalDialog,
     setShowMultivariateNormalDialog,
     setShowResponseVectorDialog,
     setShowUniformDialog,
@@ -55,7 +56,7 @@ export default function Options() {
         {
             text: 'Category - General',
             onClick: () => {
-                // TODO
+                dispatch(setShowCategoricalDialog(true));
             }
         },
         {

@@ -255,6 +255,13 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
             }
             const type = category.type.split('_')[1].toLowerCase();
             code += `\n${generateCategorical(category.name, addressList[`GROUP_${category.groupNum}`].categoryNames.map(item => item[type]), addressList[`GROUP_${category.groupNum}`].probVector)}`;
+        } else {
+            let categoryNames = [], probVector = [];
+            for (let item of category.categoryList) {
+                categoryNames.push(item.name);
+                probVector.push(Number(item.prob));
+            }
+            code += `\n${generateCategorical(category.name, categoryNames, generateProbVector(probVector))}`;
         }
     }
 
