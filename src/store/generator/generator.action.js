@@ -44,6 +44,13 @@ export const setShowCategoricalDialog = (val) => {
     }
 };
 
+export const setShowCategoricalToNumericalDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_CATEGORICAL_TO_NUMERICAL_DIALOG,
+        payload: val
+    }
+};
+
 export const setShowResponseVectorDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG,
@@ -122,6 +129,13 @@ export const addCategorical = (newCategorical) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_CATEGORICAL,
         payload: [newCategorical]
+    }
+};
+
+export const addCategoricalToNumerical = (newCategoricalToNumerical) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_CATEGORICAL_TO_NUMERICAL,
+        payload: [newCategoricalToNumerical]
     }
 };
 

@@ -5,6 +5,7 @@ import {
     addName,
     setAlert,
     setShowCategoricalDialog,
+    setShowCategoricalToNumericalDialog,
     setShowMultivariateNormalDialog,
     setShowResponseVectorDialog,
     setShowUniformDialog,
@@ -69,6 +70,12 @@ export default function Options() {
             text: 'Uniformly Distributed',
             onClick: () => {
                 dispatch(setShowUniformDialog(true));
+            }
+        },
+        {
+            text: 'Category to Numerical',
+            onClick: () => {
+                dispatch(setShowCategoricalToNumericalDialog(true));
             }
         },
         {

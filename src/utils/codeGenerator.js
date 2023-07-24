@@ -58,6 +58,11 @@ const NAME_LIST = ['Mary', 'Tom', 'Jerry', 'Mike', 'David', 'Jack', 'Helen', 'Na
 export const CATEGORY_TYPE_LIST = ['NAME', 'ADDRESS_ADDRESS', 'ADDRESS_CITY', 'ADDRESS_STATE', 'CATEGORICAL'];
 export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL'];
 
+const booleanString = (bool) => {
+    const str = String(bool);
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 const numberArray = (arr) => {
     let res = '[';
     for (let item of arr) {
@@ -92,6 +97,18 @@ const stringArray = (arr) => {
         res = res.substring(0, res.length - 2);
     }
     res += ']';
+    return res;
+};
+
+const mappingObject = (mapping) => {
+    let res = '{';
+    for (let key of Object.keys(mapping)) {
+        res += `"${key || ""}": ${mapping[key]}, `;
+    }
+    if (Object.keys(mapping).length > 0) {
+        res = res.substring(0, res.length - 2);
+    }
+    res += '}';
     return res;
 };
 
@@ -173,6 +190,15 @@ const generateCategorical = (fieldName, categoryNames, probVector) => {
     } else {
         return `${funcPrefix}${paramsStr.join(', ')})`;
     }
+};
+
+const generateCategoricalToNumerical = (name, target, categoricalMapping = {}, inplace = false) => {
+    let code = `categorical_mapping = ${mappingObject(categoricalMapping)}`;
+    const funcPrefix = `ad.predictor_matrix["${name}"] = ad.predictor_matrix.replace(`;
+    code += `\n${funcPrefix}{"${target}": categorical_mapping},`;
+    code += `\n${' '.repeat(funcPrefix.length)}inplace=${booleanString(inplace)})["${target}"]`;
+    code += `\nprint(ad.predictor_matrix)`;
+    return code;
 };
 
 const generateUniform = (predictorName, lowerBound = 0, upperBound = 1.0) => {
@@ -263,6 +289,13 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
             }
             code += `\n${generateCategorical(category.name, categoryNames, generateProbVector(probVector))}`;
         }
+    }
+
+    // categorical value to numerical value
+    const convertList = fieldList.filter(field => field.type === 'CATEGORICAL_TO_NUMERICAL');
+    for (let field of convertList) {
+        code += `\n\n# create a new predictor column, change categorical value into numerical value`;
+        code += `\n${generateCategoricalToNumerical(field.name, field.target, field.categoricalMapping, field.inplace)}`;
     }
 
     // response vector
