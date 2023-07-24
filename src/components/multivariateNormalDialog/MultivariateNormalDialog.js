@@ -197,7 +197,7 @@ export default function MultivariateNormalDialog() {
                         </Grid>
                     </Grid>
                     <Grid2 container>
-                        <Grid2 item sm={6} smOffset={6} sx={{textAlign: 'right'}}>
+                        <Grid2 sm={6} smOffset={6} sx={{textAlign: 'right'}}>
                             <Button sx={{textTransform: 'none', marginTop: '16px'}}
                                     onClick={() => {
                                         setShowFieldDefinition(true);
