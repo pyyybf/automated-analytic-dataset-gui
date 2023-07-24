@@ -59,6 +59,8 @@ export const generatorReducer = (
                 fieldList: [...state.fieldList, ...payload.multivariateNormal],
                 covarianceMatrix: payload.covarianceMatrix
             };
+        case GENERATOR_ACTION_TYPES.CLEAR_GRAPH:
+            return {...GENERATOR_INITIAL_STATE};
         default:
             return state;
     }

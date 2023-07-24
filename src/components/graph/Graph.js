@@ -10,7 +10,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import {Container, Draggable} from "react-smooth-dnd";
 import {
-    addMultivariateNormal,
+    clearGraph,
     generateCode,
     setAlert,
     setFieldList,
@@ -98,9 +98,7 @@ export default function Graph() {
                             }}
                             startIcon={<RestartAltIcon/>}
                             onClick={() => {
-                                dispatch(setFieldList([]));
-                                dispatch(addMultivariateNormal([], []));
-                                dispatch(setShowCodeDialog(false));
+                                dispatch(clearGraph());
                             }}>Clear</Button>
                 </Box>
             </Snackbar>

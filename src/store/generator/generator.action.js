@@ -152,3 +152,9 @@ export const generateCode = (numberOfRows = 1000, fieldList = [], covarianceMatr
         payload: generate(numberOfRows, fieldList, covarianceMatrix)
     };
 };
+
+export const clearGraph = (numberOfRows = 1000, fieldList = [], covarianceMatrix = []) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.CLEAR_GRAPH,
+    };
+};
