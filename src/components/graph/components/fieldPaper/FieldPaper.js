@@ -27,8 +27,25 @@ export default function FieldPaper(props) {
 
     const handleEdit = () => {
         let newFieldList = [...fieldList];
+        const oldName = newFieldList[props.index].name;
         newFieldList[props.index].name = currentName;
-        // TODO: manage the field name in other fields
+        // manage the field name in other fields
+        if (CATEGORY_TYPE_LIST.includes(newFieldList[props.index].type)) {
+            newFieldList.forEach(field => {
+                if (field.type === 'CATEGORICAL_TO_NUMERICAL' && field.target === oldName) {
+                    field.target = currentName;
+                }
+            });
+        } else if (NUMERIC_TYPE_LIST.includes(newFieldList[props.index].type)) {
+            newFieldList.forEach(field => {
+                if (field.type === 'MULTICOLLINEAR' || field.type.startsWith('RESPONSE_VECTOR_')) {
+                    if (Object.keys(field.predictorList).includes(oldName)) {
+                        field.predictorList[currentName] = {...field.predictorList[oldName]};
+                        delete field.predictorList[oldName];
+                    }
+                }
+            });
+        }
         dispatch(setFieldList(newFieldList));
         setEdit(false);
     };
