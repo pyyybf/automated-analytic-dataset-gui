@@ -200,7 +200,7 @@ const generateCategoricalToNumerical = (name, target, categoricalMapping = {}, i
     const funcPrefix = `ad.predictor_matrix["${name}"] = ad.predictor_matrix.replace(`;
     code += `\n${funcPrefix}{"${target}": categorical_mapping},`;
     code += `\n${' '.repeat(funcPrefix.length)}inplace=${booleanString(inplace)})["${target}"]`;
-    code += `\nprint(ad.predictor_matrix)`;
+    // code += `\nprint(ad.predictor_matrix)`;
     return code;
 };
 
