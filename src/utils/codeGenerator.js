@@ -118,7 +118,7 @@ const generateProbVector = (probVector = [1]) => {
     probVector = probVector.map(val => parseFloat((val / sum).toFixed(2)));
 
     const sumWithoutEnd = probVector.reduce((acc, val, idx) => (idx < probVector.length - 1) ? (acc + val) : acc, 0);
-    probVector[probVector.length - 1] = parseFloat(1 - sumWithoutEnd).toFixed(2);
+    probVector[probVector.length - 1] = (1 - sumWithoutEnd).toFixed(2);
 
     return probVector;
 }
