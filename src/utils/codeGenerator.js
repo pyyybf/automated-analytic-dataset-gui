@@ -57,7 +57,7 @@ const ADDRESS_LIST = [
 const NAME_LIST = ['Mary', 'Tom', 'Jerry', 'Mike', 'David', 'Jack', 'Helen', 'Nancy', 'Lily', 'John'];
 
 export const CATEGORY_TYPE_LIST = ['NAME', 'ADDRESS_ADDRESS', 'ADDRESS_CITY', 'ADDRESS_STATE', 'CATEGORICAL'];
-export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL', 'CATEGORICAL_TO_NUMERICAL', 'MULTICOLLINEAR'];
+export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL', 'CATEGORICAL_TO_NUMERICAL', 'MULTICOLLINEAR', 'BETA'];
 
 const booleanString = (bool = false) => {
     const str = String(bool);
@@ -208,6 +208,10 @@ const generateUniform = (predictorName, lowerBound = 0, upperBound = 1.0) => {
     return `ad.update_predictor_uniform("${predictorName}", ${lowerBound}, ${upperBound})`;
 };
 
+const generateBeta = (names, alphas, betas) => {
+    return `ad.update_predictor_beta(${stringArray(names)}, np.array(${numberArray(alphas)}), np.array(${numberArray(betas)}))`;
+};
+
 const generateMulticollinear = (targetPredictorName, dependentPredictorsList, beta, epsilonVariance) => {
     const funcPrefix = 'ad.update_predictor_multicollinear(';
     let code = `${funcPrefix}target_predictor_name="${targetPredictorName}",`;
@@ -300,6 +304,19 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     const uniformList = fieldList.filter(field => field.type === 'UNIFORM');
     for (let uniform of uniformList) {
         code += `\n${generateUniform(uniform.name, uniform.lowerBound, uniform.upperBound)}`;
+    }
+
+    // beta
+    const betaList = fieldList.filter(field => field.type === 'BETA');
+    let names = [], alphas = [], betas = [];
+    for (let beta of betaList) {
+        names.push(beta.name);
+        alphas.push(beta.alpha);
+        betas.push(beta.beta);
+    }
+    if (betaList.length > 0) {
+        importCode.push(IMPORT_NUMPY);
+        code += `\n${generateBeta(names, alphas, betas)}`;
     }
 
     // category: name & address (address+city+state)

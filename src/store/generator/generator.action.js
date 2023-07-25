@@ -44,6 +44,13 @@ export const setShowUniformDialog = (val) => {
     }
 };
 
+export const setShowBetaDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_BETA_DIALOG,
+        payload: val
+    }
+};
+
 export const setShowCategoricalDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_CATEGORICAL_DIALOG,
@@ -143,6 +150,13 @@ export const addUniform = (newUniform) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIFORM,
         payload: [newUniform]
+    }
+};
+
+export const addBeta = (newBeta) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_BETA,
+        payload: newBeta
     }
 };
 

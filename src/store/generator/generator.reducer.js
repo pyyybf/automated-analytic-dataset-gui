@@ -9,6 +9,7 @@ export const GENERATOR_INITIAL_STATE = {
     showUniqueIdentifierDialog: false,
     showMultivariateNormalDialog: false,
     showUniformDialog: false,
+    showBetaDialog: false,
     showCategoricalDialog: false,
     showCategoricalToNumericalDialog: false,
     showMulticollinearDialog: false,
@@ -41,6 +42,8 @@ export const generatorReducer = (
             return {...state, showMultivariateNormalDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_UNIFORM_DIALOG:
             return {...state, showUniformDialog: payload};
+        case GENERATOR_ACTION_TYPES.SET_SHOW_BETA_DIALOG:
+            return {...state, showBetaDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_CATEGORICAL_DIALOG:
             return {...state, showCategoricalDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_CATEGORICAL_TO_NUMERICAL_DIALOG:
@@ -60,6 +63,7 @@ export const generatorReducer = (
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
         case GENERATOR_ACTION_TYPES.ADD_NAME:
         case GENERATOR_ACTION_TYPES.ADD_UNIFORM:
+        case GENERATOR_ACTION_TYPES.ADD_BETA:
         case GENERATOR_ACTION_TYPES.ADD_CATEGORICAL:
         case GENERATOR_ACTION_TYPES.ADD_CATEGORICAL_TO_NUMERICAL:
         case GENERATOR_ACTION_TYPES.ADD_MULTICOLLINEAR:

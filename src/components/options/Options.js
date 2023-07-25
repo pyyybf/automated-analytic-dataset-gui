@@ -4,6 +4,7 @@ import {
     addAddress,
     addName,
     setAlert,
+    setShowBetaDialog,
     setShowCategoricalDialog,
     setShowCategoricalToNumericalDialog,
     setShowMultiCollinearDialog,
@@ -72,6 +73,12 @@ export default function Options() {
             text: 'Uniformly Distributed',
             onClick: () => {
                 dispatch(setShowUniformDialog(true));
+            }
+        },
+        {
+            text: 'Beta',
+            onClick: () => {
+                dispatch(setShowBetaDialog(true));
             }
         },
         {

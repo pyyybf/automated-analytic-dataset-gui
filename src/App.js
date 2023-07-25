@@ -6,6 +6,7 @@ import Graph from "./components/graph/Graph";
 import UniqueIdentifierDialog from "./components/uniqueIdentifierDialog/UniqueIdentifierDialog";
 import MultivariateNormalDialog from "./components/multivariateNormalDialog/MultivariateNormalDialog";
 import UniformDialog from "./components/uniformDialog/UniformDialog";
+import BetaDialog from "./components/betaDialog/BetaDialog";
 import CategoricalDialog from "./components/categoricalDialog/CategoricalDialog";
 import CategoricalToNumericalDialog from "./components/categoricalToNumericalDialog/CategoricalToNumericalDialog";
 import MulticollinearDialog from "./components/multicollinearDialog/MulticollinearDialog";
@@ -45,6 +46,7 @@ function App() {
             <UniqueIdentifierDialog/>
             <MultivariateNormalDialog/>
             <UniformDialog/>
+            <BetaDialog/>
             <CategoricalDialog/>
             <CategoricalToNumericalDialog/>
             <MulticollinearDialog/>
