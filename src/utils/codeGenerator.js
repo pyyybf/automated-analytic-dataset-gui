@@ -381,7 +381,7 @@ eps_var = 10
 ad.generate_response_vector_polynomial(
     predictor_name_list=predictor_name_list,
     polynomial_order=polynomial_order,
-    beta_vector=beta,
+    beta=beta,
     interaction_term_betas=int_matrix,
     epsilon_variance=eps_var)
 ad.response_vector = np.exp(0.001 * ad.response_vector)
