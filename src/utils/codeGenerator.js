@@ -217,6 +217,13 @@ const generateMulticollinear = (targetPredictorName, dependentPredictorsList, be
     return code;
 };
 
+const generatePolynomialCategorical = (predictorName, betas) => {
+    const funcPrefix = 'ad.update_response_poly_categorical(';
+    let code = `${funcPrefix}predictor_name="${predictorName}",`;
+    code += `\n${' '.repeat(funcPrefix.length)}betas=${mappingObject(betas)})`;
+    return code;
+};
+
 const generateResponseVectorLinear = (responseVector) => {
     const funcPrefix = 'ad.generate_response_vector_linear(';
     let predictorList = [], beta = [responseVector.intercept];
@@ -327,6 +334,12 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
             beta.push(multicollinear.predictorList[key]);
         }
         code += `\n${generateMulticollinear(multicollinear.name, dependentList, beta, multicollinear.epsilonVariance)}`;
+    }
+
+    // polynomial categorical
+    const polynomialCategoricalList = fieldList.filter(field => field.type === 'POLYNOMIAL_CATEGORICAL');
+    for (let polynomialCategorical of polynomialCategoricalList) {
+        code += `\n${generatePolynomialCategorical(polynomialCategorical.name, polynomialCategorical.betas)}`;
     }
 
     // categorical value to numerical value

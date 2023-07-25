@@ -8,6 +8,7 @@ import {
     setShowCategoricalToNumericalDialog,
     setShowMultiCollinearDialog,
     setShowMultivariateNormalDialog,
+    setShowPolynomialCategoricalDialog,
     setShowResponseVectorDialog,
     setShowUniformDialog,
     setShowUniqueIdentifierDialog
@@ -85,6 +86,12 @@ export default function Options() {
                 dispatch(setShowMultiCollinearDialog(true));
             }
         },
+        // {
+        //     text: 'Polynomial Categorical',
+        //     onClick: () => {
+        //         dispatch(setShowPolynomialCategoricalDialog(true));
+        //     }
+        // },
         {
             text: 'Response Vector',
             onClick: () => {

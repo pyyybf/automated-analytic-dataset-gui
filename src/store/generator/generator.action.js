@@ -65,6 +65,13 @@ export const setShowMultiCollinearDialog = (val) => {
     }
 };
 
+export const setShowPolynomialCategoricalDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_POLYNOMIAL_CATEGORICAL_DIALOG,
+        payload: val
+    }
+};
+
 export const setShowResponseVectorDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG,
@@ -157,6 +164,13 @@ export const addMulticollinear = (newMulticollinear) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_MULTICOLLINEAR,
         payload: [newMulticollinear]
+    }
+};
+
+export const addPolynomialCategorical = (newPolynomialCategorical) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_POLYNOMIAL_CATEGORICAL,
+        payload: [newPolynomialCategorical]
     }
 };
 
