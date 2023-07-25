@@ -59,11 +59,23 @@ const NAME_LIST = ['Mary', 'Tom', 'Jerry', 'Mike', 'David', 'Jack', 'Helen', 'Na
 export const CATEGORY_TYPE_LIST = ['NAME', 'ADDRESS_ADDRESS', 'ADDRESS_CITY', 'ADDRESS_STATE', 'CATEGORICAL'];
 export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL', 'CATEGORICAL_TO_NUMERICAL', 'MULTICOLLINEAR', 'BETA'];
 
+/**
+ * Boolean => Boolean in python(capitalize)
+ *
+ * @param bool
+ * @return {string}
+ */
 const booleanString = (bool = false) => {
     const str = String(bool);
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+/**
+ * Number Array => array string
+ *
+ * @param arr
+ * @return {string}
+ */
 const numberArray = (arr = []) => {
     let res = '[';
     for (let item of arr) {
@@ -76,6 +88,13 @@ const numberArray = (arr = []) => {
     return res;
 };
 
+/**
+ * 2D Number Array => array string
+ *
+ * @param arr
+ * @param prefixLen
+ * @return {string}
+ */
 const numberArray2Dim = (arr = [], prefixLen = 0) => {
     const space = prefixLen + 1;  // plus 1 for the first [
     let res = '[';
@@ -89,6 +108,12 @@ const numberArray2Dim = (arr = [], prefixLen = 0) => {
     return res;
 };
 
+/**
+ * String Array => array string, add "" for every element
+ *
+ * @param arr
+ * @return {string}
+ */
 const stringArray = (arr = []) => {
     let res = '[';
     for (let item of arr) {
@@ -101,6 +126,12 @@ const stringArray = (arr = []) => {
     return res;
 };
 
+/**
+ * Object => object string, {"key": value}
+ *
+ * @param mapping
+ * @return {string}
+ */
 const mappingObject = (mapping = {}) => {
     let res = '{';
     for (let key of Object.keys(mapping)) {
@@ -113,6 +144,12 @@ const mappingObject = (mapping = {}) => {
     return res;
 };
 
+/**
+ * normalize the array
+ *
+ * @param probVector
+ * @return {number[]}
+ */
 const generateProbVector = (probVector = [1]) => {
     const sum = probVector.reduce((acc, val) => acc + val, 0);
     probVector = probVector.map(val => parseFloat((val / sum).toFixed(2)));
@@ -123,6 +160,11 @@ const generateProbVector = (probVector = [1]) => {
     return probVector;
 }
 
+/**
+ * generate names randomly for categorical predictor
+ *
+ * @return {{categoryNames: *[], probVector: number[]}}
+ */
 const randomName = () => {
     const n = Math.floor(Math.random() * (4 - 2)) + 2;
 
@@ -139,6 +181,11 @@ const randomName = () => {
     return {categoryNames, probVector};
 };
 
+/**
+ * generate addresses randomly for categorical predictor
+ *
+ * @return {{categoryNames: *[], probVector: number[]}}
+ */
 const randomAddress = () => {
     const n = Math.floor(Math.random() * (4 - 2)) + 2;
 
@@ -155,7 +202,18 @@ const randomAddress = () => {
     return {categoryNames, probVector};
 };
 
-// generate function: def func_name(param=None): ...
+/**
+ * generate function
+ * def func_name(param=None):
+ *     ...
+ *     return result
+ *
+ * @param funcName
+ * @param params
+ * @param body
+ * @param result
+ * @return {string}
+ */
 const generateDef = (funcName, params, body, result) => {
     let paramsStr = [];
     for (let key in params) {
@@ -168,6 +226,15 @@ const generateDef = (funcName, params, body, result) => {
     return `def ${funcName}(${paramsStr.join(', ')}):\n${TAB_SPACE}${body.replaceAll('\n', `\n${TAB_SPACE}`)}\n${TAB_SPACE}return ${result}`;
 };
 
+/**
+ * generate a group of Multivariate Normals
+ * update_predictor_normal(predictor_name_list, mean, covariance_matrix)
+ *
+ * @param multivariateNormalList
+ * @param covarianceMatrix
+ * @param count
+ * @return {string}
+ */
 const generateMultivariateNormal = (multivariateNormalList, covarianceMatrix, count) => {
     const suffix = count > 1 ? count : '';
 
@@ -183,6 +250,15 @@ const generateMultivariateNormal = (multivariateNormalList, covarianceMatrix, co
     return code;
 };
 
+/**
+ * generate a categorical predictor
+ * update_predictor_categorical(predictor_name, category_names, prob_vector)
+ *
+ * @param fieldName
+ * @param categoryNames
+ * @param probVector
+ * @return {string}
+ */
 const generateCategorical = (fieldName, categoryNames, probVector) => {
     const funcPrefix = 'ad.update_predictor_categorical(';
     // manage long params
@@ -195,6 +271,17 @@ const generateCategorical = (fieldName, categoryNames, probVector) => {
     }
 };
 
+/**
+ * generate a new predictor, change categorical value into numerical value
+ * categorical_mapping = {"Red": 0, "Blue": 1}
+ * ad.predictor_matrix["X6_weight"] = ad.predictor_matrix.replace({"X6": categorical_mapping}, inplace=False)["X6"]
+ *
+ * @param name
+ * @param target
+ * @param categoricalMapping
+ * @param inplace
+ * @return {string}
+ */
 const generateCategoricalToNumerical = (name, target, categoricalMapping = {}, inplace = false) => {
     let code = `categorical_mapping = ${mappingObject(categoricalMapping)}`;
     const funcPrefix = `ad.predictor_matrix["${name}"] = ad.predictor_matrix.replace(`;
@@ -204,14 +291,42 @@ const generateCategoricalToNumerical = (name, target, categoricalMapping = {}, i
     return code;
 };
 
+/**
+ * generate a uniform
+ * update_predictor_uniform(predictor_name, lower_bound, upper_bound)
+ *
+ * @param predictorName
+ * @param lowerBound
+ * @param upperBound
+ * @return {string}
+ */
 const generateUniform = (predictorName, lowerBound = 0, upperBound = 1.0) => {
     return `ad.update_predictor_uniform("${predictorName}", ${lowerBound}, ${upperBound})`;
 };
 
+/**
+ * generate a list of predictors as beta distributed
+ * update_predictor_beta(predictor_name_list, a, b)
+ *
+ * @param names
+ * @param alphas
+ * @param betas
+ * @return {string}
+ */
 const generateBeta = (names, alphas, betas) => {
     return `ad.update_predictor_beta(${stringArray(names)}, np.array(${numberArray(alphas)}), np.array(${numberArray(betas)}))`;
 };
 
+/**
+ * generate a predictor which is multicollinear with other predictors
+ * update_predictor_multicollinear(target_predictor_name, dependent_predictors_list, beta, epsilon_variance)
+ *
+ * @param targetPredictorName
+ * @param dependentPredictorsList
+ * @param beta
+ * @param epsilonVariance
+ * @return {string}
+ */
 const generateMulticollinear = (targetPredictorName, dependentPredictorsList, beta, epsilonVariance) => {
     const funcPrefix = 'ad.update_predictor_multicollinear(';
     let code = `${funcPrefix}target_predictor_name="${targetPredictorName}",`;
@@ -221,6 +336,14 @@ const generateMulticollinear = (targetPredictorName, dependentPredictorsList, be
     return code;
 };
 
+/**
+ * generate a categorical factor into response in a polynomial manner
+ * update_response_poly_categorical(predictor_name, betas)
+ *
+ * @param predictorName
+ * @param betas
+ * @return {string}
+ */
 const generatePolynomialCategorical = (predictorName, betas) => {
     const funcPrefix = 'ad.update_response_poly_categorical(';
     let code = `${funcPrefix}predictor_name="${predictorName}",`;
@@ -228,6 +351,13 @@ const generatePolynomialCategorical = (predictorName, betas) => {
     return code;
 };
 
+/**
+ * generate response vector based on a linear regression generative model
+ * generate_response_vector_linear(predictor_name_list, beta, epsilon_variance)
+ *
+ * @param responseVector
+ * @return {string}
+ */
 const generateResponseVectorLinear = (responseVector) => {
     const funcPrefix = 'ad.generate_response_vector_linear(';
     let predictorList = [], beta = [responseVector.intercept];
@@ -246,6 +376,14 @@ const generateResponseVectorLinear = (responseVector) => {
     return code;
 };
 
+/**
+ * generate polynomial response vector based on a linear regression generative model that contains polynomial terms for
+ * one or more of the predictors and interaction terms
+ * generate_response_vector_polynomial(predictor_name_list, polynomial_order, beta, interaction_term_betas, epsilon_variance)
+ *
+ * @param responseVector
+ * @return {string}
+ */
 const generateResponseVectorPolynomial = (responseVector) => {
     const funcPrefix = 'ad.generate_response_vector_polynomial(';
     let predictorList = [], beta = [responseVector.intercept], polynomialOrder = [];
@@ -270,6 +408,14 @@ const generateResponseVectorPolynomial = (responseVector) => {
     return code;
 };
 
+/**
+ * generate code string and import code string
+ *
+ * @param numberOfRows
+ * @param fieldList
+ * @param covarianceMatrix
+ * @return {{code: string, importCode: string}}
+ */
 export default function generate(numberOfRows = 1000, fieldList = [], covarianceMatrix = []) {
     // get response vector
     const responseVector = fieldList.filter(field => field.type.startsWith('RESPONSE_VECTOR_'))[0] || null;
