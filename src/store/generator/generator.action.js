@@ -1,6 +1,6 @@
 import {GENERATOR_ACTION_TYPES} from "./generator.type";
 import {generateFileAPI} from "../../api/generator";
-import generate from "../../utils/codeGenerator";
+import generate, {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
 
 export const setNumberOfRows = (newVal) => {
     return {
@@ -121,7 +121,7 @@ export const addUniqueIdentifier = (newUniqueIdentifier) => {
 export const addName = () => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_NAME,
-        payload: [{type: 'NAME', name: 'Name'}]
+        payload: [{type: FIELD_TYPE_LIST.NAME, name: 'Name'}]
     }
 };
 
@@ -129,9 +129,9 @@ export const addAddress = (number) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_ADDRESS,
         payload: [
-            {type: 'ADDRESS_ADDRESS', name: 'Address', groupNum: number},
-            {type: 'ADDRESS_CITY', name: 'City', groupNum: number},
-            {type: 'ADDRESS_STATE', name: 'State', groupNum: number}
+            {type: FIELD_TYPE_LIST.ADDRESS_ADDRESS, name: 'Address', groupNum: number},
+            {type: FIELD_TYPE_LIST.ADDRESS_CITY, name: 'City', groupNum: number},
+            {type: FIELD_TYPE_LIST.ADDRESS_STATE, name: 'State', groupNum: number}
         ]
     }
 };

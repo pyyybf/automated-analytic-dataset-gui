@@ -3,7 +3,7 @@ import {
     setShowPolynomialCategoricalDialog
 } from "../../store/generator/generator.action";
 import {useDispatch, useSelector} from "react-redux";
-import {CATEGORY_TYPE_LIST} from "../../utils/codeGenerator";
+import {CATEGORY_TYPE_LIST, FIELD_TYPE_LIST} from "../../utils/codeGenerator";
 import React, {useState} from "react";
 import {
     Button,
@@ -38,7 +38,7 @@ export default function PolynomialCategoricalDialog() {
         // TODO: check validation
         // submit the field data
         dispatch(addPolynomialCategorical({
-            type: 'POLYNOMIAL_CATEGORICAL',
+            type: FIELD_TYPE_LIST.POLYNOMIAL_CATEGORICAL,
             name: predictorName,
             betas,
         }));

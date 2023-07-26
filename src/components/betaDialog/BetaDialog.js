@@ -4,12 +4,13 @@ import {addBeta, setShowBetaDialog} from "../../store/generator/generator.action
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, TextField} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
 
 export default function BetaDialog() {
     const dispatch = useDispatch();
     const showBetaDialog = useSelector(state => state.generator.showBetaDialog);
 
-    const INITIAL_FIELD_LIST = [{type: 'BETA', name: '', alpha: 0, beta: 0}];
+    const INITIAL_FIELD_LIST = [{type: FIELD_TYPE_LIST.BETA, name: '', alpha: 0, beta: 0}];
 
     const [fieldList, setFieldList] = useState([...INITIAL_FIELD_LIST]);
 

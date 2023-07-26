@@ -19,14 +19,14 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {addResponseVector, setShowResponseVectorDialog} from "../../store/generator/generator.action";
 import React, {useState} from "react";
-import {NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
+import {FIELD_TYPE_LIST, NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
 
 export default function ResponseVectorDialog() {
     const dispatch = useDispatch();
     const showResponseVectorDialog = useSelector(state => state.generator.showResponseVectorDialog);
     const numericalFieldList = useSelector(state => state.generator.fieldList.filter(field => NUMERIC_TYPE_LIST.includes(field.type)));
 
-    const [type, setType] = useState('LINEAR');
+    const [type, setType] = useState(FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR);
     const [name, setName] = useState('Y');
     const [predictorList, setPredictorList] = useState({});
     const [intercept, setIntercept] = useState(0);
@@ -38,7 +38,7 @@ export default function ResponseVectorDialog() {
         dispatch(setShowResponseVectorDialog(false));
     };
     const initDialog = () => {
-        setType('LINEAR');
+        setType(FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR);
         setName('Y');
         setPredictorList({});
         setIntercept(0);
@@ -49,9 +49,9 @@ export default function ResponseVectorDialog() {
     const handleSubmit = () => {
         // TODO: check validation
         // submit the field data
-        if (type === 'LINEAR') {
+        if (type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR) {
             dispatch(addResponseVector({
-                type: 'RESPONSE_VECTOR_LINEAR',
+                type: FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR,
                 name,
                 predictorList,
                 intercept,
@@ -77,7 +77,7 @@ export default function ResponseVectorDialog() {
             }
             setPredictorList(newPredictorList);
             dispatch(addResponseVector({
-                type: 'RESPONSE_VECTOR_POLYNOMIAL',
+                type: FIELD_TYPE_LIST.RESPONSE_VECTOR_POLYNOMIAL,
                 name,
                 predictorList: newPredictorList,
                 intercept,
@@ -100,8 +100,8 @@ export default function ResponseVectorDialog() {
                                     setType(e.target.value);
                                     setShowInteractionTermBetas(false);
                                 }}>
-                        <FormControlLabel value="LINEAR" control={<Radio/>} label="Linear"/>
-                        <FormControlLabel value="POLYNOMIAL" control={<Radio/>} label="Polynomial"/>
+                        <FormControlLabel value={FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR} control={<Radio/>} label="Linear"/>
+                        <FormControlLabel value={FIELD_TYPE_LIST.RESPONSE_VECTOR_POLYNOMIAL} control={<Radio/>} label="Polynomial"/>
                     </RadioGroup>
                 </FormControl>
                 <TextField size="small"
@@ -182,7 +182,8 @@ export default function ResponseVectorDialog() {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                        <h5>Coefficients {type === 'LINEAR' ? '' : 'and orders of the polynomial'} of the linear
+                        <h5>Coefficients {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? '' : 'and orders of the polynomial'} of the
+                            linear
                             model</h5>
                         <Grid container spacing={1}>
                             <Grid item sm={4}
@@ -205,7 +206,7 @@ export default function ResponseVectorDialog() {
                                       sx={{
                                           marginTop: '12px',
                                       }}>{field.name}</Grid>
-                                <Grid item sm={type === 'LINEAR' ? 8 : 4}>
+                                <Grid item sm={type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? 8 : 4}>
                                     <TextField size="small"
                                                label="Beta"
                                                type="number"
@@ -223,7 +224,7 @@ export default function ResponseVectorDialog() {
                                                    setPredictorList(newPredictorList);
                                                }}></TextField>
                                 </Grid>
-                                {type === 'LINEAR' ? null :
+                                {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? null :
                                     <Grid item sm={4}>
                                         <TextField size="small"
                                                    label="Polynomial Order"
@@ -253,7 +254,7 @@ export default function ResponseVectorDialog() {
                                                    }}></TextField>
                                     </Grid>}
                             </Grid>)}
-                        {type === 'LINEAR' ? null :
+                        {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? null :
                             <Button sx={{textTransform: 'none', marginTop: '12px', float: 'right'}}
                                     onClick={() => {
                                         setShowInteractionTermBetas(true);

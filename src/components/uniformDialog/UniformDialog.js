@@ -10,6 +10,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {addUniqueIdentifier, setAlert, setShowUniformDialog} from "../../store/generator/generator.action";
 import {useState} from "react";
+import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
 
 export default function UniformDialog() {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export default function UniformDialog() {
         }
         // submit the field data
         dispatch(addUniqueIdentifier({
-            type: 'UNIFORM',
+            type: FIELD_TYPE_LIST.UNIFORM,
             name: predictorName,
             lowerBound,
             upperBound,

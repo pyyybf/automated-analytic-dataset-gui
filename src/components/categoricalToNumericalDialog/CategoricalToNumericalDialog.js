@@ -20,11 +20,12 @@ import {
     Select,
     TextField,
 } from "@mui/material";
+import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
 
 export default function CategoricalToNumericalDialog() {
     const dispatch = useDispatch();
     const showCategoricalToNumericalDialog = useSelector(state => state.generator.showCategoricalToNumericalDialog);
-    const categoryList = useSelector(state => state.generator.fieldList.filter(field => field.type === 'CATEGORICAL'));
+    const categoryList = useSelector(state => state.generator.fieldList.filter(field => field.type === FIELD_TYPE_LIST.CATEGORICAL));
 
     const [predictorName, setPredictorName] = useState('');
     const [categoricalPredictorIdx, setCategoricalPredictorIdx] = useState(-1);
@@ -44,7 +45,7 @@ export default function CategoricalToNumericalDialog() {
         // TODO: check validation
         // submit the field data
         dispatch(addCategoricalToNumerical({
-            type: 'CATEGORICAL_TO_NUMERICAL',
+            type: FIELD_TYPE_LIST.CATEGORICAL_TO_NUMERICAL,
             name: predictorName,
             target: categoryList[Number(categoricalPredictorIdx)].name,
             categoricalMapping,

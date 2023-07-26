@@ -16,6 +16,7 @@ import {
 } from "../../store/generator/generator.action";
 import {useDispatch, useSelector} from "react-redux";
 import {Container, Draggable} from 'react-smooth-dnd';
+import {RESPONSE_VECTOR_TYPE_PRE} from "../../utils/codeGenerator";
 
 export default function Options() {
     const dispatch = useDispatch();
@@ -99,7 +100,7 @@ export default function Options() {
         {
             text: 'Response Vector',
             onClick: () => {
-                const responseVector = fieldList.filter(field => field.type.startsWith('RESPONSE_VECTOR_'))[0] || null;
+                const responseVector = fieldList.filter(field => field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE))[0] || null;
                 if (responseVector) {
                     dispatch(setAlert(true, `Response Vector ${responseVector.name} exists!`));
                     setTimeout(() => {

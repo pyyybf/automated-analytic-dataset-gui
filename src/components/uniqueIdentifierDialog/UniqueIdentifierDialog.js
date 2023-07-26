@@ -13,6 +13,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {addUniqueIdentifier, setAlert, setShowUniqueIdentifierDialog} from "../../store/generator/generator.action";
 import {useState} from "react";
+import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
 
 export default function UniqueIdentifierDialog() {
     const dispatch = useDispatch();
@@ -41,7 +42,7 @@ export default function UniqueIdentifierDialog() {
         }
         // submit the field data
         dispatch(addUniqueIdentifier({
-            type: 'UNIQUE_IDENTIFIER',
+            type: FIELD_TYPE_LIST.UNIQUE_IDENTIFIER,
             name: predictorName,
             alphanumeric,
             numberOfDigits,

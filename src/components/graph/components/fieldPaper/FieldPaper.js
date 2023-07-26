@@ -6,7 +6,12 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setCovarianceMatrix, setFieldList} from "../../../../store/generator/generator.action";
-import {CATEGORY_TYPE_LIST, NUMERIC_TYPE_LIST} from "../../../../utils/codeGenerator";
+import {
+    CATEGORY_TYPE_LIST,
+    FIELD_TYPE_LIST,
+    NUMERIC_TYPE_LIST,
+    RESPONSE_VECTOR_TYPE_PRE
+} from "../../../../utils/codeGenerator";
 
 export const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -31,13 +36,13 @@ export default function FieldItem(props) {
         // manage the field name in other fields
         if (CATEGORY_TYPE_LIST.includes(newFieldList[props.index].type)) {
             newFieldList.forEach(field => {
-                if (field.type === 'CATEGORICAL_TO_NUMERICAL' && field.target === oldName) {
+                if (field.type === FIELD_TYPE_LIST.CATEGORICAL_TO_NUMERICAL && field.target === oldName) {
                     field.target = currentName;
                 }
             });
         } else if (NUMERIC_TYPE_LIST.includes(newFieldList[props.index].type)) {
             newFieldList.forEach(field => {
-                if (field.type === 'MULTICOLLINEAR' || field.type.startsWith('RESPONSE_VECTOR_')) {
+                if (field.type === FIELD_TYPE_LIST.MULTICOLLINEAR || field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE)) {
                     if (Object.keys(field.predictorList).includes(oldName)) {
                         field.predictorList[currentName] = {...field.predictorList[oldName]};
                         delete field.predictorList[oldName];
@@ -52,7 +57,7 @@ export default function FieldItem(props) {
         let newFieldList = [...fieldList];
         let delField = newFieldList.splice(props.index, 1)[0];
         // manage the deleted field in other fields
-        if (delField.type === 'MULTIVARIATE_NORMAL') {
+        if (delField.type === FIELD_TYPE_LIST.MULTIVARIATE_NORMAL) {
             // delete it from covariance matrix
             let newCovarianceMatrix = {...covarianceMatrix};
             const groupId = `GROUP_${delField.groupNum}`;
@@ -70,7 +75,7 @@ export default function FieldItem(props) {
             // delete it from categorical to numerical, then delete the categorical to numerical from multicollinear and response vector
             let delIdxList = [];
             newFieldList.forEach((field, index) => {
-                if (field.type === 'CATEGORICAL_TO_NUMERICAL' && field.target === delField.name) {
+                if (field.type === FIELD_TYPE_LIST.CATEGORICAL_TO_NUMERICAL && field.target === delField.name) {
                     delIdxList.push(index);
                 }
             });
@@ -81,7 +86,7 @@ export default function FieldItem(props) {
         // delete numerical fields from multicollinear and response vector
         for (let deletedField of deletedFieldList) {
             newFieldList.forEach(field => {
-                if (field.type === 'MULTICOLLINEAR' || field.type.startsWith('RESPONSE_VECTOR_')) {
+                if (field.type === FIELD_TYPE_LIST.MULTICOLLINEAR || field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE)) {
                     if (Object.keys(field.predictorList).includes(deletedField.name)) {
                         delete field.predictorList[deletedField.name];
                     }

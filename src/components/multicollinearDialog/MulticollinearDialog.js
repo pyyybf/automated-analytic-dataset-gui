@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {addMulticollinear, setShowMultiCollinearDialog} from "../../store/generator/generator.action";
-import {NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
+import {FIELD_TYPE_LIST, NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
 import React, {useState} from "react";
 
 export default function MulticollinearDialog() {
@@ -35,7 +35,7 @@ export default function MulticollinearDialog() {
         // TODO: check validation
         // submit the field data
         dispatch(addMulticollinear({
-            type: 'MULTICOLLINEAR',
+            type: FIELD_TYPE_LIST.MULTICOLLINEAR,
             name: predictorName,
             intercept,
             predictorList,

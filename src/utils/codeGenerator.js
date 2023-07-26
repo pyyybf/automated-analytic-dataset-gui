@@ -56,8 +56,25 @@ const ADDRESS_LIST = [
 ];
 const NAME_LIST = ['Mary', 'Tom', 'Jerry', 'Mike', 'David', 'Jack', 'Helen', 'Nancy', 'Lily', 'John'];
 
-export const CATEGORY_TYPE_LIST = ['NAME', 'ADDRESS_ADDRESS', 'ADDRESS_CITY', 'ADDRESS_STATE', 'CATEGORICAL'];
-export const NUMERIC_TYPE_LIST = ['UNIFORM', 'MULTIVARIATE_NORMAL', 'CATEGORICAL_TO_NUMERICAL', 'MULTICOLLINEAR', 'BETA'];
+export const FIELD_TYPE_LIST = {
+    ADDRESS_ADDRESS: 'ADDRESS_ADDRESS',
+    ADDRESS_CITY: 'ADDRESS_CITY',
+    ADDRESS_STATE: 'ADDRESS_STATE',
+    BETA: 'BETA',
+    CATEGORICAL: 'CATEGORICAL',
+    CATEGORICAL_TO_NUMERICAL: 'CATEGORICAL_TO_NUMERICAL',
+    MULTICOLLINEAR: 'MULTICOLLINEAR',
+    MULTIVARIATE_NORMAL: 'MULTIVARIATE_NORMAL',
+    NAME: 'NAME',
+    POLYNOMIAL_CATEGORICAL: 'POLYNOMIAL_CATEGORICAL',
+    RESPONSE_VECTOR_LINEAR: 'RESPONSE_VECTOR_LINEAR',
+    RESPONSE_VECTOR_POLYNOMIAL: 'RESPONSE_VECTOR_POLYNOMIAL',
+    UNIFORM: 'UNIFORM',
+    UNIQUE_IDENTIFIER: 'UNIQUE_IDENTIFIER',
+};
+export const RESPONSE_VECTOR_TYPE_PRE = 'RESPONSE_VECTOR_';
+export const CATEGORY_TYPE_LIST = [FIELD_TYPE_LIST.NAME, FIELD_TYPE_LIST.ADDRESS_ADDRESS, FIELD_TYPE_LIST.ADDRESS_CITY, FIELD_TYPE_LIST.ADDRESS_STATE, FIELD_TYPE_LIST.CATEGORICAL];
+export const NUMERIC_TYPE_LIST = [FIELD_TYPE_LIST.UNIFORM, FIELD_TYPE_LIST.MULTIVARIATE_NORMAL, FIELD_TYPE_LIST.CATEGORICAL_TO_NUMERICAL, FIELD_TYPE_LIST.MULTICOLLINEAR, FIELD_TYPE_LIST.BETA];
 
 /**
  * Boolean => Boolean in python(capitalize)
@@ -435,20 +452,20 @@ const generateResponseVectorPolynomial = (predictorsMap, intercept, interactionT
  */
 export default function generate(numberOfRows = 1000, fieldList = [], covarianceMatrix = []) {
     // get response vector
-    const responseVector = fieldList.filter(field => field.type.startsWith('RESPONSE_VECTOR_'))[0] || null;
+    const responseVector = fieldList.filter(field => field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE))[0] || null;
 
     // init dataframe and import code
-    let code = `ad = AnalyticsDataframe(${numberOfRows}, ${fieldList.length - 1}, ${stringArray(fieldList.filter(field => !field.type.startsWith('RESPONSE_VECTOR_')).map(field => field.name))}, "${responseVector.name}", seed=seed)`;
+    let code = `ad = AnalyticsDataframe(${numberOfRows}, ${fieldList.length - 1}, ${stringArray(fieldList.filter(field => !field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE)).map(field => field.name))}, "${responseVector.name}", seed=seed)`;
     let importCode = [IMPORT_ANALYTICS_DF];
 
     // unique identifier
-    const uniqueIdentifierList = fieldList.filter(field => field.type === 'UNIQUE_IDENTIFIER');
+    const uniqueIdentifierList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.UNIQUE_IDENTIFIER);
     for (let uniqueIdentifier of uniqueIdentifierList) {
         code += `\n${generateUniqueIdentifier(uniqueIdentifier.name, uniqueIdentifier.alphanumeric, uniqueIdentifier.numberOfDigits)}`;
     }
 
     // multivariate normal
-    const multivariateNormalList = fieldList.filter(field => field.type === 'MULTIVARIATE_NORMAL');
+    const multivariateNormalList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.MULTIVARIATE_NORMAL);
     let multivariateNormalMapping = {};
     for (let multivariateNormal of multivariateNormalList) {
         if (!Object.keys(multivariateNormalMapping).includes(`GROUP_${multivariateNormal.groupNum}`)) {
@@ -470,13 +487,13 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     }
 
     // uniform
-    const uniformList = fieldList.filter(field => field.type === 'UNIFORM');
+    const uniformList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.UNIFORM);
     for (let uniform of uniformList) {
         code += `\n${generateUniform(uniform.name, uniform.lowerBound, uniform.upperBound)}`;
     }
 
     // beta
-    const betaList = fieldList.filter(field => field.type === 'BETA');
+    const betaList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.BETA);
     let names = [], alphas = [], betas = [];
     for (let beta of betaList) {
         names.push(beta.name);
@@ -492,7 +509,7 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     const categoryList = fieldList.filter(field => CATEGORY_TYPE_LIST.includes(field.type));
     let addressList = {};
     for (let category of categoryList) {
-        if (category.type === 'NAME') {
+        if (category.type === FIELD_TYPE_LIST.NAME) {
             const {categoryNames, probVector} = randomName();
             code += `\n${generateCategorical(category.name, categoryNames, probVector)}`;
         } else if (category.type.startsWith('ADDRESS_')) {
@@ -512,7 +529,7 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     }
 
     // multicollinear
-    const multicollinearList = fieldList.filter(field => field.type === 'MULTICOLLINEAR');
+    const multicollinearList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.MULTICOLLINEAR);
     for (let multicollinear of multicollinearList) {
         let dependentList = [], beta = [multicollinear.intercept];
         for (let key of Object.keys(multicollinear.predictorList)) {
@@ -523,13 +540,13 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     }
 
     // polynomial categorical
-    const polynomialCategoricalList = fieldList.filter(field => field.type === 'POLYNOMIAL_CATEGORICAL');
+    const polynomialCategoricalList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.POLYNOMIAL_CATEGORICAL);
     for (let polynomialCategorical of polynomialCategoricalList) {
         code += `\n${generatePolynomialCategorical(polynomialCategorical.name, polynomialCategorical.betas)}`;
     }
 
     // categorical value to numerical value
-    const categorical2NumericalList = fieldList.filter(field => field.type === 'CATEGORICAL_TO_NUMERICAL');
+    const categorical2NumericalList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.CATEGORICAL_TO_NUMERICAL);
     for (let field of categorical2NumericalList) {
         code += '\n';
         code += `\n# create a new predictor column, change categorical value into numerical value`;
@@ -537,7 +554,7 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     }
 
     // response vector
-    if (responseVector.type === 'RESPONSE_VECTOR_LINEAR') {
+    if (responseVector.type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR) {
         code += `\n\n${generateResponseVectorLinear(responseVector.predictorList, responseVector.intercept, responseVector.epsilonVariance)}`;
     } else {
         importCode.push(IMPORT_NUMPY);

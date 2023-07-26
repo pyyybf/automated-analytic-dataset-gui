@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
 import {addCategorical, setShowCategoricalDialog} from "../../store/generator/generator.action";
 import React, {useState} from "react";
+import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
 
 export default function CategoricalDialog() {
     const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function CategoricalDialog() {
         // TODO: check validation
         // submit the field data
         dispatch(addCategorical({
-            type: 'CATEGORICAL',
+            type: FIELD_TYPE_LIST.CATEGORICAL,
             name: predictorName,
             categoryList
         }));

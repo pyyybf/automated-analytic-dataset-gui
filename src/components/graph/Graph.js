@@ -17,6 +17,7 @@ import {
     setShowCodeDialog
 } from "../../store/generator/generator.action";
 import FieldItem from "./components/fieldPaper/FieldPaper";
+import {RESPONSE_VECTOR_TYPE_PRE} from "../../utils/codeGenerator";
 // import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
 
 export default function Graph() {
@@ -46,7 +47,7 @@ export default function Graph() {
         }
     };
     const onGenerate = () => {
-        const responseVector = fieldList.filter(field => field.type.startsWith('RESPONSE_VECTOR_'))[0] || null;
+        const responseVector = fieldList.filter(field => field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE))[0] || null;
         if (responseVector === null) {
             dispatch(setAlert(true, `Please add a Response Vector!`));
             setTimeout(() => {
