@@ -66,7 +66,12 @@ export default function Graph() {
 
     return (
         <React.Fragment>
-            <Grid container sx={{padding: '12px 24px', height: 'calc(100% - 24px)'}}>
+            <Grid container
+                  sx={{
+                      padding: '12px 24px',
+                      height: 'calc(100% - 24px)',
+                      paddingY: '16px'
+                  }}>
                 <Grid item xs={12} sm={6} md={4}>
                     <Container groupName="1" onDrop={onDrop} style={{height: '100%'}}>
                         {fieldList.map((field, index) => (
