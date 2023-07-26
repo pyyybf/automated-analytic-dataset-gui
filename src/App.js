@@ -25,7 +25,7 @@ function App() {
             <Header/>
             <Grid container sx={{height: 'calc(100vh - 61px)'}}>
                 <Grid item xs={12} md={3} sx={{
-                    borderRight: '1px lightgray solid',
+                    // borderRight: '1px lightgray solid',
                     paddingY: '16px',
                     height: '100%',
                     overflowY: 'scroll'
@@ -33,9 +33,9 @@ function App() {
                     <Options/>
                 </Grid>
                 <Grid item xs={12} md={9} sx={{
-                    paddingY: '16px',
                     height: '100%',
-                    overflowY: 'scroll'
+                    overflowY: 'scroll',
+                    backgroundColor: '#e8ecf2',
                 }}>
                     <Graph/>
                 </Grid>
