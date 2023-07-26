@@ -89,6 +89,7 @@ export default function MulticollinearDialog() {
                             // init form
                             setPredictorName('');
                             setPredictorList({});
+                            setIntercept(0);
                             setEpsilonVariance(0);
                             handleCloseDialog();
                         }}>OK</Button>
