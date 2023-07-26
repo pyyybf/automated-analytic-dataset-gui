@@ -25,8 +25,7 @@ function App() {
             <Header/>
             <Grid container sx={{height: 'calc(100vh - 61px)'}}>
                 <Grid item xs={12} md={3} sx={{
-                    // borderRight: '1px lightgray solid',
-                    paddingY: '16px',
+                    padding: '16px 28px',
                     height: '100%',
                     overflowY: 'scroll'
                 }}>

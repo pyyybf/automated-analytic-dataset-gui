@@ -24,12 +24,12 @@ export default function Options() {
     const fieldList = useSelector(state => state.generator.fieldList);
 
     const buttonBoxStyle = {
-        padding: '16px 24px'
+        padding: '8px'
     };
     const buttonStyle = {
-        width: '80%',
+        // width: '80%',
         textTransform: 'none',
-        paddingY: '16px',
+        paddingY: '12px',
     };
 
     const buttonList = [
@@ -123,11 +123,14 @@ export default function Options() {
 
     return (
         <React.Fragment>
-            <Container groupName="1" behaviour="copy" getChildPayload={getChildPayload}>
+            <Container groupName="1"
+                       behaviour="copy"
+                       getChildPayload={getChildPayload}>
                 {buttonList.map((btn, index) =>
                     <Draggable key={index}>
                         <Box sx={buttonBoxStyle}>
-                            <Button variant="contained"
+                            <Button fullWidth
+                                    variant="contained"
                                     size="large"
                                     sx={buttonStyle}
                                     onClick={btn.onClick}
