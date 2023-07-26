@@ -35,6 +35,10 @@ export default function MultivariateNormalDialog() {
         setShowFieldDefinition(true);
         dispatch(setShowMultivariateNormalDialog(false));
     };
+    const initDialog = () => {
+        setFieldList([...INITIAL_FIELD_LIST]);
+        setCovarianceMatrix([[0]]);
+    };
 
     const addField = () => {
         // add a field into field list
@@ -221,10 +225,7 @@ export default function MultivariateNormalDialog() {
                             newCovarianceMatrix[`GROUP_${multivariateNormalGroupNum}`] = covarianceMatrix;
 
                             dispatch(addMultivariateNormal(newFieldList, newCovarianceMatrix));
-
-                            // init form
-                            setFieldList([...INITIAL_FIELD_LIST]);
-                            setCovarianceMatrix([[0]]);
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}

@@ -16,6 +16,9 @@ export default function BetaDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowBetaDialog(false));
     };
+    const initDialog = () => {
+        setFieldList([...INITIAL_FIELD_LIST]);
+    };
     const addField = () => {
         // add a field into field list
         setFieldList([...fieldList, {
@@ -93,8 +96,7 @@ export default function BetaDialog() {
                 <Button sx={{textTransform: 'none'}}
                         onClick={() => {
                             dispatch(addBeta(fieldList));
-                            // init form
-                            setFieldList([...INITIAL_FIELD_LIST]);
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}

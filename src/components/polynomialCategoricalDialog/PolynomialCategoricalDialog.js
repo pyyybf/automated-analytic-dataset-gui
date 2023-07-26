@@ -31,6 +31,10 @@ export default function PolynomialCategoricalDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowPolynomialCategoricalDialog(false));
     };
+    const initDialog = () => {
+        setPredictorName('');
+        setBetas({});
+    };
 
     return (
         <Dialog open={showPolynomialCategoricalDialog} onClose={handleCloseDialog} maxWidth="md">
@@ -72,9 +76,7 @@ export default function PolynomialCategoricalDialog() {
                                 name: predictorName,
                                 betas,
                             }));
-                            // init form
-                            setPredictorName('');
-                            setBetas({});
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}

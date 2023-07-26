@@ -25,6 +25,12 @@ export default function MulticollinearDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowMultiCollinearDialog(false));
     };
+    const initDialog = () => {
+        setPredictorName('');
+        setPredictorList({});
+        setIntercept(0);
+        setEpsilonVariance(0);
+    };
 
     return (
         <Dialog open={showMulticollinearDialog} onClose={handleCloseDialog} maxWidth="md">
@@ -86,11 +92,7 @@ export default function MulticollinearDialog() {
                                 predictorList,
                                 epsilonVariance
                             }));
-                            // init form
-                            setPredictorName('');
-                            setPredictorList({});
-                            setIntercept(0);
-                            setEpsilonVariance(0);
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}

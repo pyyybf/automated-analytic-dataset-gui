@@ -30,6 +30,9 @@ export default function UniqueIdentifierDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowUniqueIdentifierDialog(false));
     };
+    const initDialog = () => {
+        setUniqueIdentifier({...INITIAL_UNIQUE_IDENTIFIER});
+    };
 
     return (
         <Dialog open={showUniqueIdentifierDialog} onClose={handleCloseDialog} maxWidth="md">
@@ -66,7 +69,7 @@ export default function UniqueIdentifierDialog() {
                 <Button sx={{textTransform: 'none'}}
                         onClick={() => {
                             dispatch(addUniqueIdentifier(uniqueIdentifier));
-                            setUniqueIdentifier({...INITIAL_UNIQUE_IDENTIFIER});
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}

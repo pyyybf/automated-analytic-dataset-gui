@@ -31,6 +31,12 @@ export default function CategoricalToNumericalDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowCategoricalToNumericalDialog(false));
     };
+    const initDialog = () => {
+        setPredictorName('');
+        setCategoricalPredictorIdx(-1);
+        setCategoricalMapping({});
+        setInplace(false);
+    };
     const updateCategoricalMapping = (categoryList) => {
         let newCategoricalMapping = {};
         (categoryList || []).forEach(category => {
@@ -109,11 +115,7 @@ export default function CategoricalToNumericalDialog() {
                                 categoricalMapping,
                                 inplace
                             }));
-                            // init form
-                            setPredictorName('');
-                            setCategoricalPredictorIdx(-1);
-                            setCategoricalMapping({});
-                            setInplace(false);
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}

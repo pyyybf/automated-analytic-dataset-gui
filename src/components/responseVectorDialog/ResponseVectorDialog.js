@@ -36,7 +36,7 @@ export default function ResponseVectorDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowResponseVectorDialog(false));
     };
-    const initResponseVector = () => {
+    const initDialog = () => {
         setType('LINEAR');
         setName('Y');
         setPredictorList({});
@@ -266,7 +266,7 @@ export default function ResponseVectorDialog() {
                                     epsilonVariance
                                 }));
                             }
-                            initResponseVector();
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}

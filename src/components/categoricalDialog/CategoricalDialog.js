@@ -24,6 +24,10 @@ export default function CategoricalDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowCategoricalDialog(false));
     };
+    const initDialog = () => {
+        setPredictorName('');
+        setCategoryList([{name: '', prob: 0}]);
+    };
 
     const addCategory = () => {
         setCategoryList([...categoryList, {name: '', prob: 0}]);
@@ -104,9 +108,7 @@ export default function CategoricalDialog() {
                                 name: predictorName,
                                 categoryList
                             }));
-                            // clean form
-                            setPredictorName('');
-                            setCategoryList([{name: '', prob: 0}]);
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}

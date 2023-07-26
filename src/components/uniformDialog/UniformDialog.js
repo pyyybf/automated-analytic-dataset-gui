@@ -27,6 +27,9 @@ export default function UniformDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowUniformDialog(false));
     };
+    const initDialog = () => {
+        setUniform({...INITIAL_UNIFORM});
+    };
 
     return (
         <Dialog open={showUniformDialog} onClose={handleCloseDialog} maxWidth="md">
@@ -64,7 +67,7 @@ export default function UniformDialog() {
                 <Button sx={{textTransform: 'none'}}
                         onClick={() => {
                             dispatch(addUniqueIdentifier(uniform));
-                            setUniform({...INITIAL_UNIFORM});
+                            initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
