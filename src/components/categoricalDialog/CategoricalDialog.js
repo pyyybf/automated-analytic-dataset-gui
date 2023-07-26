@@ -18,19 +18,21 @@ export default function CategoricalDialog() {
     const dispatch = useDispatch();
     const showCategoricalDialog = useSelector(state => state.generator.showCategoricalDialog);
 
+    const INITIAL_CATEGORY_LIST = [{name: '', prob: 0}];
+
     const [predictorName, setPredictorName] = useState('');
-    const [categoryList, setCategoryList] = useState([{name: '', prob: 0}]);
+    const [categoryList, setCategoryList] = useState([...INITIAL_CATEGORY_LIST]);
 
     const handleCloseDialog = () => {
         dispatch(setShowCategoricalDialog(false));
     };
     const initDialog = () => {
         setPredictorName('');
-        setCategoryList([{name: '', prob: 0}]);
+        setCategoryList([...INITIAL_CATEGORY_LIST]);
     };
 
     const addCategory = () => {
-        setCategoryList([...categoryList, {name: '', prob: 0}]);
+        setCategoryList([...categoryList, ...INITIAL_CATEGORY_LIST]);
     };
     const delCategory = (index) => {
         let newCategoryList = [...categoryList];

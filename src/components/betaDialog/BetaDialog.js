@@ -22,12 +22,7 @@ export default function BetaDialog() {
 
     const addField = () => {
         // add a field into field list
-        setFieldList([...fieldList, {
-            type: 'BETA',
-            name: '',
-            alpha: 0,
-            beta: 0,
-        }]);
+        setFieldList([...fieldList, ...INITIAL_FIELD_LIST]);
     };
     const delField = (index) => {
         // at least one field

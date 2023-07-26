@@ -103,10 +103,11 @@ export default function CategoricalToNumericalDialog() {
                 </Grid>
                 <FormGroup sx={{marginTop: '12px'}}>
                     <FormControlLabel label="Inplace"
-                                      control={<Checkbox checked={inplace}
-                                                         onChange={e => {
-                                                             setInplace(Boolean(e.target.checked));
-                                                         }}/>}/>
+                                      control={
+                                          <Checkbox checked={inplace}
+                                                    onChange={e => {
+                                                        setInplace(Boolean(e.target.checked));
+                                                    }}/>}/>
                 </FormGroup>
             </DialogContent>
             <DialogActions>

@@ -41,11 +41,7 @@ export default function MultivariateNormalDialog() {
 
     const addField = () => {
         // add a field into field list
-        setFieldList([...fieldList, {
-            type: 'MULTIVARIATE_NORMAL',
-            name: '',
-            mean: 0
-        }]);
+        setFieldList([...fieldList, ...INITIAL_FIELD_LIST]);
         // add a field into covariance matrix
         let newCovarianceMatrix = [];
         for (let i = 0; i < covarianceMatrix.length; i++) {
@@ -189,7 +185,8 @@ export default function MultivariateNormalDialog() {
                                                                align="center"
                                                                sx={{
                                                                    backgroundColor: 'lightgray',
-                                                                   border: '1px lightgray solid', padding: '0 12px'
+                                                                   border: '1px lightgray solid',
+                                                                   padding: '0 12px'
                                                                }}></TableCell>
                                             )}
                                         </TableRow>

@@ -37,6 +37,7 @@ export default function CodeDialog() {
     const handleCloseDialog = () => {
         dispatch(setShowCodeDialog(false));
     };
+
     const handleCopy = (content) => {
         copy(content);
         dispatch(setAlert(true, 'Copied to clipboard!', 'success'));
@@ -90,9 +91,10 @@ export default function CodeDialog() {
                          setCodeStyle(HIDDEN_BTN_STYLE);
                      }}>
                     <Box style={codeStyle}>
-                        <IconButton aria-label="copy" size="small" onClick={() => {
-                            handleCopy(code);
-                        }}>
+                        <IconButton aria-label="copy" size="small"
+                                    onClick={() => {
+                                        handleCopy(code);
+                                    }}>
                             <ContentCopyIcon sx={{fontSize: '18px'}}/>
                         </IconButton>
                     </Box>
