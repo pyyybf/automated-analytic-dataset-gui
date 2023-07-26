@@ -24,10 +24,9 @@ export default function Options() {
     const fieldList = useSelector(state => state.generator.fieldList);
 
     const buttonBoxStyle = {
-        padding: '8px'
+        padding: '18px',
     };
     const buttonStyle = {
-        // width: '80%',
         textTransform: 'none',
         paddingY: '12px',
     };

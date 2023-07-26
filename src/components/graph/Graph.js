@@ -69,13 +69,17 @@ export default function Graph() {
             <Grid container
                   sx={{
                       padding: '12px 24px',
-                      height: 'calc(100% - 24px)',
-                      paddingY: '16px'
+                      backgroundColor: '#f5f5f5',
+                      minHeight: '100%',
                   }}>
                 <Grid item xs={12} sm={6} md={4}>
                     <Container groupName="1" onDrop={onDrop} style={{height: '100%'}}>
                         {fieldList.map((field, index) => (
-                            <Draggable key={index}>
+                            <Draggable key={index}
+                                       style={{
+                                           width: '100%',
+                                           alignSelf: 'left'
+                                       }}>
                                 <Box sx={{
                                     p: 1,
                                     bgcolor: 'transparent',
@@ -88,8 +92,7 @@ export default function Graph() {
                     </Container>
                 </Grid>
             </Grid>
-            <Snackbar open transitionDuration={0}
-                      anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+            <Snackbar open transitionDuration={0} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Box>
                     {/*<GenerateFileBtn/>*/}
                     <Button variant="contained"
