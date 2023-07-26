@@ -34,7 +34,6 @@ function App() {
                 <Grid item xs={12} md={9} sx={{
                     height: '100%',
                     overflowY: 'scroll',
-                    backgroundColor: '#e8ecf2',
                 }}>
                     <Graph/>
                 </Grid>
