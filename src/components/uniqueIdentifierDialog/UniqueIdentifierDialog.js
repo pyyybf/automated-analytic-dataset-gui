@@ -18,20 +18,17 @@ export default function UniqueIdentifierDialog() {
     const dispatch = useDispatch();
     const showUniqueIdentifierDialog = useSelector(state => state.generator.showUniqueIdentifierDialog);
 
-    const INITIAL_UNIQUE_IDENTIFIER = {
-        type: 'UNIQUE_IDENTIFIER',
-        name: 'ID',
-        alphanumeric: 'alphanumeric',
-        numberOfDigits: 6
-    };
-
-    const [uniqueIdentifier, setUniqueIdentifier] = useState({...INITIAL_UNIQUE_IDENTIFIER});
+    const [predictorName, setPredictorName] = useState('ID');
+    const [alphanumeric, setAlphanumeric] = useState('alphanumeric');
+    const [numberOfDigits, setNumberOfDigits] = useState(6);
 
     const handleCloseDialog = () => {
         dispatch(setShowUniqueIdentifierDialog(false));
     };
     const initDialog = () => {
-        setUniqueIdentifier({...INITIAL_UNIQUE_IDENTIFIER});
+        setPredictorName('ID');
+        setAlphanumeric('alphanumeric');
+        setNumberOfDigits(6);
     };
 
     return (
@@ -39,35 +36,33 @@ export default function UniqueIdentifierDialog() {
             <DialogTitle>Unique Identifier</DialogTitle>
             <DialogContent>
                 <FormControl>
-                    <RadioGroup value={uniqueIdentifier.alphanumeric}
+                    <RadioGroup value={alphanumeric}
                                 onChange={e => {
-                                    setUniqueIdentifier({
-                                        ...uniqueIdentifier,
-                                        alphanumeric: e.target.value
-                                    });
+                                    setAlphanumeric(e.target.value);
                                 }}>
                         <FormControlLabel value="alphanumeric" control={<Radio/>} label="Alphanumeric"/>
                         <FormControlLabel value="numeric" control={<Radio/>} label="Numeric"/>
                     </RadioGroup>
                 </FormControl>
-                <TextField
-                    label="Number of Digits"
-                    type="number"
-                    fullWidth
-                    size="small"
-                    sx={{marginTop: '24px'}}
-                    value={uniqueIdentifier.numberOfDigits}
-                    onChange={e => {
-                        setUniqueIdentifier({
-                            ...uniqueIdentifier,
-                            numberOfDigits: e.target.value
-                        });
-                    }}/>
+                <TextField fullWidth
+                           label="Number of Digits"
+                           type="number"
+                           size="small"
+                           sx={{marginTop: '24px'}}
+                           value={numberOfDigits}
+                           onChange={e => {
+                               setNumberOfDigits(e.target.value);
+                           }}/>
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
                         onClick={() => {
-                            dispatch(addUniqueIdentifier(uniqueIdentifier));
+                            dispatch(addUniqueIdentifier({
+                                type: 'UNIQUE_IDENTIFIER',
+                                name: predictorName,
+                                alphanumeric,
+                                numberOfDigits,
+                            }));
                             initDialog();
                             handleCloseDialog();
                         }}>OK</Button>

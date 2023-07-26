@@ -15,20 +15,17 @@ export default function UniformDialog() {
     const dispatch = useDispatch();
     const showUniformDialog = useSelector(state => state.generator.showUniformDialog);
 
-    const INITIAL_UNIFORM = {
-        type: 'UNIFORM',
-        name: '',
-        lowerBound: 0,
-        upperBound: 1
-    };
-
-    const [uniform, setUniform] = useState({...INITIAL_UNIFORM});
+    const [predictorName, setPredictorName] = useState('');
+    const [lowerBound, setLowerBound] = useState(0);
+    const [upperBound, setUpperBound] = useState(1);
 
     const handleCloseDialog = () => {
         dispatch(setShowUniformDialog(false));
     };
     const initDialog = () => {
-        setUniform({...INITIAL_UNIFORM});
+        setPredictorName('');
+        setLowerBound(0);
+        setUpperBound(1);
     };
 
     return (
@@ -38,27 +35,27 @@ export default function UniformDialog() {
                 <TextField variant="outlined"
                            label="Name"
                            sx={{marginTop: '12px', width: '100%'}}
-                           value={uniform.name}
+                           value={predictorName}
                            onChange={e => {
-                               setUniform({...uniform, name: e.target.value});
+                               setPredictorName(e.target.value);
                            }}/>
                 <Grid container spacing={1} sx={{marginTop: '12px'}}>
                     <Grid item xs={12} sm={6}>
                         <TextField variant="outlined"
                                    label="Lower Bound"
                                    type="number"
-                                   value={uniform.lowerBound}
+                                   value={lowerBound}
                                    onChange={e => {
-                                       setUniform({...uniform, lowerBound: e.target.value});
+                                       setLowerBound(e.target.value);
                                    }}/>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField variant="outlined"
                                    label="Upper Bound"
                                    type="number"
-                                   value={uniform.upperBound}
+                                   value={upperBound}
                                    onChange={e => {
-                                       setUniform({...uniform, upperBound: e.target.value});
+                                       setUpperBound(e.target.value);
                                    }}/>
                     </Grid>
                 </Grid>
@@ -66,7 +63,12 @@ export default function UniformDialog() {
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
                         onClick={() => {
-                            dispatch(addUniqueIdentifier(uniform));
+                            dispatch(addUniqueIdentifier({
+                                type: 'UNIFORM',
+                                name: predictorName,
+                                lowerBound,
+                                upperBound,
+                            }));
                             initDialog();
                             handleCloseDialog();
                         }}>OK</Button>
