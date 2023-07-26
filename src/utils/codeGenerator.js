@@ -227,6 +227,18 @@ const generateDef = (funcName, params, body, result) => {
 };
 
 /**
+ * TODO: generate an unique identifier
+ *
+ * @param name
+ * @param alphanumeric
+ * @param numberOfDigits
+ * @return {`# need an unique identifier ${string}`}
+ */
+const generateUniqueIdentifier = (name, alphanumeric = 'alphanumeric', numberOfDigits = 6) => {
+    return `# need an unique identifier ${name}`;
+};
+
+/**
  * generate a group of Multivariate Normals
  * update_predictor_normal(predictor_name_list, mean, covariance_matrix)
  *
@@ -428,6 +440,12 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     // init dataframe and import code
     let code = `ad = AnalyticsDataframe(${numberOfRows}, ${fieldList.length - 1}, ${stringArray(fieldList.filter(field => !field.type.startsWith('RESPONSE_VECTOR_')).map(field => field.name))}, "${responseVector.name}", seed=seed)`;
     let importCode = [IMPORT_ANALYTICS_DF];
+
+    // unique identifier
+    const uniqueIdentifierList = fieldList.filter(field => field.type === 'UNIQUE_IDENTIFIER');
+    for (let uniqueIdentifier of uniqueIdentifierList) {
+        code += `\n${generateUniqueIdentifier(uniqueIdentifier.name, uniqueIdentifier.alphanumeric, uniqueIdentifier.numberOfDigits)}`;
+    }
 
     // multivariate normal
     const multivariateNormalList = fieldList.filter(field => field.type === 'MULTIVARIATE_NORMAL');
