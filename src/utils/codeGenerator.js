@@ -266,15 +266,15 @@ const generateMultivariateNormal = (multivariateNormalList, covarianceMatrix, co
  * generate a categorical predictor
  * update_predictor_categorical(predictor_name, category_names, prob_vector)
  *
- * @param predictorName string
+ * @param name string
  * @param categoryNames string[]
  * @param probVector number[]
  * @return {string}
  */
-const generateCategorical = (predictorName, categoryNames, probVector) => {
+const generateCategorical = (name, categoryNames, probVector) => {
     const funcPrefix = 'ad.update_predictor_categorical(';
     // manage long params
-    let paramsStr = [`"${predictorName}"`, stringArray(categoryNames), numberArray(probVector)];
+    let paramsStr = [`"${name}"`, stringArray(categoryNames), numberArray(probVector)];
     // ____${funcPrefix}${p1}, ${p2}, ${p3})
     if (funcPrefix.length + paramsStr[0].length + paramsStr[1].length + paramsStr[2].length + 9 > MAX_ROW_LEN) {
         return `${funcPrefix}${paramsStr.join(`,\n${' '.repeat(funcPrefix.length)}`)})`;
@@ -307,13 +307,13 @@ const generateCategoricalToNumerical = (name, target, categoricalMapping = {}, i
  * generate a uniform
  * update_predictor_uniform(predictor_name, lower_bound, upper_bound)
  *
- * @param predictorName string
+ * @param name string
  * @param lowerBound float
  * @param upperBound float
  * @return {string}
  */
-const generateUniform = (predictorName, lowerBound = 0, upperBound = 1.0) => {
-    return `ad.update_predictor_uniform("${predictorName}", ${lowerBound}, ${upperBound})`;
+const generateUniform = (name, lowerBound = 0, upperBound = 1.0) => {
+    return `ad.update_predictor_uniform("${name}", ${lowerBound}, ${upperBound})`;
 };
 
 /**
@@ -352,13 +352,13 @@ const generateMulticollinear = (targetPredictorName, dependentPredictorsList, be
  * generate a categorical factor into response in a polynomial manner
  * update_response_poly_categorical(predictor_name, betas)
  *
- * @param predictorName string
+ * @param name string
  * @param betas {key: value}, key is name of categorical predictor, and value is corresponding beta value
  * @return {string}
  */
-const generatePolynomialCategorical = (predictorName, betas) => {
+const generatePolynomialCategorical = (name, betas) => {
     const funcPrefix = 'ad.update_response_poly_categorical(';
-    let code = `${funcPrefix}predictor_name="${predictorName}",`;
+    let code = `${funcPrefix}predictor_name="${name}",`;
     code += `\n${' '.repeat(funcPrefix.length)}betas=${mappingObject(betas)})`;
     return code;
 };
