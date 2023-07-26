@@ -11,7 +11,8 @@ export default function Header() {
     return (
         <header>
             <div className="header-item">
-                <h2 className="header-title">Predictor Matrix Definition</h2>
+                {/*<h2 className="header-title">Predictor Matrix Definition</h2>*/}
+                <img className="header-logo" src={require('../../assets/autogen-logo.png')} alt="Autogen Logo"/>
             </div>
             <div className="header-item">
                 <TextField label="Number of Rows"

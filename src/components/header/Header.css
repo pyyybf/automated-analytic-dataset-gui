@@ -1,17 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 header {
-    border-bottom: 1px lightgray solid;
+    border-bottom: 1px #eeeeee solid;
     display: flex;
     justify-content: space-between;
     height: 60px;
-    padding: 0 12px
+    padding: 0 12px;
 }
 
 .header-item {
     display: flex;
     align-items: center;
-    margin-left: 20px;
+    margin-left: 28px;
+}
+
+.header-logo {
+    height: 75%;
 }
 
 .header-title {
