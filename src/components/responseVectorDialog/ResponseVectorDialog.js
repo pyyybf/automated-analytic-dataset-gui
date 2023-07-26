@@ -46,6 +46,49 @@ export default function ResponseVectorDialog() {
         setShowInteractionTermBetas(false);
         setInteractionTermBetas([]);
     };
+    const handleSubmit = () => {
+        // TODO: check validation
+        // submit the field data
+        if (type === 'LINEAR') {
+            dispatch(addResponseVector({
+                type: 'RESPONSE_VECTOR_LINEAR',
+                name,
+                predictorList,
+                intercept,
+                epsilonVariance
+            }));
+        } else {
+            let newInteractionTermBetas = [];
+            if (interactionTermBetas.length !== numericalFieldList.length) {
+                for (let i = 0; i < numericalFieldList.length; i++) {
+                    newInteractionTermBetas.push(new Array(numericalFieldList.length).fill(0));
+                }
+            } else {
+                newInteractionTermBetas = [...interactionTermBetas];
+            }
+            let newPredictorList = {...predictorList};
+            for (let field of numericalFieldList) {
+                if (!Object.keys(newPredictorList).includes(field.name)) {
+                    newPredictorList[field.name] = {
+                        beta: 0,
+                        polynomialOrder: 1
+                    };
+                }
+            }
+            setPredictorList(newPredictorList);
+            dispatch(addResponseVector({
+                type: 'RESPONSE_VECTOR_POLYNOMIAL',
+                name,
+                predictorList: newPredictorList,
+                intercept,
+                interactionTermBetas: newInteractionTermBetas,
+                epsilonVariance
+            }));
+        }
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
+    };
 
     return (
         <Dialog open={showResponseVectorDialog} onClose={handleCloseDialog} maxWidth="md">
@@ -230,46 +273,7 @@ export default function ResponseVectorDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            if (type === 'LINEAR') {
-                                dispatch(addResponseVector({
-                                    type: 'RESPONSE_VECTOR_LINEAR',
-                                    name,
-                                    predictorList,
-                                    intercept,
-                                    epsilonVariance
-                                }));
-                            } else {
-                                let newInteractionTermBetas = [];
-                                if (interactionTermBetas.length !== numericalFieldList.length) {
-                                    for (let i = 0; i < numericalFieldList.length; i++) {
-                                        newInteractionTermBetas.push(new Array(numericalFieldList.length).fill(0));
-                                    }
-                                } else {
-                                    newInteractionTermBetas = [...interactionTermBetas];
-                                }
-                                let newPredictorList = {...predictorList};
-                                for (let field of numericalFieldList) {
-                                    if (!Object.keys(newPredictorList).includes(field.name)) {
-                                        newPredictorList[field.name] = {
-                                            beta: 0,
-                                            polynomialOrder: 1
-                                        };
-                                    }
-                                }
-                                setPredictorList(newPredictorList);
-                                dispatch(addResponseVector({
-                                    type: 'RESPONSE_VECTOR_POLYNOMIAL',
-                                    name,
-                                    predictorList: newPredictorList,
-                                    intercept,
-                                    interactionTermBetas: newInteractionTermBetas,
-                                    epsilonVariance
-                                }));
-                            }
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>

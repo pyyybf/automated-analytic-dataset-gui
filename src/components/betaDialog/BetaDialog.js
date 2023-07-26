@@ -19,6 +19,14 @@ export default function BetaDialog() {
     const initDialog = () => {
         setFieldList([...INITIAL_FIELD_LIST]);
     };
+    const handleSubmit = () => {
+        // TODO: check validation
+        // submit the field data
+        dispatch(addBeta(fieldList));
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
+    };
 
     const addField = () => {
         // add a field into field list
@@ -90,11 +98,7 @@ export default function BetaDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            dispatch(addBeta(fieldList));
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>

@@ -38,6 +38,25 @@ export default function MultivariateNormalDialog() {
         setFieldList([...INITIAL_FIELD_LIST]);
         setCovarianceMatrix([[0]]);
     };
+    const handleSubmit = () => {
+        // TODO: check validation
+        // submit the field data
+        let newFieldList = [];
+        fieldList.forEach((field, index) => {
+            newFieldList.push({
+                ...field,
+                groupNum: multivariateNormalGroupNum,
+                index: index
+            });
+        });
+        let newCovarianceMatrix = {};
+        newCovarianceMatrix[`GROUP_${multivariateNormalGroupNum}`] = covarianceMatrix;
+
+        dispatch(addMultivariateNormal(newFieldList, newCovarianceMatrix));
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
+    };
 
     const addField = () => {
         // add a field into field list
@@ -207,22 +226,7 @@ export default function MultivariateNormalDialog() {
             }
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            let newFieldList = [];
-                            fieldList.forEach((field, index) => {
-                                newFieldList.push({
-                                    ...field,
-                                    groupNum: multivariateNormalGroupNum,
-                                    index: index
-                                });
-                            });
-                            let newCovarianceMatrix = {};
-                            newCovarianceMatrix[`GROUP_${multivariateNormalGroupNum}`] = covarianceMatrix;
-
-                            dispatch(addMultivariateNormal(newFieldList, newCovarianceMatrix));
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>

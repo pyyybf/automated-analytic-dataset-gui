@@ -31,6 +31,20 @@ export default function MulticollinearDialog() {
         setIntercept(0);
         setEpsilonVariance(0);
     };
+    const handleSubmit = () => {
+        // TODO: check validation
+        // submit the field data
+        dispatch(addMulticollinear({
+            type: 'MULTICOLLINEAR',
+            name: predictorName,
+            intercept,
+            predictorList,
+            epsilonVariance
+        }));
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
+    };
 
     return (
         <Dialog open={showMulticollinearDialog} onClose={handleCloseDialog} maxWidth="md">
@@ -84,17 +98,7 @@ export default function MulticollinearDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            dispatch(addMulticollinear({
-                                type: 'MULTICOLLINEAR',
-                                name: predictorName,
-                                intercept,
-                                predictorList,
-                                epsilonVariance
-                            }));
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>

@@ -34,6 +34,18 @@ export default function PolynomialCategoricalDialog() {
         setPredictorName('');
         setBetas({});
     };
+    const handleSubmit = () => {
+        // TODO: check validation
+        // submit the field data
+        dispatch(addPolynomialCategorical({
+            type: 'POLYNOMIAL_CATEGORICAL',
+            name: predictorName,
+            betas,
+        }));
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
+    };
 
     return (
         <Dialog open={showPolynomialCategoricalDialog} onClose={handleCloseDialog} maxWidth="md">
@@ -69,15 +81,7 @@ export default function PolynomialCategoricalDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            dispatch(addPolynomialCategorical({
-                                type: 'POLYNOMIAL_CATEGORICAL',
-                                name: predictorName,
-                                betas,
-                            }));
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>

@@ -40,6 +40,20 @@ export default function CategoricalToNumericalDialog() {
         setCategoricalMapping({});
         setInplace(false);
     };
+    const handleSubmit = () => {
+        // TODO: check validation
+        // submit the field data
+        dispatch(addCategoricalToNumerical({
+            type: 'CATEGORICAL_TO_NUMERICAL',
+            name: predictorName,
+            target: categoryList[Number(categoricalPredictorIdx)].name,
+            categoricalMapping,
+            inplace,
+        }));
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
+    };
 
     const updateCategoricalMapping = (categoryList) => {
         let newCategoricalMapping = {};
@@ -112,17 +126,7 @@ export default function CategoricalToNumericalDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            dispatch(addCategoricalToNumerical({
-                                type: 'CATEGORICAL_TO_NUMERICAL',
-                                name: predictorName,
-                                target: categoryList[Number(categoricalPredictorIdx)].name,
-                                categoricalMapping,
-                                inplace
-                            }));
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>

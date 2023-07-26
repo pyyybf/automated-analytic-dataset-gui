@@ -30,6 +30,18 @@ export default function CategoricalDialog() {
         setPredictorName('');
         setCategoryList([...INITIAL_CATEGORY_LIST]);
     };
+    const handleSubmit = () => {
+        // TODO: check validation
+        // submit the field data
+        dispatch(addCategorical({
+            type: 'CATEGORICAL',
+            name: predictorName,
+            categoryList
+        }));
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
+    };
 
     const addCategory = () => {
         setCategoryList([...categoryList, ...INITIAL_CATEGORY_LIST]);
@@ -102,16 +114,7 @@ export default function CategoricalDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            // TODO: check validation
-                            dispatch(addCategorical({
-                                type: 'CATEGORICAL',
-                                name: predictorName,
-                                categoryList
-                            }));
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>
