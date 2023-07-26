@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
 header {
     border-bottom: 1px lightgray solid;
     display: flex;
@@ -9,9 +11,10 @@ header {
 .header-item {
     display: flex;
     align-items: center;
+    margin-left: 20px;
 }
 
 .header-title {
-    color: #1976d2;
-    font-weight: normal;
+    font-family: Montserrat, serif;
+    font-weight: bold;
 }

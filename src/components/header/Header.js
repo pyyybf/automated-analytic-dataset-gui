@@ -11,7 +11,7 @@ export default function Header() {
     return (
         <header>
             <div className="header-item">
-                <h1 className="header-title">Predictor Matrix Definition</h1>
+                <h2 className="header-title">Predictor Matrix Definition</h2>
             </div>
             <div className="header-item">
                 <TextField label="Number of Rows"
