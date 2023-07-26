@@ -8,7 +8,7 @@ import {
     TextField,
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {addUniqueIdentifier, setShowUniformDialog} from "../../store/generator/generator.action";
+import {addUniqueIdentifier, setAlert, setShowUniformDialog} from "../../store/generator/generator.action";
 import {useState} from "react";
 
 export default function UniformDialog() {
@@ -26,6 +26,33 @@ export default function UniformDialog() {
         setPredictorName('');
         setLowerBound(0);
         setUpperBound(1);
+    };
+    const handleSubmit = () => {
+        // check validation
+        if (predictorName === '') {
+            dispatch(setAlert(true, 'The name can\'t be empty!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, 3000);
+            return;
+        }
+        if (Number(lowerBound) >= Number(upperBound)) {
+            dispatch(setAlert(true, 'The upper bound should be no less than lower bound!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, 3000);
+            return;
+        }
+        // submit the field data
+        dispatch(addUniqueIdentifier({
+            type: 'UNIFORM',
+            name: predictorName,
+            lowerBound,
+            upperBound,
+        }));
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
     };
 
     return (
@@ -62,16 +89,7 @@ export default function UniformDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            dispatch(addUniqueIdentifier({
-                                type: 'UNIFORM',
-                                name: predictorName,
-                                lowerBound,
-                                upperBound,
-                            }));
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>

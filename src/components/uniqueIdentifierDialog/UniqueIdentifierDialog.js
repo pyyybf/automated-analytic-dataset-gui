@@ -11,7 +11,7 @@ import {
     TextField
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {addUniqueIdentifier, setShowUniqueIdentifierDialog} from "../../store/generator/generator.action";
+import {addUniqueIdentifier, setAlert, setShowUniqueIdentifierDialog} from "../../store/generator/generator.action";
 import {useState} from "react";
 
 export default function UniqueIdentifierDialog() {
@@ -29,6 +29,26 @@ export default function UniqueIdentifierDialog() {
         setPredictorName('ID');
         setAlphanumeric('alphanumeric');
         setNumberOfDigits(6);
+    };
+    const handleSubmit = () => {
+        // check validation
+        if (predictorName === '') {
+            dispatch(setAlert(true, 'The name can\'t be empty!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, 3000);
+            return;
+        }
+        // submit the field data
+        dispatch(addUniqueIdentifier({
+            type: 'UNIQUE_IDENTIFIER',
+            name: predictorName,
+            alphanumeric,
+            numberOfDigits,
+        }));
+        // clean and close dialog
+        initDialog();
+        handleCloseDialog();
     };
 
     return (
@@ -56,16 +76,7 @@ export default function UniqueIdentifierDialog() {
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}
-                        onClick={() => {
-                            dispatch(addUniqueIdentifier({
-                                type: 'UNIQUE_IDENTIFIER',
-                                name: predictorName,
-                                alphanumeric,
-                                numberOfDigits,
-                            }));
-                            initDialog();
-                            handleCloseDialog();
-                        }}>OK</Button>
+                        onClick={handleSubmit}>OK</Button>
                 <Button sx={{textTransform: 'none'}}
                         onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>
