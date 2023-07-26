@@ -32,7 +32,6 @@ export default function CategoricalDialog() {
     const addCategory = () => {
         setCategoryList([...categoryList, {name: '', prob: 0}]);
     };
-
     const delCategory = (index) => {
         let newCategoryList = [...categoryList];
         newCategoryList.splice(index, 1);

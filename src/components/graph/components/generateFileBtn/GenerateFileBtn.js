@@ -9,24 +9,22 @@ import {
 
 export default function GenerateFileBtn() {
     const dispatch = useDispatch();
-
     const fieldList = useSelector(state => state.generator.fieldList);
     const numberOfRows = useSelector(state => state.generator.numberOfRows);
-
-    const [format, setFormat] = useState('csv');
-    const [open, setOpen] = useState(false);
-    const anchorRef = useRef(null);
 
     const FILE_CONTENT_CONVERTER = {
         csv: blob => blob,
         json: blob => JSON.stringify(blob, null, 2),
     };
 
+    const [format, setFormat] = useState('csv');
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef(null);
+
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
     };
-
-    const handleClose = e => {
+    const handleClose = (e) => {
         if (anchorRef.current && anchorRef.current.contains(e.target)) return;
         setOpen(false);
     };
@@ -48,6 +46,7 @@ export default function GenerateFileBtn() {
             }, 3000)
         });
     };
+
     return (
         <React.Fragment>
             <ButtonGroup variant="contained" ref={anchorRef}>

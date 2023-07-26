@@ -16,9 +16,8 @@ export const Item = styled(Paper)(({theme}) => ({
     lineHeight: '60px',
 }));
 
-export default function FieldPaper(props) {
+export default function FieldItem(props) {
     const dispatch = useDispatch();
-
     const fieldList = useSelector(state => state.generator.fieldList);
     const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
 

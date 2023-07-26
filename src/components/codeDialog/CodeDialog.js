@@ -15,7 +15,6 @@ import copy from 'copy-to-clipboard';
 
 export default function CodeDialog() {
     const dispatch = useDispatch();
-
     const showCodeDialog = useSelector(state => state.generator.showCodeDialog);
     const code = useSelector(state => state.generator.code);
     const importCode = useSelector(state => state.generator.importCode);

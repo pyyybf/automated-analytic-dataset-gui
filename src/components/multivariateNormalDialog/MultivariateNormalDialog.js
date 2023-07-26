@@ -21,7 +21,6 @@ import React, {useState} from "react";
 
 export default function MultivariateNormalDialog() {
     const dispatch = useDispatch();
-
     const showMultivariateNormalDialog = useSelector(state => state.generator.showMultivariateNormalDialog);
     const multivariateNormalGroupNum = useSelector(state => state.generator.multivariateNormalGroupNum);
 
@@ -56,7 +55,6 @@ export default function MultivariateNormalDialog() {
         newCovarianceMatrix.push(new Array(covarianceMatrix.length + 1).fill(0));
         setCovarianceMatrix(newCovarianceMatrix);
     };
-
     const delField = (index) => {
         // at least one field
         if (fieldList.length === 1) return;

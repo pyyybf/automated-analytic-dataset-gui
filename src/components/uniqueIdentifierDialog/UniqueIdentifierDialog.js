@@ -62,8 +62,7 @@ export default function UniqueIdentifierDialog() {
                             ...uniqueIdentifier,
                             numberOfDigits: e.target.value
                         });
-                    }}
-                />
+                    }}/>
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}

@@ -3,7 +3,8 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogTitle, Grid,
+    DialogTitle,
+    Grid,
     TextField,
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
@@ -13,7 +14,6 @@ import React, {useState} from "react";
 
 export default function MulticollinearDialog() {
     const dispatch = useDispatch();
-
     const showMulticollinearDialog = useSelector(state => state.generator.showMulticollinearDialog);
     const numericalFieldList = useSelector(state => state.generator.fieldList.filter(field => NUMERIC_TYPE_LIST.includes(field.type)));
 

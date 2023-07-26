@@ -16,17 +16,16 @@ import {
     setFieldList,
     setShowCodeDialog
 } from "../../store/generator/generator.action";
-import FieldPaper from "./components/fieldPaper/FieldPaper";
+import FieldItem from "./components/fieldPaper/FieldPaper";
 // import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
 
 export default function Graph() {
     const dispatch = useDispatch();
-
     const fieldList = useSelector(state => state.generator.fieldList);
     const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
     const numberOfRows = useSelector(state => state.generator.numberOfRows);
 
-    const onDrop = e => {
+    const onDrop = (e) => {
         if (e.payload?.action) {
             e.payload.action();
         } else {
@@ -85,7 +84,7 @@ export default function Graph() {
                                     bgcolor: 'transparent',
                                     display: 'grid',
                                 }}>
-                                    <FieldPaper index={index} name={field.name}></FieldPaper>
+                                    <FieldItem index={index} name={field.name}></FieldItem>
                                 </Box>
                             </Draggable>
                         ))}

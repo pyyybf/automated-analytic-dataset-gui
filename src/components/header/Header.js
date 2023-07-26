@@ -5,7 +5,6 @@ import {setNumberOfRows} from "../../store/generator/generator.action";
 
 export default function Header() {
     const dispatch = useDispatch();
-
     const numberOfRows = useSelector(state => state.generator.numberOfRows);
 
     return (

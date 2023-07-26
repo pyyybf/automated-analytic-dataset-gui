@@ -21,7 +21,6 @@ import {
 
 export default function PolynomialCategoricalDialog() {
     const dispatch = useDispatch();
-
     const showPolynomialCategoricalDialog = useSelector(state => state.generator.showPolynomialCategoricalDialog);
     const categoricalFieldList = useSelector(state => state.generator.fieldList.filter(field => CATEGORY_TYPE_LIST.includes(field.type)));
 

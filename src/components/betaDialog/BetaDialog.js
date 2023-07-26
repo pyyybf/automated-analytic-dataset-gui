@@ -19,6 +19,7 @@ export default function BetaDialog() {
     const initDialog = () => {
         setFieldList([...INITIAL_FIELD_LIST]);
     };
+
     const addField = () => {
         // add a field into field list
         setFieldList([...fieldList, {

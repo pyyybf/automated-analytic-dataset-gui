@@ -5,21 +5,24 @@ import {
     setShowCategoricalToNumericalDialog
 } from "../../store/generator/generator.action";
 import {
-    Button, Checkbox,
+    Button,
+    Checkbox,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
-    FormControl, FormControlLabel, FormGroup,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
     Grid,
     InputLabel,
     MenuItem,
-    Select, TextField,
+    Select,
+    TextField,
 } from "@mui/material";
 
 export default function CategoricalToNumericalDialog() {
     const dispatch = useDispatch();
-
     const showCategoricalToNumericalDialog = useSelector(state => state.generator.showCategoricalToNumericalDialog);
     const categoryList = useSelector(state => state.generator.fieldList.filter(field => field.type === 'CATEGORICAL'));
 
@@ -37,6 +40,7 @@ export default function CategoricalToNumericalDialog() {
         setCategoricalMapping({});
         setInplace(false);
     };
+
     const updateCategoricalMapping = (categoryList) => {
         let newCategoricalMapping = {};
         (categoryList || []).forEach(category => {

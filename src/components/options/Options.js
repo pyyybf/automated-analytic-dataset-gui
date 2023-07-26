@@ -19,19 +19,17 @@ import {Container, Draggable} from 'react-smooth-dnd';
 
 export default function Options() {
     const dispatch = useDispatch();
-
     const addressGroupNum = useSelector(state => state.generator.addressGroupNum);
     const fieldList = useSelector(state => state.generator.fieldList);
 
-    const buttonBoxStyle = {
+    const BUTTON_BOX_STYLE = {
         padding: '18px',
     };
-    const buttonStyle = {
+    const BUTTON_STYLE = {
         textTransform: 'none',
         paddingY: '12px',
     };
-
-    const buttonList = [
+    const BUTTON_LIST = [
         {
             text: 'Unique Identifier',
             onClick: () => {
@@ -115,8 +113,8 @@ export default function Options() {
     ];
 
     const getChildPayload = key => {
-        if (key < buttonList.length) {
-            return {action: buttonList[key].onClick};
+        if (key < BUTTON_LIST.length) {
+            return {action: BUTTON_LIST[key].onClick};
         }
     };
 
@@ -125,13 +123,13 @@ export default function Options() {
             <Container groupName="1"
                        behaviour="copy"
                        getChildPayload={getChildPayload}>
-                {buttonList.map((btn, index) =>
+                {BUTTON_LIST.map((btn, index) =>
                     <Draggable key={index}>
-                        <Box sx={buttonBoxStyle}>
+                        <Box sx={BUTTON_BOX_STYLE}>
                             <Button fullWidth
                                     variant="contained"
                                     size="large"
-                                    sx={buttonStyle}
+                                    sx={BUTTON_STYLE}
                                     onClick={btn.onClick}
                             >{btn.text}</Button>
                         </Box>
