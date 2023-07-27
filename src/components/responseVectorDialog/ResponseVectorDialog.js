@@ -100,8 +100,10 @@ export default function ResponseVectorDialog() {
                                     setType(e.target.value);
                                     setShowInteractionTermBetas(false);
                                 }}>
-                        <FormControlLabel value={FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR} control={<Radio/>} label="Linear"/>
-                        <FormControlLabel value={FIELD_TYPE_LIST.RESPONSE_VECTOR_POLYNOMIAL} control={<Radio/>} label="Polynomial"/>
+                        <FormControlLabel value={FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR} control={<Radio/>}
+                                          label="Linear"/>
+                        <FormControlLabel value={FIELD_TYPE_LIST.RESPONSE_VECTOR_POLYNOMIAL} control={<Radio/>}
+                                          label="Polynomial"/>
                     </RadioGroup>
                 </FormControl>
                 <TextField fullWidth
