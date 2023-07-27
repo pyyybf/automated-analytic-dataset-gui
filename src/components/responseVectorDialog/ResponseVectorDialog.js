@@ -17,9 +17,10 @@ import {
     TextField,
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {addResponseVector, setShowResponseVectorDialog} from "../../store/generator/generator.action";
+import {addResponseVector, setAlert, setShowResponseVectorDialog} from "../../store/generator/generator.action";
 import React, {useState} from "react";
 import {FIELD_TYPE_LIST, NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
+import {ALERT_DURATION} from "../../config";
 
 export default function ResponseVectorDialog() {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function ResponseVectorDialog() {
     const numericalFieldList = useSelector(state => state.generator.fieldList.filter(field => NUMERIC_TYPE_LIST.includes(field.type)));
 
     const [type, setType] = useState(FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR);
-    const [name, setName] = useState('Y');
+    const [predictorName, setPredictorName] = useState('Y');
     const [predictorList, setPredictorList] = useState({});
     const [intercept, setIntercept] = useState(0);
     const [epsilonVariance, setEpsilonVariance] = useState(0);
@@ -39,7 +40,7 @@ export default function ResponseVectorDialog() {
     };
     const initDialog = () => {
         setType(FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR);
-        setName('Y');
+        setPredictorName('Y');
         setPredictorList({});
         setIntercept(0);
         setEpsilonVariance(0);
@@ -47,15 +48,22 @@ export default function ResponseVectorDialog() {
         setInteractionTermBetas([]);
     };
     const handleSubmit = () => {
-        // TODO: check validation
+        // check validation
+        if (predictorName === '') {
+            dispatch(setAlert(true, 'The name can\'t be empty!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         // submit the field data
         if (type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR) {
             dispatch(addResponseVector({
                 type: FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR,
-                name,
+                name: predictorName,
                 predictorList,
-                intercept,
-                epsilonVariance
+                intercept: intercept || 0,
+                epsilonVariance: epsilonVariance || 0,
             }));
         } else {
             let newInteractionTermBetas = [];
@@ -78,11 +86,11 @@ export default function ResponseVectorDialog() {
             setPredictorList(newPredictorList);
             dispatch(addResponseVector({
                 type: FIELD_TYPE_LIST.RESPONSE_VECTOR_POLYNOMIAL,
-                name,
+                name: predictorName,
                 predictorList: newPredictorList,
-                intercept,
+                intercept: intercept || 0,
                 interactionTermBetas: newInteractionTermBetas,
-                epsilonVariance
+                epsilonVariance: epsilonVariance || 0,
             }));
         }
         // clean and close dialog
@@ -112,9 +120,9 @@ export default function ResponseVectorDialog() {
                            sx={{
                                marginTop: '12px',
                            }}
-                           value={name}
+                           value={predictorName}
                            onChange={e => {
-                               setName(e.target.value);
+                               setPredictorName(e.target.value);
                            }}></TextField>
                 {showInteractionTermBetas ?
                     <React.Fragment>

@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
 import {
     addCategoricalToNumerical,
+    setAlert,
     setShowCategoricalToNumericalDialog
 } from "../../store/generator/generator.action";
 import {
@@ -21,6 +22,7 @@ import {
     TextField,
 } from "@mui/material";
 import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
+import {ALERT_DURATION} from "../../config";
 
 export default function CategoricalToNumericalDialog() {
     const dispatch = useDispatch();
@@ -42,7 +44,21 @@ export default function CategoricalToNumericalDialog() {
         setInplace(false);
     };
     const handleSubmit = () => {
-        // TODO: check validation
+        // check validation
+        if (categoricalPredictorIdx === -1) {
+            dispatch(setAlert(true, 'Please choose a target categorical predictor!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
+        if (predictorName === '') {
+            dispatch(setAlert(true, 'The name can\'t be empty!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         // submit the field data
         dispatch(addCategoricalToNumerical({
             type: FIELD_TYPE_LIST.CATEGORICAL_TO_NUMERICAL,

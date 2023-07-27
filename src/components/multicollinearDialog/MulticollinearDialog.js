@@ -8,9 +8,10 @@ import {
     TextField,
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {addMulticollinear, setShowMultiCollinearDialog} from "../../store/generator/generator.action";
+import {addMulticollinear, setAlert, setShowMultiCollinearDialog} from "../../store/generator/generator.action";
 import {FIELD_TYPE_LIST, NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
 import React, {useState} from "react";
+import {ALERT_DURATION} from "../../config";
 
 export default function MulticollinearDialog() {
     const dispatch = useDispatch();
@@ -32,14 +33,21 @@ export default function MulticollinearDialog() {
         setEpsilonVariance(0);
     };
     const handleSubmit = () => {
-        // TODO: check validation
+        // check validation
+        if (predictorName === '') {
+            dispatch(setAlert(true, 'The name can\'t be empty!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         // submit the field data
         dispatch(addMulticollinear({
             type: FIELD_TYPE_LIST.MULTICOLLINEAR,
             name: predictorName,
-            intercept,
+            intercept: intercept || 0,
             predictorList,
-            epsilonVariance
+            epsilonVariance: epsilonVariance || 0,
         }));
         // clean and close dialog
         initDialog();

@@ -1,5 +1,6 @@
 import {
     addPolynomialCategorical,
+    setAlert,
     setShowPolynomialCategoricalDialog
 } from "../../store/generator/generator.action";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,6 +19,7 @@ import {
     Select,
     TextField,
 } from "@mui/material";
+import {ALERT_DURATION} from "../../config";
 
 export default function PolynomialCategoricalDialog() {
     const dispatch = useDispatch();
@@ -35,7 +37,14 @@ export default function PolynomialCategoricalDialog() {
         setBetas({});
     };
     const handleSubmit = () => {
-        // TODO: check validation
+        // check validation
+        if (predictorName === '') {
+            dispatch(setAlert(true, 'The name can\'t be empty!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         // submit the field data
         dispatch(addPolynomialCategorical({
             type: FIELD_TYPE_LIST.POLYNOMIAL_CATEGORICAL,

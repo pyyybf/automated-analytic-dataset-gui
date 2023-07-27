@@ -11,15 +11,16 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
-import {addCategorical, setShowCategoricalDialog} from "../../store/generator/generator.action";
+import {addCategorical, setAlert, setShowCategoricalDialog} from "../../store/generator/generator.action";
 import React, {useState} from "react";
 import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
+import {ALERT_DURATION} from "../../config";
 
 export default function CategoricalDialog() {
     const dispatch = useDispatch();
     const showCategoricalDialog = useSelector(state => state.generator.showCategoricalDialog);
 
-    const INITIAL_CATEGORY_LIST = [{name: '', prob: 0}];
+    const INITIAL_CATEGORY_LIST = [{name: '', prob: 1}];
 
     const [predictorName, setPredictorName] = useState('');
     const [categoryList, setCategoryList] = useState([...INITIAL_CATEGORY_LIST]);
@@ -32,7 +33,30 @@ export default function CategoricalDialog() {
         setCategoryList([...INITIAL_CATEGORY_LIST]);
     };
     const handleSubmit = () => {
-        // TODO: check validation
+        // check validation
+        if (predictorName === '') {
+            dispatch(setAlert(true, 'The predictor name can\'t be empty!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
+        for (let category of categoryList) {
+            if (category.name === '') {
+                dispatch(setAlert(true, 'The category name can\'t be empty!'));
+                setTimeout(() => {
+                    dispatch(setAlert(false));
+                }, ALERT_DURATION);
+                return;
+            }
+        }
+        if (categoryList.reduce((acc, val) => acc + Number(val.prob), 0) <= 0) {
+            dispatch(setAlert(true, 'The sum of probabilities should be greater than 0!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         // submit the field data
         dispatch(addCategorical({
             type: FIELD_TYPE_LIST.CATEGORICAL,
@@ -88,6 +112,11 @@ export default function CategoricalDialog() {
                                        type="number"
                                        label="Probability"
                                        value={category.prob}
+                                       InputProps={{
+                                           inputProps: {
+                                               min: 1
+                                           }
+                                       }}
                                        onChange={e => {
                                            let newCategoryList = [...categoryList];
                                            newCategoryList[index].prob = e.target.value;
