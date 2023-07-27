@@ -115,10 +115,8 @@ export default function CodeDialog() {
                 </Box>
             </DialogContent>
             <DialogActions sx={{paddingBottom: '18px'}}>
-                <Button variant="contained" sx={{textTransform: 'none'}}
-                        onClick={handleDownload}>Download .py file</Button>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleCloseDialog}>Close</Button>
+                <Button variant="contained" onClick={handleDownload}>Download .py file</Button>
+                <Button onClick={handleCloseDialog}>Close</Button>
             </DialogActions>
         </Dialog>
     );

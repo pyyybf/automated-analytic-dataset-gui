@@ -90,10 +90,8 @@ export default function UniformDialog() {
                 </Grid>
             </DialogContent>
             <DialogActions>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleSubmit}>OK</Button>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleCloseDialog}>Cancel</Button>
+                <Button onClick={handleSubmit}>OK</Button>
+                <Button onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>
         </Dialog>
     );

@@ -95,7 +95,6 @@ export default function BetaDialog() {
                         </Grid>
                         <Grid item sm={1}>
                             <IconButton aria-label="delete"
-                                        sx={{textTransform: 'none'}}
                                         onClick={() => {
                                             delField(index);
                                         }}>
@@ -103,15 +102,13 @@ export default function BetaDialog() {
                             </IconButton>
                         </Grid>
                     </Grid>)}
-                <Button sx={{textTransform: 'none', marginTop: '16px'}}
+                <Button sx={{marginTop: '16px'}}
                         startIcon={<AddIcon/>}
                         onClick={addField}>Add a new field</Button>
             </DialogContent>
             <DialogActions>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleSubmit}>OK</Button>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleCloseDialog}>Cancel</Button>
+                <Button onClick={handleSubmit}>OK</Button>
+                <Button onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>
         </Dialog>
     );

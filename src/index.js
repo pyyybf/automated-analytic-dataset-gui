@@ -19,6 +19,15 @@ const theme = createTheme({
         },
         secondary: amber,
     },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none',
+                }
+            },
+        },
+    },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

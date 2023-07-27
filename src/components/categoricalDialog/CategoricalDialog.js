@@ -125,7 +125,6 @@ export default function CategoricalDialog() {
                         </Grid>
                         <Grid item sm={1}>
                             <IconButton aria-label="delete"
-                                        sx={{textTransform: 'none'}}
                                         onClick={() => {
                                             delCategory(index);
                                         }}>
@@ -136,17 +135,15 @@ export default function CategoricalDialog() {
                 )}
                 <Grid container sx={{marginTop: '12px'}}>
                     <Grid item sm={6}>
-                        <Button sx={{textTransform: 'none', marginTop: '16px'}}
+                        <Button sx={{marginTop: '16px'}}
                                 startIcon={<AddIcon/>}
                                 onClick={addCategory}>Add a new category</Button>
                     </Grid>
                 </Grid>
             </DialogContent>
             <DialogActions>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleSubmit}>OK</Button>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleCloseDialog}>Cancel</Button>
+                <Button onClick={handleSubmit}>OK</Button>
+                <Button onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>
         </Dialog>
     );

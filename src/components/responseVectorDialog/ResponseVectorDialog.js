@@ -190,7 +190,7 @@ export default function ResponseVectorDialog() {
                                 </Table>
                             </Grid>
                         </Grid>
-                        <Button sx={{textTransform: 'none', marginTop: '12px', float: 'right'}}
+                        <Button sx={{marginTop: '12px', float: 'right'}}
                                 onClick={() => {
                                     setShowInteractionTermBetas(false);
                                 }}>Back to Coefficients</Button>
@@ -269,7 +269,7 @@ export default function ResponseVectorDialog() {
                                     </Grid>}
                             </Grid>)}
                         {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? null :
-                            <Button sx={{textTransform: 'none', marginTop: '12px', float: 'right'}}
+                            <Button sx={{marginTop: '12px', float: 'right'}}
                                     onClick={() => {
                                         setShowInteractionTermBetas(true);
                                     }}>Enter Interaction Term Betas</Button>}
@@ -304,10 +304,8 @@ export default function ResponseVectorDialog() {
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleSubmit}>OK</Button>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleCloseDialog}>Cancel</Button>
+                <Button onClick={handleSubmit}>OK</Button>
+                <Button onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>
         </Dialog>
     );

@@ -133,7 +133,6 @@ export default function MultivariateNormalDialog() {
                             </Grid>
                             <Grid item sm={1}>
                                 <IconButton aria-label="delete"
-                                            sx={{textTransform: 'none'}}
                                             onClick={() => {
                                                 delField(index);
                                             }}>
@@ -144,12 +143,12 @@ export default function MultivariateNormalDialog() {
                     )}
                     <Grid container>
                         <Grid item sm={6}>
-                            <Button sx={{textTransform: 'none', marginTop: '16px'}}
+                            <Button sx={{marginTop: '16px'}}
                                     startIcon={<AddIcon/>}
                                     onClick={addField}>Add a new field</Button>
                         </Grid>
                         <Grid item sm={6} sx={{textAlign: 'right'}}>
-                            <Button sx={{textTransform: 'none', marginTop: '16px'}}
+                            <Button sx={{marginTop: '16px'}}
                                     onClick={() => {
                                         setShowFieldDefinition(false);
                                     }}>Enter Covariance Matrix</Button>
@@ -227,7 +226,7 @@ export default function MultivariateNormalDialog() {
                     </Grid>
                     <Grid2 container>
                         <Grid2 sm={6} smOffset={6} sx={{textAlign: 'right'}}>
-                            <Button sx={{textTransform: 'none', marginTop: '16px'}}
+                            <Button sx={{marginTop: '16px'}}
                                     onClick={() => {
                                         setShowFieldDefinition(true);
                                     }}>Back to Field Definition</Button>
@@ -236,10 +235,8 @@ export default function MultivariateNormalDialog() {
                 </DialogContent>
             }
             <DialogActions>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleSubmit}>OK</Button>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={handleCloseDialog}>Cancel</Button>
+                <Button onClick={handleSubmit}>OK</Button>
+                <Button onClick={handleCloseDialog}>Cancel</Button>
             </DialogActions>
         </Dialog>
     );

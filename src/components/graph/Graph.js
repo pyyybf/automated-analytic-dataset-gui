@@ -107,12 +107,10 @@ export default function Graph() {
                 <Box>
                     {/*<GenerateFileBtn/>*/}
                     <Button variant="contained"
-                            sx={{textTransform: 'none'}}
                             startIcon={<UploadFileOutlinedIcon/>}
                             onClick={onGenerate}>Generate</Button>
                     <Button variant="outlined"
                             sx={{
-                                textTransform: 'none',
                                 marginLeft: '12px'
                             }}
                             startIcon={<RestartAltIcon/>}

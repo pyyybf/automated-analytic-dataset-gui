@@ -28,7 +28,6 @@ export default function Options() {
         padding: '18px',
     };
     const BUTTON_STYLE = {
-        textTransform: 'none',
         paddingY: '12px',
     };
     const BUTTON_LIST = [

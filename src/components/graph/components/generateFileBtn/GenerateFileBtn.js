@@ -51,10 +51,8 @@ export default function GenerateFileBtn() {
     return (
         <React.Fragment>
             <ButtonGroup variant="contained" ref={anchorRef}>
-                <Button sx={{textTransform: 'none'}}
-                        onClick={onGenerateFile}>Generate</Button>
+                <Button onClick={onGenerateFile}>Generate</Button>
                 <Button size="small"
-                        sx={{textTransform: 'none'}}
                         onClick={handleToggle}
                         endIcon={<ArrowDropDownIcon/>}
                 >.{format}</Button>
