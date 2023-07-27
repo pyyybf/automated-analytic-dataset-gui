@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+/*@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);*/
 
 header {
     display: flex;
@@ -6,17 +6,23 @@ header {
     height: 100%;
 }
 
-.header-item {
+.header-logo {
     display: flex;
     align-items: center;
     margin-left: 42px;
+    /*font-family: Montserrat, serif;*/
+    /*font-weight: bold;*/
 }
 
-.header-logo {
+.header-item {
+    display: flex;
+    align-items: center;
+}
+
+.header-item > :not(:first-child) {
+    margin-left: 12px;
+}
+
+.header-logo img {
     height: 70%;
-}
-
-.header-title {
-    font-family: Montserrat, serif;
-    font-weight: bold;
 }

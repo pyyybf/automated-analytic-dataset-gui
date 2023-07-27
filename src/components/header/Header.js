@@ -1,5 +1,6 @@
 import './Header.css';
-import {TextField} from "@mui/material";
+import {IconButton, TextField} from "@mui/material";
+import GitHubIcon from '@mui/icons-material/GitHub';
 import {useDispatch, useSelector} from "react-redux";
 import {setNumberOfRows} from "../../store/generator/generator.action";
 
@@ -9,9 +10,9 @@ export default function Header() {
 
     return (
         <header>
-            <div className="header-item">
+            <div className="header-logo">
                 {/*<h2 className="header-title">Predictor Matrix Definition</h2>*/}
-                <img className="header-logo" src={require('../../assets/autogen-logo.png')} alt="Autogen Logo"/>
+                <img src={require('../../assets/autogen-logo.png')} alt="Autogen Logo"/>
             </div>
             <div className="header-item">
                 <TextField label="Number of Rows"
@@ -21,6 +22,12 @@ export default function Header() {
                            onChange={e => {
                                dispatch(setNumberOfRows(e.target.value));
                            }}/>
+                <IconButton aria-label="github"
+                            color="primary"
+                            target="_blank"
+                            href="https://github.com/Faye-yufan/analytics-dataset/">
+                    <GitHubIcon/>
+                </IconButton>
             </div>
         </header>
     );
