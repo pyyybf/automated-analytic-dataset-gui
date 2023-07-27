@@ -20,12 +20,14 @@ function App() {
     const alertText = useSelector(state => state.generator.alertText);
     const alertType = useSelector(state => state.generator.alertType);
 
+    const HEADER_HEIGHT = 64;
+
     return (
         <div className="App">
             <Grid container sx={{height: '100vh', position: 'fixed'}}>
                 <Grid item xs={12}
                       sx={{
-                          height: '60px',
+                          height: `${HEADER_HEIGHT}px`,
                           width: '100%',
                           paddingX: '12px',
                           borderBottom: '1px #eeeeee solid',
@@ -33,7 +35,7 @@ function App() {
                     <Header/>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container sx={{height: 'calc(100vh - 60px)'}}>
+                    <Grid container sx={{height: `calc(100vh - ${HEADER_HEIGHT}px)`}}>
                         <Grid item xs={12} md={3} sx={{
                             padding: '16px 28px',
                             height: '100%',
