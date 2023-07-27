@@ -104,11 +104,11 @@ export default function ResponseVectorDialog() {
                         <FormControlLabel value={FIELD_TYPE_LIST.RESPONSE_VECTOR_POLYNOMIAL} control={<Radio/>} label="Polynomial"/>
                     </RadioGroup>
                 </FormControl>
-                <TextField size="small"
+                <TextField fullWidth
+                           size="small"
                            label="Response Name"
                            sx={{
                                marginTop: '12px',
-                               width: '100%',
                            }}
                            value={name}
                            onChange={e => {
@@ -182,18 +182,17 @@ export default function ResponseVectorDialog() {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                        <h5>Coefficients {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? '' : 'and orders of the polynomial'} of the
-                            linear
-                            model</h5>
+                        <h5>Coefficients {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? '' : 'and orders of the polynomial'} of
+                            the linear model</h5>
                         <Grid container spacing={1}>
                             <Grid item sm={4}
                                   sx={{
                                       marginTop: '12px',
                                   }}>Intercept</Grid>
                             <Grid item sm={8}>
-                                <TextField size="small"
+                                <TextField fullWidth
+                                           size="small"
                                            type="number"
-                                           sx={{width: '100%'}}
                                            value={intercept}
                                            onChange={e => {
                                                setIntercept(e.target.value);
@@ -207,10 +206,10 @@ export default function ResponseVectorDialog() {
                                           marginTop: '12px',
                                       }}>{field.name}</Grid>
                                 <Grid item sm={type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? 8 : 4}>
-                                    <TextField size="small"
+                                    <TextField fullWidth
+                                               size="small"
                                                label="Beta"
                                                type="number"
-                                               sx={{width: '100%'}}
                                                value={predictorList[field.name]?.beta || ''}
                                                onChange={e => {
                                                    let newPredictorList = {...predictorList};
@@ -226,10 +225,10 @@ export default function ResponseVectorDialog() {
                                 </Grid>
                                 {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? null :
                                     <Grid item sm={4}>
-                                        <TextField size="small"
+                                        <TextField fullWidth
+                                                   size="small"
                                                    label="Polynomial Order"
                                                    type="number"
-                                                   sx={{width: '100%'}}
                                                    InputProps={{
                                                        inputProps: {
                                                            max: 4,
@@ -260,12 +259,12 @@ export default function ResponseVectorDialog() {
                                         setShowInteractionTermBetas(true);
                                     }}>Enter Interaction Term Betas</Button>}
                     </React.Fragment>}
-                <TextField size="small"
+                <TextField fullWidth
+                           size="small"
                            type="number"
                            label="Epsilon Variance"
                            sx={{
                                marginTop: '24px',
-                               width: '100%',
                            }}
                            value={epsilonVariance}
                            onChange={e => {

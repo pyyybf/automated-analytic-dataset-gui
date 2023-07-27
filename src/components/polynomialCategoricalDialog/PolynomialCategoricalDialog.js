@@ -66,10 +66,10 @@ export default function PolynomialCategoricalDialog() {
                     <Grid container spacing={1} sx={{marginTop: '12px'}} key={index}>
                         <Grid item sm={4} sx={{marginTop: '12px'}}>{field.name}</Grid>
                         <Grid item sm={8}>
-                            <TextField size="small"
+                            <TextField fullWidth
+                                       size="small"
                                        label="Beta"
                                        type="number"
-                                       sx={{width: '100%'}}
                                        value={betas[field.name] || ''}
                                        onChange={e => {
                                            let newBetas = {...betas};

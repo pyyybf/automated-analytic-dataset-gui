@@ -59,10 +59,10 @@ export default function CategoricalDialog() {
             <DialogContent>
                 <Grid container sx={{marginTop: '12px'}}>
                     <Grid item sm={11}>
-                        <TextField variant="outlined"
+                        <TextField fullWidth
+                                   variant="outlined"
                                    size="small"
                                    label="Predictor Name"
-                                   sx={{width: '100%'}}
                                    value={predictorName}
                                    onChange={e => {
                                        setPredictorName(e.target.value);
@@ -72,9 +72,9 @@ export default function CategoricalDialog() {
                 {categoryList.map((category, index) =>
                     <Grid container spacing={1} sx={{marginTop: '12px'}} key={index}>
                         <Grid item sm={6}>
-                            <TextField size="small"
+                            <TextField fullWidth
+                                       size="small"
                                        label="Name"
-                                       sx={{width: '100%'}}
                                        value={category.name}
                                        onChange={e => {
                                            let newCategoryList = [...categoryList];
@@ -83,10 +83,10 @@ export default function CategoricalDialog() {
                                        }}></TextField>
                         </Grid>
                         <Grid item sm={5}>
-                            <TextField size="small"
+                            <TextField fullWidth
+                                       size="small"
                                        type="number"
                                        label="Probability"
-                                       sx={{width: '100%'}}
                                        value={category.prob}
                                        onChange={e => {
                                            let newCategoryList = [...categoryList];
