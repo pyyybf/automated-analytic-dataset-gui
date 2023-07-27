@@ -6,6 +6,7 @@ import {
     DialogTitle,
     FormControl,
     FormControlLabel,
+    FormHelperText,
     Grid,
     Radio,
     RadioGroup,
@@ -34,6 +35,7 @@ export default function ResponseVectorDialog() {
     const [epsilonVariance, setEpsilonVariance] = useState(0);
     const [showInteractionTermBetas, setShowInteractionTermBetas] = useState(false);
     const [interactionTermBetas, setInteractionTermBetas] = useState([]);
+    const [exponent, setExponent] = useState('');
 
     const handleCloseDialog = () => {
         dispatch(setShowResponseVectorDialog(false));
@@ -46,6 +48,7 @@ export default function ResponseVectorDialog() {
         setEpsilonVariance(0);
         setShowInteractionTermBetas(false);
         setInteractionTermBetas([]);
+        setExponent('');
     };
     const handleSubmit = () => {
         // validate
@@ -64,6 +67,7 @@ export default function ResponseVectorDialog() {
                 predictorList,
                 intercept: intercept || 0,
                 epsilonVariance: epsilonVariance || 0,
+                exponent,
             }));
         } else {
             let newInteractionTermBetas = [];
@@ -91,6 +95,7 @@ export default function ResponseVectorDialog() {
                 intercept: intercept || 0,
                 interactionTermBetas: newInteractionTermBetas,
                 epsilonVariance: epsilonVariance || 0,
+                exponent,
             }));
         }
         // clean and close dialog
@@ -127,7 +132,7 @@ export default function ResponseVectorDialog() {
                 {showInteractionTermBetas ?
                     <React.Fragment>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={3} lg={2} sx={{marginTop: '69px'}}>
+                            <Grid item xs={12} md={3} lg={2} sx={{marginTop: '60px'}}>
                                 {numericalFieldList.map((field, index) =>
                                     <Grid container sx={{height: '60px'}} key={index}>
                                         <Grid item xs={12} sx={{margin: 'auto'}}>{field.name}</Grid>
@@ -280,6 +285,23 @@ export default function ResponseVectorDialog() {
                            onChange={e => {
                                setEpsilonVariance(e.target.value);
                            }}></TextField>
+                <h5>Exponential Function</h5>
+                <FormControl fullWidth>
+                    <TextField fullWidth
+                               size="small"
+                               type="number"
+                               label="Exponent"
+                               value={exponent}
+                               onChange={e => {
+                                   setExponent(e.target.value);
+                               }}/>
+                    <FormHelperText>
+                        <span style={{
+                            fontFamily: '"Nimbus Roman No9 L", "Times New Roman", Times, serif',
+                            fontStyle: 'italic',
+                        }}>f(x) = exp(exponenet &times; x)</span>, empty means exponential function is not used
+                    </FormHelperText>
+                </FormControl>
             </DialogContent>
             <DialogActions>
                 <Button sx={{textTransform: 'none'}}

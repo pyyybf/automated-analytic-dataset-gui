@@ -392,9 +392,10 @@ const generatePolynomialCategorical = (name, betas) => {
  * @param predictorsMap {key: value}, key is predictor name, and value is an object only contains property beta
  * @param intercept number
  * @param epsilonVariance number
+ * @param exponent string, number or empty string
  * @return {string}
  */
-const generateResponseVectorLinear = (predictorsMap, intercept, epsilonVariance) => {
+const generateResponseVectorLinear = (predictorsMap, intercept, epsilonVariance, exponent) => {
     const funcPrefix = 'ad.generate_response_vector_linear(';
     let predictorList = [], beta = [intercept];
     for (let key in predictorsMap) {
@@ -409,6 +410,10 @@ const generateResponseVectorLinear = (predictorsMap, intercept, epsilonVariance)
     code += `\n${funcPrefix}predictor_name_list=predictor_name_list,`;
     code += `\n${' '.repeat(funcPrefix.length)}beta=beta,`;
     code += `\n${' '.repeat(funcPrefix.length)}epsilon_variance=eps_var)`;
+
+    if (exponent) {
+        code += `\nad.response_vector = np.exp(${exponent} * ad.response_vector)`;
+    }
     return code;
 };
 
@@ -421,9 +426,10 @@ const generateResponseVectorLinear = (predictorsMap, intercept, epsilonVariance)
  * @param intercept number
  * @param interactionTermBetas number[][]
  * @param epsilonVariance number
+ * @param exponent string, number or empty string
  * @return {string}
  */
-const generateResponseVectorPolynomial = (predictorsMap, intercept, interactionTermBetas, epsilonVariance) => {
+const generateResponseVectorPolynomial = (predictorsMap, intercept, interactionTermBetas, epsilonVariance, exponent) => {
     const funcPrefix = 'ad.generate_response_vector_polynomial(';
     let predictorList = [], beta = [intercept], polynomialOrder = [];
     for (let key in predictorsMap) {
@@ -444,6 +450,10 @@ const generateResponseVectorPolynomial = (predictorsMap, intercept, interactionT
     code += `\n${' '.repeat(funcPrefix.length)}beta=beta,`;
     code += `\n${' '.repeat(funcPrefix.length)}interaction_term_betas=int_matrix,`;
     code += `\n${' '.repeat(funcPrefix.length)}epsilon_variance=eps_var)`;
+
+    if (exponent) {
+        code += `\nad.response_vector = np.exp(${exponent} * ad.response_vector)`;
+    }
     return code;
 };
 
@@ -560,10 +570,13 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
 
     // response vector
     if (responseVector.type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR) {
-        code += `\n\n${generateResponseVectorLinear(responseVector.predictorList, responseVector.intercept, responseVector.epsilonVariance)}`;
+        code += `\n\n${generateResponseVectorLinear(responseVector.predictorList, responseVector.intercept, responseVector.epsilonVariance, responseVector.exponent)}`;
+        if (responseVector.exponent) {
+            importCode.push(IMPORT_NUMPY);
+        }
     } else {
         importCode.push(IMPORT_NUMPY);
-        code += `\n\n${generateResponseVectorPolynomial(responseVector.predictorList, responseVector.intercept, responseVector.interactionTermBetas, responseVector.epsilonVariance)}`;
+        code += `\n\n${generateResponseVectorPolynomial(responseVector.predictorList, responseVector.intercept, responseVector.interactionTermBetas, responseVector.epsilonVariance, responseVector.exponent)}`;
     }
 
     code = generateDef('generate_ad', {seed: 'None'}, code, 'ad');
