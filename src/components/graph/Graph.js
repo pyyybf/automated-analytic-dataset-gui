@@ -16,7 +16,7 @@ import {
     setFieldList,
     setShowCodeDialog
 } from "../../store/generator/generator.action";
-import FieldItem from "./components/fieldPaper/FieldPaper";
+import FieldItem from "./components/fieldItem/FieldItem";
 import {RESPONSE_VECTOR_TYPE_PRE} from "../../utils/codeGenerator";
 import {ALERT_DURATION} from "../../config";
 // import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
