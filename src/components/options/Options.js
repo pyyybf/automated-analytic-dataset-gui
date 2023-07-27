@@ -17,6 +17,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {Container, Draggable} from 'react-smooth-dnd';
 import {RESPONSE_VECTOR_TYPE_PRE} from "../../utils/codeGenerator";
+import {ALERT_DURATION} from "../../config";
 
 export default function Options() {
     const dispatch = useDispatch();
@@ -105,7 +106,7 @@ export default function Options() {
                     dispatch(setAlert(true, `Response Vector ${responseVector.name} exists!`));
                     setTimeout(() => {
                         dispatch(setAlert(false));
-                    }, 3000);
+                    }, ALERT_DURATION);
                 } else {
                     dispatch(setShowResponseVectorDialog(true));
                 }

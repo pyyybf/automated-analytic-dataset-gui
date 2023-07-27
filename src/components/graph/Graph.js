@@ -18,6 +18,7 @@ import {
 } from "../../store/generator/generator.action";
 import FieldItem from "./components/fieldPaper/FieldPaper";
 import {RESPONSE_VECTOR_TYPE_PRE} from "../../utils/codeGenerator";
+import {ALERT_DURATION} from "../../config";
 // import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
 
 export default function Graph() {
@@ -52,12 +53,12 @@ export default function Graph() {
             dispatch(setAlert(true, `Please add a Response Vector!`));
             setTimeout(() => {
                 dispatch(setAlert(false));
-            }, 3000);
+            }, ALERT_DURATION);
         } else if (fieldList.length === 0 && covarianceMatrix.length === 0) {
             dispatch(setAlert(true, "The definition can't be empty!"));
             setTimeout(() => {
                 dispatch(setAlert(false));
-            }, 3000);
+            }, ALERT_DURATION);
         } else {
             dispatch(generateCode(numberOfRows, fieldList, covarianceMatrix));
             dispatch(setShowCodeDialog(true));

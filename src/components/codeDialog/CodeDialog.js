@@ -12,6 +12,7 @@ import {useState} from "react";
 import {setAlert, setCode, setShowCodeDialog} from "../../store/generator/generator.action";
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import copy from 'copy-to-clipboard';
+import {ALERT_DURATION} from "../../config";
 
 export default function CodeDialog() {
     const dispatch = useDispatch();
@@ -43,7 +44,7 @@ export default function CodeDialog() {
         dispatch(setAlert(true, 'Copied to clipboard!', 'success'));
         setTimeout(() => {
             dispatch(setAlert(false, 'Copied to clipboard!', 'success'));
-        }, 3000);
+        }, ALERT_DURATION);
     };
     const handleDownload = () => {
         let link = document.createElement("a");

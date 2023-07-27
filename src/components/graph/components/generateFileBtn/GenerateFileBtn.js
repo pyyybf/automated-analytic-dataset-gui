@@ -6,6 +6,7 @@ import {
     generateFile,
     setAlert,
 } from "../../../../store/generator/generator.action";
+import {ALERT_DURATION} from "../../../../config";
 
 export default function GenerateFileBtn() {
     const dispatch = useDispatch();
@@ -43,7 +44,7 @@ export default function GenerateFileBtn() {
             dispatch(setAlert(true, err));
             setTimeout(() => {
                 dispatch(setAlert(false));
-            }, 3000)
+            }, ALERT_DURATION)
         });
     };
 

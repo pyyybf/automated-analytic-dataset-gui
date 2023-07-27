@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addUniqueIdentifier, setAlert, setShowUniformDialog} from "../../store/generator/generator.action";
 import {useState} from "react";
 import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
+import {ALERT_DURATION} from "../../config";
 
 export default function UniformDialog() {
     const dispatch = useDispatch();
@@ -34,14 +35,14 @@ export default function UniformDialog() {
             dispatch(setAlert(true, 'The name can\'t be empty!'));
             setTimeout(() => {
                 dispatch(setAlert(false));
-            }, 3000);
+            }, ALERT_DURATION);
             return;
         }
         if (Number(lowerBound) >= Number(upperBound)) {
             dispatch(setAlert(true, 'The upper bound should be no less than lower bound!'));
             setTimeout(() => {
                 dispatch(setAlert(false));
-            }, 3000);
+            }, ALERT_DURATION);
             return;
         }
         // submit the field data
