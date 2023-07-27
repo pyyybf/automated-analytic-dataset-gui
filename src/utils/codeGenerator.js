@@ -147,12 +147,17 @@ const stringArray = (arr = []) => {
  * Object => object string, {"key": value}
  *
  * @param mapping {key: value}
+ * @param valType string, 'string' | 'number'
  * @return {string}
  */
-const mappingObject = (mapping = {}) => {
+const mappingObject = (mapping = {}, valType = 'number') => {
+    const defaultVal = {
+        number: 0,
+        string: '""'
+    };
     let res = '{';
     for (let key of Object.keys(mapping)) {
-        res += `"${key || ""}": ${mapping[key]}, `;
+        res += `"${key || ""}": ${mapping[key] || defaultVal[valType]}, `;
     }
     if (Object.keys(mapping).length > 0) {
         res = res.substring(0, res.length - 2);
