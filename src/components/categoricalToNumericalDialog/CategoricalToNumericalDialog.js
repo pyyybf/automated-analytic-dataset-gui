@@ -44,7 +44,7 @@ export default function CategoricalToNumericalDialog() {
         setInplace(false);
     };
     const handleSubmit = () => {
-        // check validation
+        // validate
         if (categoricalPredictorIdx === -1) {
             dispatch(setAlert(true, 'Please choose a target categorical predictor!'));
             setTimeout(() => {

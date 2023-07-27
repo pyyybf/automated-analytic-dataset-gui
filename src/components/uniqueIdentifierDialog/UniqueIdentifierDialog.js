@@ -33,7 +33,7 @@ export default function UniqueIdentifierDialog() {
         setNumberOfDigits(6);
     };
     const handleSubmit = () => {
-        // check validation
+        // validate
         if (predictorName === '') {
             dispatch(setAlert(true, 'The name can\'t be empty!'));
             setTimeout(() => {

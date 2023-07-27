@@ -37,7 +37,7 @@ export default function PolynomialCategoricalDialog() {
         setBetas({});
     };
     const handleSubmit = () => {
-        // check validation
+        // validate
         if (predictorName === '') {
             dispatch(setAlert(true, 'The name can\'t be empty!'));
             setTimeout(() => {

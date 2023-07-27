@@ -33,7 +33,7 @@ export default function MulticollinearDialog() {
         setEpsilonVariance(0);
     };
     const handleSubmit = () => {
-        // check validation
+        // validate
         if (predictorName === '') {
             dispatch(setAlert(true, 'The name can\'t be empty!'));
             setTimeout(() => {

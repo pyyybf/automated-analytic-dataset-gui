@@ -33,7 +33,7 @@ export default function CategoricalDialog() {
         setCategoryList([...INITIAL_CATEGORY_LIST]);
     };
     const handleSubmit = () => {
-        // check validation
+        // validate
         if (predictorName === '') {
             dispatch(setAlert(true, 'The predictor name can\'t be empty!'));
             setTimeout(() => {

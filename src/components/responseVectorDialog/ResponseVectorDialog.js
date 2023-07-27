@@ -48,7 +48,7 @@ export default function ResponseVectorDialog() {
         setInteractionTermBetas([]);
     };
     const handleSubmit = () => {
-        // check validation
+        // validate
         if (predictorName === '') {
             dispatch(setAlert(true, 'The name can\'t be empty!'));
             setTimeout(() => {

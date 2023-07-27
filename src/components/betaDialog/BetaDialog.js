@@ -22,7 +22,7 @@ export default function BetaDialog() {
         setFieldList([...INITIAL_FIELD_LIST]);
     };
     const handleSubmit = () => {
-        // check validation
+        // validate
         for (let field of fieldList) {
             if (field.name === '') {
                 dispatch(setAlert(true, 'The name can\'t be empty!'));

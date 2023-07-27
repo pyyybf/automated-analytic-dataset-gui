@@ -30,7 +30,7 @@ export default function UniformDialog() {
         setUpperBound(1);
     };
     const handleSubmit = () => {
-        // check validation
+        // validate
         if (predictorName === '') {
             dispatch(setAlert(true, 'The name can\'t be empty!'));
             setTimeout(() => {
