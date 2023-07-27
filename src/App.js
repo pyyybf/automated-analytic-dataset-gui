@@ -22,20 +22,32 @@ function App() {
 
     return (
         <div className="App">
-            <Header/>
-            <Grid container sx={{height: 'calc(100vh - 61px)'}}>
-                <Grid item xs={12} md={3} sx={{
-                    padding: '16px 28px',
-                    height: '100%',
-                    overflowY: 'scroll'
-                }}>
-                    <Options/>
+            <Grid container sx={{height: '100vh', position: 'fixed'}}>
+                <Grid item xs={12}
+                      sx={{
+                          height: '60px',
+                          width: '100%',
+                          paddingX: '12px',
+                          borderBottom: '1px #eeeeee solid',
+                      }}>
+                    <Header/>
                 </Grid>
-                <Grid item xs={12} md={9} sx={{
-                    height: '100%',
-                    overflowY: 'scroll',
-                }}>
-                    <Graph/>
+                <Grid item xs={12}>
+                    <Grid container sx={{height: 'calc(100vh - 60px)'}}>
+                        <Grid item xs={12} md={3} sx={{
+                            padding: '16px 28px',
+                            height: '100%',
+                            overflowY: 'scroll'
+                        }}>
+                            <Options/>
+                        </Grid>
+                        <Grid item xs={12} md={9} sx={{
+                            height: '100%',
+                            overflowY: 'scroll',
+                        }}>
+                            <Graph/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
             <Snackbar open={alertOpen} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>

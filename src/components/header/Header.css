@@ -1,11 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 header {
-    border-bottom: 1px #eeeeee solid;
     display: flex;
     justify-content: space-between;
-    height: 60px;
-    padding: 0 12px;
+    height: 100%;
 }
 
 .header-item {
@@ -15,7 +13,7 @@ header {
 }
 
 .header-logo {
-    height: 75%;
+    height: 70%;
 }
 
 .header-title {
