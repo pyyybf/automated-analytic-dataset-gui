@@ -5,13 +5,14 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setCovarianceMatrix, setFieldList} from "../../../../store/generator/generator.action";
+import {setAlert, setCovarianceMatrix, setFieldList} from "../../../../store/generator/generator.action";
 import {
     CATEGORY_TYPE_LIST,
     FIELD_TYPE_LIST,
     NUMERIC_TYPE_LIST,
     RESPONSE_VECTOR_TYPE_PRE
 } from "../../../../utils/codeGenerator";
+import {ALERT_DURATION} from "../../../../config";
 
 export const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -30,6 +31,13 @@ export default function FieldItem(props) {
     const [currentName, setCurrentName] = useState(props.name);
 
     const handleEdit = () => {
+        if (currentName === '') {
+            dispatch(setAlert(true, 'The name can\'t be empty'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         let newFieldList = [...fieldList];
         const oldName = newFieldList[props.index].name;
         newFieldList[props.index].name = currentName;
