@@ -48,21 +48,31 @@ export default function Graph() {
         }
     };
     const onGenerate = () => {
+        // check duplicated names
+        if ([...new Set(fieldList.map(field => field.name))].length < fieldList.length) {
+            dispatch(setAlert(true, `The names can't be duplicated!`));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
+        if (fieldList.length === 0) {
+            dispatch(setAlert(true, "The definition can't be empty!"));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         const responseVector = fieldList.filter(field => field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE))[0] || null;
         if (responseVector === null) {
             dispatch(setAlert(true, `Please add a Response Vector!`));
             setTimeout(() => {
                 dispatch(setAlert(false));
             }, ALERT_DURATION);
-        } else if (fieldList.length === 0 && covarianceMatrix.length === 0) {
-            dispatch(setAlert(true, "The definition can't be empty!"));
-            setTimeout(() => {
-                dispatch(setAlert(false));
-            }, ALERT_DURATION);
-        } else {
-            dispatch(generateCode(numberOfRows, fieldList, covarianceMatrix));
-            dispatch(setShowCodeDialog(true));
+            return;
         }
+        dispatch(generateCode(numberOfRows, fieldList, covarianceMatrix));
+        dispatch(setShowCodeDialog(true));
     };
 
     return (
