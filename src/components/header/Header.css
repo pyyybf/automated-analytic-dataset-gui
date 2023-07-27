@@ -11,7 +11,7 @@ header {
 .header-item {
     display: flex;
     align-items: center;
-    margin-left: 28px;
+    margin-left: 42px;
 }
 
 .header-logo {
