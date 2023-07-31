@@ -111,10 +111,10 @@ export const setCode = (newVal) => {
     };
 };
 
-export const addUniqueIdentifier = (newUniqueIdentifier) => {
+export const addUniqueIdentifier = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER,
-        payload: [newUniqueIdentifier]
+        payload: [newVal]
     };
 };
 
@@ -146,52 +146,52 @@ export const addMultivariateNormal = (newMultivariateNormal, newCovarianceMatrix
     };
 };
 
-export const addUniform = (newUniform) => {
+export const addUniform = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIFORM,
-        payload: [newUniform]
+        payload: [newVal]
     };
 };
 
-export const addBeta = (newBeta) => {
+export const addBeta = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_BETA,
-        payload: newBeta
+        payload: newVal
     };
 };
 
-export const addCategorical = (newCategorical) => {
+export const addCategorical = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_CATEGORICAL,
-        payload: [newCategorical]
+        payload: [newVal]
     };
 };
 
-export const addCategoricalToNumerical = (newCategoricalToNumerical) => {
+export const addCategoricalToNumerical = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_CATEGORICAL_TO_NUMERICAL,
-        payload: [newCategoricalToNumerical]
+        payload: [newVal]
     };
 };
 
-export const addMulticollinear = (newMulticollinear) => {
+export const addMulticollinear = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_MULTICOLLINEAR,
-        payload: [newMulticollinear]
+        payload: [newVal]
     };
 };
 
-export const addPolynomialCategorical = (newPolynomialCategorical) => {
+export const addPolynomialCategorical = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_POLYNOMIAL_CATEGORICAL,
-        payload: [newPolynomialCategorical]
+        payload: [newVal]
     };
 };
 
-export const addResponseVector = (responseVector) => {
+export const addResponseVector = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_RESPONSE_VECTOR,
-        payload: [responseVector]
+        payload: [newVal]
     };
 };
 
@@ -216,7 +216,7 @@ export const generateCode = (numberOfRows = 1000, fieldList = [], covarianceMatr
     };
 };
 
-export const clearGraph = (numberOfRows = 1000, fieldList = [], covarianceMatrix = []) => {
+export const clearGraph = () => {
     return {
         type: GENERATOR_ACTION_TYPES.CLEAR_GRAPH,
     };
