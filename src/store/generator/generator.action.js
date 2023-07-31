@@ -6,91 +6,91 @@ export const setNumberOfRows = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_NUMBER_OF_ROWS,
         payload: newVal
-    }
+    };
 };
 
 export const setFieldList = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_FIELD_LIST,
         payload: newVal
-    }
+    };
 };
 
 export const setCovarianceMatrix = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_COVARIANCE_MATRIX,
         payload: newVal
-    }
+    };
 };
 
 export const setShowUniqueIdentifierDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_UNIQUE_IDENTIFIER_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowMultivariateNormalDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_MULTIVARIATE_NORMAL_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowUniformDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_UNIFORM_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowBetaDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_BETA_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowCategoricalDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_CATEGORICAL_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowCategoricalToNumericalDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_CATEGORICAL_TO_NUMERICAL_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowMultiCollinearDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_MULTICOLLINEAR_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowPolynomialCategoricalDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_POLYNOMIAL_CATEGORICAL_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowResponseVectorDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_RESPONSE_VECTOR_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setShowCodeDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_CODE_DIALOG,
         payload: val
-    }
+    };
 };
 
 export const setAlert = (open, text = '', type = 'error') => {
@@ -99,7 +99,7 @@ export const setAlert = (open, text = '', type = 'error') => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_ALERT,
         payload: payload
-    }
+    };
 };
 
 export const setCode = (newVal) => {
@@ -108,21 +108,21 @@ export const setCode = (newVal) => {
         payload: {
             code: newVal
         }
-    }
+    };
 };
 
 export const addUniqueIdentifier = (newUniqueIdentifier) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER,
         payload: [newUniqueIdentifier]
-    }
+    };
 };
 
 export const addName = () => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_NAME,
         payload: [{type: FIELD_TYPE_LIST.NAME, name: 'Name'}]
-    }
+    };
 };
 
 export const addAddress = (number) => {
@@ -133,7 +133,7 @@ export const addAddress = (number) => {
             {type: FIELD_TYPE_LIST.ADDRESS_CITY, name: 'City', groupNum: number},
             {type: FIELD_TYPE_LIST.ADDRESS_STATE, name: 'State', groupNum: number}
         ]
-    }
+    };
 };
 
 export const addMultivariateNormal = (newMultivariateNormal, newCovarianceMatrix) => {
@@ -143,56 +143,56 @@ export const addMultivariateNormal = (newMultivariateNormal, newCovarianceMatrix
             multivariateNormal: newMultivariateNormal,
             covarianceMatrix: newCovarianceMatrix
         }
-    }
+    };
 };
 
 export const addUniform = (newUniform) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_UNIFORM,
         payload: [newUniform]
-    }
+    };
 };
 
 export const addBeta = (newBeta) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_BETA,
         payload: newBeta
-    }
+    };
 };
 
 export const addCategorical = (newCategorical) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_CATEGORICAL,
         payload: [newCategorical]
-    }
+    };
 };
 
 export const addCategoricalToNumerical = (newCategoricalToNumerical) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_CATEGORICAL_TO_NUMERICAL,
         payload: [newCategoricalToNumerical]
-    }
+    };
 };
 
 export const addMulticollinear = (newMulticollinear) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_MULTICOLLINEAR,
         payload: [newMulticollinear]
-    }
+    };
 };
 
 export const addPolynomialCategorical = (newPolynomialCategorical) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_POLYNOMIAL_CATEGORICAL,
         payload: [newPolynomialCategorical]
-    }
+    };
 };
 
 export const addResponseVector = (responseVector) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_RESPONSE_VECTOR,
         payload: [responseVector]
-    }
+    };
 };
 
 export const generateFile = (data, format) => {
