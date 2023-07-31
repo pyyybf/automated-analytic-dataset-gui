@@ -31,10 +31,17 @@ export default function Options() {
         paddingY: '12px',
     };
     const BUTTON_LIST = [
+        // categorical
         {
             text: 'Unique Identifier',
             onClick: () => {
                 dispatch(setShowUniqueIdentifierDialog(true));
+            }
+        },
+        {
+            text: 'Category - General',
+            onClick: () => {
+                dispatch(setShowCategoricalDialog(true));
             }
         },
         {
@@ -49,16 +56,11 @@ export default function Options() {
                 dispatch(addAddress(addressGroupNum));
             }
         },
+        // numerical
         {
-            text: 'Multivariate Normal',
+            text: 'Multivariate Normal Distributed',
             onClick: () => {
                 dispatch(setShowMultivariateNormalDialog(true));
-            }
-        },
-        {
-            text: 'Category - General',
-            onClick: () => {
-                dispatch(setShowCategoricalDialog(true));
             }
         },
         // {
@@ -97,6 +99,7 @@ export default function Options() {
         //         dispatch(setShowPolynomialCategoricalDialog(true));
         //     }
         // },
+        // response
         {
             text: 'Response Vector',
             onClick: () => {
