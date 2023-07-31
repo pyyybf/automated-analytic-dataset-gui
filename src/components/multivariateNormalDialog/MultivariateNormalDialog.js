@@ -188,35 +188,25 @@ export default function MultivariateNormalDialog() {
                                                       padding: '0'
                                                   }}>
                                             {row.map((col, colIndex) =>
-                                                colIndex < row.length - index ?
-                                                    <TableCell key={colIndex}
-                                                               component="td"
-                                                               scope="row"
-                                                               align="center"
-                                                               sx={{border: '1px lightgray solid', padding: '0 12px'}}>
-                                                        <TextField variant="standard"
-                                                                   size="small"
-                                                                   type="number"
-                                                                   sx={{width: '60px'}}
-                                                                   value={col}
-                                                                   onChange={e => {
-                                                                       let newCovarianceMatrix = [];
-                                                                       for (let i = 0; i < covarianceMatrix.length; i++) {
-                                                                           newCovarianceMatrix.push([...covarianceMatrix[i]]);
-                                                                       }
-                                                                       newCovarianceMatrix[index][colIndex] = e.target.value;
-                                                                       setCovarianceMatrix(newCovarianceMatrix);
-                                                                   }}/>
-                                                    </TableCell> :
-                                                    <TableCell key={colIndex}
-                                                               component="td"
-                                                               scope="row"
-                                                               align="center"
-                                                               sx={{
-                                                                   backgroundColor: 'lightgray',
-                                                                   border: '1px lightgray solid',
-                                                                   padding: '0 12px'
-                                                               }}></TableCell>
+                                                <TableCell key={colIndex}
+                                                           component="td"
+                                                           scope="row"
+                                                           align="center"
+                                                           sx={{border: '1px lightgray solid', padding: '0 12px'}}>
+                                                    <TextField variant="standard"
+                                                               size="small"
+                                                               type="number"
+                                                               sx={{width: '60px'}}
+                                                               value={col}
+                                                               onChange={e => {
+                                                                   let newCovarianceMatrix = [];
+                                                                   for (let i = 0; i < covarianceMatrix.length; i++) {
+                                                                       newCovarianceMatrix.push([...covarianceMatrix[i]]);
+                                                                   }
+                                                                   newCovarianceMatrix[index][colIndex] = e.target.value;
+                                                                   setCovarianceMatrix(newCovarianceMatrix);
+                                                               }}/>
+                                                </TableCell>
                                             )}
                                         </TableRow>
                                     ))}
