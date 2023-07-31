@@ -16,7 +16,7 @@ import {
     setFieldList,
     setShowCodeDialog
 } from "../../store/generator/generator.action";
-import FieldItem from "./components/fieldItem/FieldItem";
+import FieldPaper from "./components/fieldItem/FieldPaper";
 import {RESPONSE_VECTOR_TYPE_PRE} from "../../utils/codeGenerator";
 import {ALERT_DURATION} from "../../config";
 // import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
@@ -96,7 +96,7 @@ export default function Graph() {
                                     bgcolor: 'transparent',
                                     display: 'grid',
                                 }}>
-                                    <FieldItem index={index} name={field.name}></FieldItem>
+                                    <FieldPaper index={index} field={field}></FieldPaper>
                                 </Box>
                             </Draggable>
                         ))}

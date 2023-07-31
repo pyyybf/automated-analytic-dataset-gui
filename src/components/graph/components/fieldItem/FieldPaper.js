@@ -22,13 +22,13 @@ export const Item = styled(Paper)(({theme}) => ({
     lineHeight: '60px',
 }));
 
-export default function FieldItem(props) {
+export default function FieldPaper(props) {
     const dispatch = useDispatch();
     const fieldList = useSelector(state => state.generator.fieldList);
     const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
 
     const [edit, setEdit] = useState(false);
-    const [currentName, setCurrentName] = useState(props.name);
+    const [currentName, setCurrentName] = useState(props.field.name);
 
     const handleEdit = () => {
         if (currentName === '') {
@@ -129,7 +129,7 @@ export default function FieldItem(props) {
                                         onClick={handleEdit}>
                                 <CheckIcon/>
                             </IconButton>
-                            <IconButton aria-label="close"
+                            <IconButton aria-label="cancel"
                                         onClick={() => {
                                             setEdit(false);
                                         }}>
@@ -139,13 +139,13 @@ export default function FieldItem(props) {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                        <h3>{props.name}</h3>
+                        <h3>{props.field.name}</h3>
                         <Box>
                             <IconButton aria-label="edit"
                                         color="primary"
                                         onClick={() => {
                                             setEdit(true);
-                                            setCurrentName(props.name);
+                                            setCurrentName(props.field.name);
                                         }}>
                                 <EditOutlinedIcon/>
                             </IconButton>
