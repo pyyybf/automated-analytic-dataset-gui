@@ -470,7 +470,7 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     const responseVector = fieldList.filter(field => field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE))[0] || null;
 
     // init dataframe and import code
-    let code = `ad = AnalyticsDataframe(${numberOfRows}, ${fieldList.length - 1}, ${stringArray(fieldList.filter(field => !field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE)).map(field => field.name))}, "${responseVector.name}", seed=seed)`;
+    let code = `ad = AnalyticsDataframe(${numberOfRows}, ${fieldList.length - 1}, ${stringArray(fieldList.filter(field => !field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE)).map(field => field.name))}, "${responseVector.name}", seed=seed)\n`;
     let importCode = [IMPORT_ANALYTICS_DF];
 
     // unique identifier
