@@ -82,7 +82,7 @@ export default function Options() {
             }
         },
         {
-            text: 'Category to Numerical',
+            text: 'Categorical to Numerical',
             onClick: () => {
                 dispatch(setShowCategoricalToNumericalDialog(true));
             }
