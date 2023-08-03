@@ -41,6 +41,7 @@ export default function CategoricalDialog() {
             }, ALERT_DURATION);
             return;
         }
+        let categoryNameList = [];
         for (let category of categoryList) {
             if (category.name === '') {
                 dispatch(setAlert(true, 'The category name can\'t be empty!'));
@@ -48,7 +49,20 @@ export default function CategoricalDialog() {
                     dispatch(setAlert(false));
                 }, ALERT_DURATION);
                 return;
+            } else if (categoryNameList.includes(category.name)) {
+                dispatch(setAlert(true, `The category name ${category.name} repeated!`));
+                setTimeout(() => {
+                    dispatch(setAlert(false));
+                }, ALERT_DURATION);
+                return;
+            } else if (category.prob < 0) {
+                dispatch(setAlert(true, 'The probability of a category should be no less than 0!'));
+                setTimeout(() => {
+                    dispatch(setAlert(false));
+                }, ALERT_DURATION);
+                return;
             }
+            categoryNameList.push(category.name);
         }
         if (categoryList.reduce((acc, val) => acc + Number(val.prob), 0) <= 0) {
             dispatch(setAlert(true, 'The sum of probabilities should be greater than 0!'));
@@ -114,7 +128,7 @@ export default function CategoricalDialog() {
                                        value={category.prob}
                                        InputProps={{
                                            inputProps: {
-                                               min: 1
+                                               min: 0
                                            }
                                        }}
                                        onChange={e => {
