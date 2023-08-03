@@ -61,7 +61,7 @@ export default function BetaDialog() {
                         <Grid item sm={5}>
                             <TextField fullWidth
                                        size="small"
-                                       label="Name"
+                                       label="Predictor Name"
                                        value={field.name}
                                        onChange={e => {
                                            let newFieldList = [...fieldList];

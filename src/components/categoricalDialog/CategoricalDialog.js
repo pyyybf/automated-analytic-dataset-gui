@@ -98,7 +98,7 @@ export default function CategoricalDialog() {
                         <Grid item sm={6}>
                             <TextField fullWidth
                                        size="small"
-                                       label="Name"
+                                       label="Category Name"
                                        value={category.name}
                                        onChange={e => {
                                            let newCategoryList = [...categoryList];

@@ -112,7 +112,7 @@ export default function MultivariateNormalDialog() {
                                   }}>Field {index + 1}</Grid>
                             <Grid item sm={5}>
                                 <TextField size="small"
-                                           label="Name"
+                                           label="Predictor Name"
                                            value={field.name}
                                            onChange={e => {
                                                let newFieldList = [...fieldList];
@@ -166,7 +166,7 @@ export default function MultivariateNormalDialog() {
                                           }}>Field {index + 1}</Grid>
                                     <Grid item sm={8}>
                                         <TextField size="small"
-                                                   label="Name"
+                                                   label="Predictor Name"
                                                    value={field.name}
                                                    onChange={e => {
                                                        let newFieldList = [...fieldList];

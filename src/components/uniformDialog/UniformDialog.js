@@ -62,7 +62,7 @@ export default function UniformDialog() {
             <DialogTitle>Uniformly Distributed</DialogTitle>
             <DialogContent>
                 <TextField variant="outlined"
-                           label="Name"
+                           label="Predictor Name"
                            sx={{marginTop: '12px', width: '100%'}}
                            value={predictorName}
                            onChange={e => {

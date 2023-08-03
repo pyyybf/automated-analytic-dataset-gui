@@ -139,8 +139,12 @@ export default function FieldPaper(props) {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                        <h3>{props.field.name}</h3>
-                        <Box>
+                        <h3 style={{
+                            width: 'calc(100% - 80px)',
+                            overflowX: 'auto',
+                            textAlign: 'left'
+                        }}>{props.field.name}</h3>
+                        <Box sx={{position: 'absolute', right: '24px'}}>
                             <IconButton aria-label="edit"
                                         color="primary"
                                         onClick={() => {

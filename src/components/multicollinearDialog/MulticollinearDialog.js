@@ -67,7 +67,7 @@ export default function MulticollinearDialog() {
                                setPredictorName(e.target.value);
                            }}/>
                 <Grid container spacing={1} sx={{marginTop: '12px'}}>
-                    <Grid item sm={4}>Intercept</Grid>
+                    <Grid item sm={4} sx={{marginTop: '12px'}}>Intercept</Grid>
                     <Grid item sm={8}>
                         <TextField fullWidth
                                    size="small"
@@ -80,7 +80,7 @@ export default function MulticollinearDialog() {
                 </Grid>
                 {numericalFieldList.map((field, index) =>
                     <Grid container spacing={1} sx={{marginTop: '12px'}} key={index}>
-                        <Grid item sm={4} sx={{marginTop: '12px'}}>{field.name}</Grid>
+                        <Grid item sm={4} sx={{marginTop: '12px', overflowX: 'auto'}}>{field.name}</Grid>
                         <Grid item sm={8}>
                             <TextField fullWidth
                                        size="small"
