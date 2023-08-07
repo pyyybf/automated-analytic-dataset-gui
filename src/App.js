@@ -14,13 +14,12 @@ import PolynomialCategoricalDialog from "./components/polynomialCategoricalDialo
 import ResponseVectorDialog from "./components/responseVectorDialog/ResponseVectorDialog";
 import CodeDialog from "./components/codeDialog/CodeDialog";
 import {useSelector} from "react-redux";
+import {HEADER_HEIGHT} from "./config";
 
 function App() {
     const alertOpen = useSelector(state => state.generator.alertOpen);
     const alertText = useSelector(state => state.generator.alertText);
     const alertType = useSelector(state => state.generator.alertType);
-
-    const HEADER_HEIGHT = 64;
 
     return (
         <div className="App">
