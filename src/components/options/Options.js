@@ -76,7 +76,7 @@ export default function Options() {
             }
         },
         {
-            text: 'Beta',
+            text: 'Beta Distributed',
             onClick: () => {
                 dispatch(setShowBetaDialog(true));
             }
