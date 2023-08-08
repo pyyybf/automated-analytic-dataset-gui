@@ -14,7 +14,7 @@ export const generateFileAPI = (data, format) => {
 
 export const generateDataAPI = (code, importCode, format) => {
     return HttpRequest.request({
-        url: `${api.generatorPre}/run`,
+        url: `${api.generatorPre}/data`,
         method: 'POST',
         data: {code, importCode, format}
     });
