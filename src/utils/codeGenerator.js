@@ -317,9 +317,9 @@ const generateCategorical = (name, categoryNames, probVector) => {
  * @return {string}
  */
 const generateCategoricalToNumerical = (name, target, categoricalMapping = {}, inplace = false) => {
-    let code = `categorical_mapping = ${mappingObject(categoricalMapping)}`;
+    let code = `categorical_mapping_${target} = ${mappingObject(categoricalMapping)}`;
     const funcPrefix = `ad.predictor_matrix["${name}"] = ad.predictor_matrix.replace(`;
-    code += `\n${funcPrefix}{"${target}": categorical_mapping},`;
+    code += `\n${funcPrefix}{"${target}": categorical_mapping_${target}},`;
     code += `\n${' '.repeat(funcPrefix.length)}inplace=${booleanString(inplace)})["${target}"]`;
     // code += `\nprint(ad.predictor_matrix)`;
     return code;
