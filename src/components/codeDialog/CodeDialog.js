@@ -18,10 +18,10 @@ import {
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {useDispatch, useSelector} from "react-redux";
 import React, {useRef, useState} from "react";
-import {generateData, setAlert, setCode, setShowCodeDialog} from "../../store/generator/generator.action";
+import {generateData, setAlert, setCode, setShowCodeDialog} from "@/store/generator/generator.action";
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import copy from 'copy-to-clipboard';
-import {ALERT_DURATION} from "../../config";
+import {ALERT_DURATION} from "@/config";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 export default function CodeDialog() {

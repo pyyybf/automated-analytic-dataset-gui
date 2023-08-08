@@ -1,11 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
-import {addBeta, setAlert, setShowBetaDialog} from "../../store/generator/generator.action";
+import {addBeta, setAlert, setShowBetaDialog} from "@/store/generator/generator.action";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, TextField} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
-import {ALERT_DURATION} from "../../config";
+import {FIELD_TYPE_LIST} from "@/utils/codeGenerator";
+import {ALERT_DURATION} from "@/config";
 
 export default function BetaDialog() {
     const dispatch = useDispatch();

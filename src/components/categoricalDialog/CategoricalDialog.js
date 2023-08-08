@@ -11,10 +11,10 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useDispatch, useSelector} from "react-redux";
-import {addCategorical, setAlert, setShowCategoricalDialog} from "../../store/generator/generator.action";
+import {addCategorical, setAlert, setShowCategoricalDialog} from "@/store/generator/generator.action";
 import React, {useState} from "react";
-import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
-import {ALERT_DURATION} from "../../config";
+import {FIELD_TYPE_LIST} from "@/utils/codeGenerator";
+import {ALERT_DURATION} from "@/config";
 
 export default function CategoricalDialog() {
     const dispatch = useDispatch();

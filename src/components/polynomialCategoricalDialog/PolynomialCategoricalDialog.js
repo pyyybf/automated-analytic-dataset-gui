@@ -2,9 +2,9 @@ import {
     addPolynomialCategorical,
     setAlert,
     setShowPolynomialCategoricalDialog
-} from "../../store/generator/generator.action";
+} from "@/store/generator/generator.action";
 import {useDispatch, useSelector} from "react-redux";
-import {CATEGORY_TYPE_LIST, FIELD_TYPE_LIST} from "../../utils/codeGenerator";
+import {CATEGORY_TYPE_LIST, FIELD_TYPE_LIST} from "@/utils/codeGenerator";
 import React, {useState} from "react";
 import {
     Button,
@@ -19,7 +19,7 @@ import {
     Select,
     TextField,
 } from "@mui/material";
-import {ALERT_DURATION} from "../../config";
+import {ALERT_DURATION} from "@/config";
 
 export default function PolynomialCategoricalDialog() {
     const dispatch = useDispatch();

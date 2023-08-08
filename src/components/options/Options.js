@@ -13,11 +13,11 @@ import {
     setShowResponseVectorDialog,
     setShowUniformDialog,
     setShowUniqueIdentifierDialog
-} from "../../store/generator/generator.action";
+} from "@/store/generator/generator.action";
 import {useDispatch, useSelector} from "react-redux";
 import {Container, Draggable} from 'react-smooth-dnd';
-import {RESPONSE_VECTOR_TYPE_PRE} from "../../utils/codeGenerator";
-import {ALERT_DURATION} from "../../config";
+import {RESPONSE_VECTOR_TYPE_PRE} from "@/utils/codeGenerator";
+import {ALERT_DURATION} from "@/config";
 
 export default function Options() {
     const dispatch = useDispatch();

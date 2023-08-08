@@ -15,10 +15,10 @@ import {
     setAlert,
     setFieldList,
     setShowCodeDialog
-} from "../../store/generator/generator.action";
+} from "@/store/generator/generator.action";
 import FieldPaper from "./components/fieldItem/FieldPaper";
-import {RESPONSE_VECTOR_TYPE_PRE} from "../../utils/codeGenerator";
-import {ALERT_DURATION} from "../../config";
+import {RESPONSE_VECTOR_TYPE_PRE} from "@/utils/codeGenerator";
+import {ALERT_DURATION} from "@/config";
 // import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
 
 export default function Graph() {

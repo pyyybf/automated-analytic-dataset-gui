@@ -19,10 +19,10 @@ import {
     TextField,
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {addResponseVector, setAlert, setShowResponseVectorDialog} from "../../store/generator/generator.action";
+import {addResponseVector, setAlert, setShowResponseVectorDialog} from "@/store/generator/generator.action";
 import React, {useState} from "react";
-import {FIELD_TYPE_LIST, NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
-import {ALERT_DURATION} from "../../config";
+import {FIELD_TYPE_LIST, NUMERIC_TYPE_LIST} from "@/utils/codeGenerator";
+import {ALERT_DURATION} from "@/config";
 
 export default function ResponseVectorDialog() {
     const dispatch = useDispatch();

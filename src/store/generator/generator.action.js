@@ -1,6 +1,6 @@
 import {GENERATOR_ACTION_TYPES} from "./generator.type";
-import {generateFileAPI, generateDataAPI} from "../../api/generator";
-import generate, {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
+import {generateFileAPI, generateDataAPI} from "@/api/generator";
+import generate, {FIELD_TYPE_LIST} from "@/utils/codeGenerator";
 
 export const setNumberOfRows = (newVal) => {
     return {

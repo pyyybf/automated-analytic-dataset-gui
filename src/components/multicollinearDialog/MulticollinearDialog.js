@@ -8,10 +8,10 @@ import {
     TextField,
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {addMulticollinear, setAlert, setShowMultiCollinearDialog} from "../../store/generator/generator.action";
-import {FIELD_TYPE_LIST, NUMERIC_TYPE_LIST} from "../../utils/codeGenerator";
+import {addMulticollinear, setAlert, setShowMultiCollinearDialog} from "@/store/generator/generator.action";
+import {FIELD_TYPE_LIST, NUMERIC_TYPE_LIST} from "@/utils/codeGenerator";
 import React, {useState} from "react";
-import {ALERT_DURATION} from "../../config";
+import {ALERT_DURATION} from "@/config";
 
 export default function MulticollinearDialog() {
     const dispatch = useDispatch();

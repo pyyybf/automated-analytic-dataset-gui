@@ -4,7 +4,7 @@ import {
     addCategoricalToNumerical,
     setAlert,
     setShowCategoricalToNumericalDialog
-} from "../../store/generator/generator.action";
+} from "@/store/generator/generator.action";
 import {
     Button,
     Checkbox,
@@ -21,8 +21,8 @@ import {
     Select,
     TextField,
 } from "@mui/material";
-import {FIELD_TYPE_LIST} from "../../utils/codeGenerator";
-import {ALERT_DURATION} from "../../config";
+import {FIELD_TYPE_LIST} from "@/utils/codeGenerator";
+import {ALERT_DURATION} from "@/config";
 
 export default function CategoricalToNumericalDialog() {
     const dispatch = useDispatch();

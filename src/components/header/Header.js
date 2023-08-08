@@ -2,7 +2,7 @@ import './Header.css';
 import {IconButton, TextField} from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import {useDispatch, useSelector} from "react-redux";
-import {setNumberOfRows} from "../../store/generator/generator.action";
+import {setNumberOfRows} from "@/store/generator/generator.action";
 
 export default function Header() {
     const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export default function Header() {
         <header>
             <div className="header-logo">
                 {/*<h2 className="header-title">Predictor Matrix Definition</h2>*/}
-                <img src={require('../../assets/autogen-logo.png')} alt="Autogen Logo"/>
+                <img src={require('@/assets/autogen-logo.png')} alt="Autogen Logo"/>
             </div>
             <div className="header-item">
                 <TextField label="Number of Rows"
