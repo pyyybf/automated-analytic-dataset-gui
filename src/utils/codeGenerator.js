@@ -94,15 +94,11 @@ const booleanString = (bool = false) => {
  * @return {string}
  */
 const numberArray = (arr = []) => {
-    let res = '[';
+    let arrStr = [];
     for (let item of arr) {
-        res += `${Number(item) || 0}, `;
+        arrStr.push(Number(item) || 0);
     }
-    if (arr.length > 0) {
-        res = res.substring(0, res.length - 2);
-    }
-    res += ']';
-    return res;
+    return `[${arrStr.join(', ')}]`;
 };
 
 /**
@@ -114,15 +110,11 @@ const numberArray = (arr = []) => {
  */
 const numberArray2Dim = (arr = [], prefixLen = 0) => {
     const space = prefixLen + 1;  // plus 1 for the first [
-    let res = '[';
+    let arrStr = [];
     for (let arrItem of arr) {
-        res += `${numberArray(arrItem)},\n${' '.repeat(space)}`;
+        arrStr.push(numberArray(arrItem));
     }
-    if (arr.length > 0) {
-        res = res.substring(0, res.length - 2 - space);
-    }
-    res += ']';
-    return res;
+    return `[${arrStr.join(`,\n${' '.repeat(space)}`)}]`;
 };
 
 /**
@@ -132,15 +124,11 @@ const numberArray2Dim = (arr = [], prefixLen = 0) => {
  * @return {string}
  */
 const stringArray = (arr = []) => {
-    let res = '[';
+    let arrStr = [];
     for (let item of arr) {
-        res += `"${item || ""}", `;
+        arrStr.push(`"${item || ''}"`);
     }
-    if (arr.length > 0) {
-        res = res.substring(0, res.length - 2);
-    }
-    res += ']';
-    return res;
+    return `[${arrStr.join(', ')}]`;
 };
 
 /**
@@ -155,15 +143,11 @@ const mappingObject = (mapping = {}, valType = 'number') => {
         number: 0,
         string: '""'
     };
-    let res = '{';
+    let objStr = [];
     for (let key of Object.keys(mapping)) {
-        res += `"${key || ""}": ${mapping[key] || defaultVal[valType]}, `;
+        objStr.push(`"${key || ""}": ${mapping[key] || defaultVal[valType]}`);
     }
-    if (Object.keys(mapping).length > 0) {
-        res = res.substring(0, res.length - 2);
-    }
-    res += '}';
-    return res;
+    return `{${objStr.join(', ')}}`;
 };
 
 /**
@@ -256,7 +240,7 @@ const generateDef = (funcName, params, body, result) => {
  * @param numberOfDigits
  * @return {`# need an unique identifier ${string}`}
  */
-const generateUniqueIdentifier = (name, alphanumeric = 'alphanumeric', numberOfDigits = 6) => {
+const generateUniqueIdentifier = (name = '', alphanumeric = 'alphanumeric', numberOfDigits = 6) => {
     return `# need an unique identifier ${name}`;
 };
 
@@ -269,7 +253,7 @@ const generateUniqueIdentifier = (name, alphanumeric = 'alphanumeric', numberOfD
  * @param count number, current count suffix of covariance_matrix
  * @return {string}
  */
-const generateMultivariateNormal = (multivariateNormalList, covarianceMatrix, count) => {
+const generateMultivariateNormal = (multivariateNormalList = [], covarianceMatrix = [[]], count = 1) => {
     const suffix = count > 1 ? count : '';
 
     // generate covariance_matrix
