@@ -38,7 +38,7 @@ function App() {
                         <Grid item xs={12} md={3} sx={{
                             padding: '16px 28px',
                             height: '100%',
-                            overflowY: 'scroll'
+                            overflowY: 'scroll',
                         }}>
                             <Options/>
                         </Grid>
