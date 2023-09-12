@@ -1,5 +1,4 @@
 import {GENERATOR_ACTION_TYPES} from "./generator.type";
-import {generateFileAPI, generateDataAPI} from "@/api/generator";
 import generate, {FIELD_TYPE_LIST} from "@/utils/codeGenerator";
 
 export const setNumberOfRows = (newVal) => {
@@ -193,34 +192,6 @@ export const addResponseVector = (newVal) => {
         type: GENERATOR_ACTION_TYPES.ADD_RESPONSE_VECTOR,
         payload: [newVal]
     };
-};
-
-export const generateFile = (data, format) => {
-    return new Promise((resolve, reject) => {
-        generateFileAPI(data, format).then(response => {
-            if (response.data.hasOwnProperty('success') && !response.data.success) {
-                reject(response.data.message);
-            } else {
-                resolve(response.data);
-            }
-        }).catch(error => {
-            reject(error.message);
-        });
-    });
-};
-
-export const generateData = (code, importCode, format) => {
-    return new Promise((resolve, reject) => {
-        generateDataAPI(code, importCode, format).then(response => {
-            if (response.data.success) {
-                resolve(response.data.content);
-            } else {
-                reject(response.data.message);
-            }
-        }).catch(error => {
-            reject(error.message);
-        });
-    });
 };
 
 export const generateCode = (numberOfRows = 1000, fieldList = [], covarianceMatrix = []) => {

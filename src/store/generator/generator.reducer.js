@@ -1,6 +1,6 @@
 import {GENERATOR_ACTION_TYPES} from './generator.type';
 
-export const GENERATOR_INITIAL_STATE = {
+const GENERATOR_INITIAL_STATE = {
     numberOfRows: 1000,
     fieldList: [],
     covarianceMatrix: {},
