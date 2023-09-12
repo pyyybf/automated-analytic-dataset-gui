@@ -60,6 +60,13 @@ export default function ResponseVectorDialog() {
             }, ALERT_DURATION);
             return;
         }
+        if (Object.keys(predictorList).length === 0) {
+            dispatch(setAlert(true, 'Please combine at least one field!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         // submit the field data
         let checkedPredictorList = {};
         for (let field of numericalFieldList) {

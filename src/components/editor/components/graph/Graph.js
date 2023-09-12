@@ -4,7 +4,8 @@ import {
     Box,
     Button,
     Grid,
-    Snackbar
+    Snackbar,
+    TextField,
 } from "@mui/material";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
@@ -14,12 +15,12 @@ import {
     generateCode,
     setAlert,
     setFieldList,
+    setNumberOfRows,
     setShowCodeDialog
 } from "@/store/generator/generator.action";
 import FieldPaper from "./components/fieldItem/FieldPaper";
 import {RESPONSE_VECTOR_TYPE_PRE} from "@/utils/codeGenerator";
 import {ALERT_DURATION} from "@/config";
-// import GenerateFileBtn from "./components/generateFileBtn/GenerateFileBtn";
 
 export default function Graph() {
     const dispatch = useDispatch();
@@ -105,8 +106,17 @@ export default function Graph() {
             </Grid>
             <Snackbar open transitionDuration={0} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Box>
-                    {/*<GenerateFileBtn/>*/}
+                    <TextField size="small"
+                               label="Number of Rows"
+                               type="number"
+                               value={numberOfRows}
+                               onChange={e => {
+                                   dispatch(setNumberOfRows(e.target.value));
+                               }}/>
                     <Button variant="contained"
+                            sx={{
+                                marginLeft: '12px'
+                            }}
                             startIcon={<UploadFileOutlinedIcon/>}
                             onClick={onGenerate}>Generate</Button>
                     <Button variant="outlined"

@@ -41,6 +41,13 @@ export default function MulticollinearDialog() {
             }, ALERT_DURATION);
             return;
         }
+        if (Object.keys(predictorList).length === 0) {
+            dispatch(setAlert(true, 'Please combine at least one field!'));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+            return;
+        }
         // submit the field data
         dispatch(addMulticollinear({
             type: FIELD_TYPE_LIST.MULTICOLLINEAR,

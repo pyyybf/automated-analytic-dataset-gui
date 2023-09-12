@@ -16,7 +16,7 @@ import {
 } from "@/store/generator/generator.action";
 import {useDispatch, useSelector} from "react-redux";
 import {Container, Draggable} from 'react-smooth-dnd';
-import {RESPONSE_VECTOR_TYPE_PRE} from "@/utils/codeGenerator";
+import {NUMERIC_TYPE_LIST, RESPONSE_VECTOR_TYPE_PRE} from "@/utils/codeGenerator";
 import {ALERT_DURATION} from "@/config";
 
 export default function Options() {
@@ -90,6 +90,14 @@ export default function Options() {
         {
             text: 'Multicollinear',
             onClick: () => {
+                // check if numeric column exists
+                if (fieldList.filter(field => NUMERIC_TYPE_LIST.includes(field.type)).length === 0) {
+                    dispatch(setAlert(true, `Please add a numeric field first!`));
+                    setTimeout(() => {
+                        dispatch(setAlert(false));
+                    }, ALERT_DURATION);
+                    return;
+                }
                 dispatch(setShowMultiCollinearDialog(true));
             }
         },
