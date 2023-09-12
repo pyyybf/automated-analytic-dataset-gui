@@ -10,8 +10,6 @@ header {
     display: flex;
     align-items: center;
     margin-left: 42px;
-    /*font-family: Montserrat, serif;*/
-    /*font-weight: bold;*/
 }
 
 .header-item {
