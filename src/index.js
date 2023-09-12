@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import store from './store/index';
 import {createTheme, ThemeProvider} from "@mui/material";
 import {amber} from "@mui/material/colors";
+import {BrowserRouter} from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -35,7 +36,9 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <App/>
+                <BrowserRouter basename="/automated-dataset-generation">
+                    <App/>
+                </BrowserRouter>
             </ThemeProvider>
         </Provider>
     </React.StrictMode>
