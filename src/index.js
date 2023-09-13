@@ -9,6 +9,7 @@ import store from './store/index';
 import {createTheme, ThemeProvider} from "@mui/material";
 import {amber} from "@mui/material/colors";
 import {BrowserRouter} from "react-router-dom";
+import {BASE_FRONTEND_URL} from "@/config";
 
 const theme = createTheme({
     palette: {
@@ -36,7 +37,7 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <BrowserRouter basename="/automated-dataset-generation">
+                <BrowserRouter basename={BASE_FRONTEND_URL}>
                     <App/>
                 </BrowserRouter>
             </ThemeProvider>
