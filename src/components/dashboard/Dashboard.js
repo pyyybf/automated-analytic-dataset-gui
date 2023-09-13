@@ -78,7 +78,7 @@ export default function Dashboard() {
                         <Table sx={{minWidth: 650}} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell sx={{fontWeight: 'bold'}}>Username</TableCell>
+                                    <TableCell sx={{fontWeight: 'bold'}}>Email</TableCell>
                                     <TableCell align="center" sx={{fontWeight: 'bold'}}>Last Name</TableCell>
                                     <TableCell align="center" sx={{fontWeight: 'bold'}}>First Name</TableCell>
                                     <TableCell align="center" sx={{fontWeight: 'bold'}}>Role</TableCell>
