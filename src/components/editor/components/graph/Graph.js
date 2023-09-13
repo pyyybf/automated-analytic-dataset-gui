@@ -21,6 +21,7 @@ import {
 import FieldPaper from "./components/fieldItem/FieldPaper";
 import {RESPONSE_VECTOR_TYPE_PRE} from "@/utils/codeGenerator";
 import {ALERT_DURATION} from "@/config";
+import {setAssignmentId, setAssignmentName} from "@/store/assignment/assignment.action";
 
 export default function Graph() {
     const dispatch = useDispatch();
@@ -126,6 +127,8 @@ export default function Graph() {
                             startIcon={<RestartAltIcon/>}
                             onClick={() => {
                                 dispatch(clearGraph());
+                                dispatch(setAssignmentName(''));
+                                dispatch(setAssignmentId(''));
                             }}>Clear</Button>
                 </Box>
             </Snackbar>
