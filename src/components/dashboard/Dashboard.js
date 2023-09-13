@@ -1,7 +1,5 @@
 import {ALERT_DURATION, HEADER_HEIGHT} from "@/config";
 import {
-    Button,
-    ButtonGroup,
     Chip,
     CircularProgress,
     Grid,
@@ -15,6 +13,7 @@ import {
     TableRow,
 } from "@mui/material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import PasswordOutlinedIcon from '@mui/icons-material/PasswordOutlined';
 import React, {useEffect, useState} from "react";
 import {setAlert} from "@/store/generator/generator.action";
 import {
@@ -108,17 +107,18 @@ export default function Dashboard() {
                                                       color={HOME_COLOR_TBL[account.role]}/>
                                             </TableCell>
                                             <TableCell align="center">
-                                                <ButtonGroup variant="text">
-                                                    <Button color="primary" onClick={() => {
-                                                        handleChangePwd(account._id);
-                                                    }}>Change password</Button>
-                                                    <IconButton color="error"
-                                                                onClick={() => {
-                                                                    handleDelete(account._id);
-                                                                }}>
-                                                        <DeleteOutlineOutlinedIcon fontSize="small"/>
-                                                    </IconButton>
-                                                </ButtonGroup>
+                                                <IconButton color="primary"
+                                                            onClick={() => {
+                                                                handleChangePwd(account._id);
+                                                            }}>
+                                                    <PasswordOutlinedIcon fontSize="small"/>
+                                                </IconButton>
+                                                <IconButton color="error"
+                                                            onClick={() => {
+                                                                handleDelete(account._id);
+                                                            }}>
+                                                    <DeleteOutlineOutlinedIcon fontSize="small"/>
+                                                </IconButton>
                                             </TableCell>
                                         </TableRow>
                                     ))}
