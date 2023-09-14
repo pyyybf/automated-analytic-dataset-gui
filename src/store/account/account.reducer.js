@@ -4,11 +4,11 @@ const ACCOUNT_INITIAL_STATE = {
     showLoginDialog: false,
     showChangePwdDialog: false,
     showConfirmDeleteAccountDialog: false,
+    showAddTADialog: false,
     token: localStorage.getItem('token') || '',
     username: '',
     firstName: localStorage.getItem('firstName') || '',
     lastName: '',
-    accountList: [],
     accountId: '',
 };
 
@@ -25,8 +25,8 @@ export const accountReducer = (
             return {...state, showChangePwdDialog: payload};
         case ACCOUNT_ACTION_TYPES.SET_SHOW_CONFIRM_DELETE_ACCOUNT_DIALOG:
             return {...state, showConfirmDeleteAccountDialog: payload};
-        case ACCOUNT_ACTION_TYPES.SET_ACCOUNT_LIST:
-            return {...state, accountList: [...payload]};
+        case ACCOUNT_ACTION_TYPES.SET_SHOW_ADD_TA_DIALOG:
+            return {...state, showAddTADialog: payload};
         case ACCOUNT_ACTION_TYPES.SET_ACCOUNT_ID:
             return {...state, accountId: payload};
         case ACCOUNT_ACTION_TYPES.SET_USER_INFO:

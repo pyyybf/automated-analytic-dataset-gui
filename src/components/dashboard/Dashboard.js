@@ -1,5 +1,6 @@
 import {ALERT_DURATION, HEADER_HEIGHT} from "@/config";
 import {
+    Button,
     Chip,
     CircularProgress,
     Grid,
@@ -12,19 +13,21 @@ import {
     TableHead,
     TableRow,
 } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import PasswordOutlinedIcon from '@mui/icons-material/PasswordOutlined';
 import React, {useEffect, useState} from "react";
 import {setAlert} from "@/store/generator/generator.action";
 import {
     getAllAccounts,
-    setAccountId,
+    setAccountId, setShowAddTADialog,
     setShowChangePwdDialog,
     setShowConfirmDeleteAccountDialog
 } from "@/store/account/account.action";
 import {useDispatch} from "react-redux";
 import ChangePwdDialog from "@/components/dashboard/components/changePwdDialog/ChangePwdDialog";
 import ConfirmDeleteDialog from "@/components/dashboard/components/confirmDeleteDialog/ConfirmDeleteDialog";
+import AddTADialog from "@/components/dashboard/components/addTADialog/AddTADialog";
 
 export default function Dashboard() {
     const dispatch = useDispatch();
@@ -61,6 +64,10 @@ export default function Dashboard() {
         dispatch(setShowConfirmDeleteAccountDialog(true));
     };
 
+    const handleAddTA = () => {
+        dispatch(setShowAddTADialog(true));
+    };
+
     // get account list from backend
     useEffect(() => {
         getAccountList();
@@ -74,6 +81,10 @@ export default function Dashboard() {
                   alignItems="flex-start"
                   sx={{height: `calc(100vh - ${HEADER_HEIGHT}px)`, overflowY: 'scroll'}}>
                 <Grid item xs={12} sm={10} md={8} sx={{marginTop: '28px'}}>
+                    <Button variant="contained"
+                            startIcon={<AddIcon/>}
+                            sx={{float: 'right', marginBottom: '12px'}}
+                            onClick={handleAddTA}>Add new TAs</Button>
                     <TableContainer component={Paper}>
                         <Table sx={{minWidth: 650}} aria-label="simple table">
                             <TableHead>
@@ -129,6 +140,7 @@ export default function Dashboard() {
             </Grid>
             <ChangePwdDialog/>
             <ConfirmDeleteDialog onConfirm={getAccountList}/>
+            <AddTADialog onConfirm={getAccountList}/>
         </React.Fragment>
     );
 }

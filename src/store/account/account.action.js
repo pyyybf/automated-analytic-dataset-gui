@@ -1,5 +1,12 @@
 import {ACCOUNT_ACTION_TYPES} from "./account.type";
-import {loginAPI, getAllAccountsAPI, updatePasswordAPI, deleteAccountAPI} from "@/api/account";
+import {
+    loginAPI,
+    getAllAccountsAPI,
+    updatePasswordAPI,
+    deleteAccountAPI,
+    parseAccountFileAPI,
+    saveAccountListAPI,
+} from "@/api/account";
 
 export const setShowLoginDialog = (newVal) => {
     return {
@@ -22,16 +29,16 @@ export const setShowConfirmDeleteAccountDialog = (newVal) => {
     };
 };
 
-export const setAccountId = (newVal) => {
+export const setShowAddTADialog = (newVal) => {
     return {
-        type: ACCOUNT_ACTION_TYPES.SET_ACCOUNT_ID,
+        type: ACCOUNT_ACTION_TYPES.SET_SHOW_ADD_TA_DIALOG,
         payload: newVal
     };
 };
 
-export const setAccountList = (newVal) => {
+export const setAccountId = (newVal) => {
     return {
-        type: ACCOUNT_ACTION_TYPES.SET_ACCOUNT_LIST,
+        type: ACCOUNT_ACTION_TYPES.SET_ACCOUNT_ID,
         payload: newVal
     };
 };
@@ -88,6 +95,34 @@ export const updatePassword = (id, oldPassword, newPassword) => {
 export const deleteAccount = (id) => {
     return new Promise((resolve, reject) => {
         deleteAccountAPI(id).then(response => {
+            if (response.data.success) {
+                resolve(response.data.content);
+            } else {
+                reject(response.data.message);
+            }
+        }).catch(error => {
+            reject(error.message);
+        });
+    });
+};
+
+export const parseAccountFile = (data) => {
+    return new Promise((resolve, reject) => {
+        parseAccountFileAPI(data).then(response => {
+            if (response.data.success) {
+                resolve(response.data.content);
+            } else {
+                reject(response.data.message);
+            }
+        }).catch(error => {
+            reject(error.message);
+        });
+    });
+};
+
+export const saveAccountList = (accountList) => {
+    return new Promise((resolve, reject) => {
+        saveAccountListAPI(accountList).then(response => {
             if (response.data.success) {
                 resolve(response.data.content);
             } else {

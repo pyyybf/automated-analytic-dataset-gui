@@ -19,7 +19,7 @@ export const getAllAccountsAPI = () => {
     });
 };
 
-export const saveAccountsAPI = (id, username, firstName, lastName) => {
+export const saveAccountAPI = (id, username, firstName, lastName) => {
     return HttpRequest.request({
         url: `${api.accountPre}/save`,
         method: 'POST',
@@ -40,4 +40,23 @@ export const deleteAccountAPI = (id) => {
         url: `${api.accountPre}/delete/${id}`,
         method: 'DELETE',
     });
+};
+
+export const parseAccountFileAPI = (data) => {
+    return HttpRequest.request({
+        url: `${api.accountPre}/parseAccountFile`,
+        method: 'POST',
+        headers: {
+            "Content-Type": false
+        },
+        data
+    })
+};
+
+export const saveAccountListAPI = (accountList) => {
+    return HttpRequest.request({
+        url: `${api.accountPre}/saveAll`,
+        method: 'POST',
+        data: {accountList}
+    })
 };
