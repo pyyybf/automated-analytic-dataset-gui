@@ -15,7 +15,6 @@ export default function ConfirmDeleteDialog(props) {
             setTimeout(() => {
                 dispatch(setAlert(false, 'Delete successfully.', 'success'));
             }, ALERT_DURATION);
-            console.log(props)
             props.onConfirm();
             handleClose();
         }).catch(err => {
