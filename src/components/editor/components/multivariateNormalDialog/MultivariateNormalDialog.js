@@ -9,9 +9,11 @@ import {
     Table,
     TableBody,
     TableCell,
+    TableHead,
     TableRow,
     TextField,
 } from "@mui/material";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Grid2 from "@mui/material/Unstable_Grid2";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -149,6 +151,7 @@ export default function MultivariateNormalDialog() {
                         </Grid>
                         <Grid item sm={6} sx={{textAlign: 'right'}}>
                             <Button sx={{marginTop: '16px'}}
+                                    endIcon={<ArrowForwardIcon/>}
                                     onClick={() => {
                                         setShowFieldDefinition(false);
                                     }}>Enter Covariance Matrix</Button>
@@ -157,7 +160,7 @@ export default function MultivariateNormalDialog() {
                 </DialogContent> :
                 <DialogContent>
                     <Grid container spacing={2}>
-                        <Grid item sm={12} md={4}>
+                        <Grid item sm={12} md={4} sx={{marginTop: '56px'}}>
                             {fieldList.map((field, index) =>
                                 <Grid container spacing={1} sx={{marginTop: '12px'}} key={index}>
                                     <Grid item sm={4}
@@ -179,6 +182,13 @@ export default function MultivariateNormalDialog() {
                         </Grid>
                         <Grid item sm={12} md={8} sx={{overflowX: 'scroll'}}>
                             <Table sx={{minWidth: 275, width: '20%', marginTop: '12px'}} aria-label="field table">
+                                <TableHead>
+                                    <TableRow>
+                                        {fieldList.map((field, index) =>
+                                            <TableCell key={index} align="center">{field.name}</TableCell>
+                                        )}
+                                    </TableRow>
+                                </TableHead>
                                 <TableBody>
                                     {covarianceMatrix.map((row, index) => (
                                         <TableRow key={index}
@@ -198,12 +208,14 @@ export default function MultivariateNormalDialog() {
                                                                type="number"
                                                                sx={{width: '60px'}}
                                                                value={col}
+                                                               disabled={index > colIndex}
                                                                onChange={e => {
                                                                    let newCovarianceMatrix = [];
                                                                    for (let i = 0; i < covarianceMatrix.length; i++) {
                                                                        newCovarianceMatrix.push([...covarianceMatrix[i]]);
                                                                    }
                                                                    newCovarianceMatrix[index][colIndex] = e.target.value;
+                                                                   newCovarianceMatrix[colIndex][index] = e.target.value;
                                                                    setCovarianceMatrix(newCovarianceMatrix);
                                                                }}/>
                                                 </TableCell>
