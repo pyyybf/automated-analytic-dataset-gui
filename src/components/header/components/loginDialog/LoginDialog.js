@@ -32,7 +32,7 @@ export default function LoginDialog() {
             }, ALERT_DURATION);
             return;
         }
-        login({username, password: sha256(password)}).then(res => {
+        login(username, sha256(password)).then(res => {
             dispatch(setUserInfo({
                 token: res.role,
                 username: res.username,

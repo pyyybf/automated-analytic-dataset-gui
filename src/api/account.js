@@ -4,11 +4,11 @@ const api = {
     accountPre: '/api/account',
 };
 
-export const loginAPI = (params) => {
+export const loginAPI = (username, password) => {
     return HttpRequest.request({
         url: `${api.accountPre}/login`,
-        method: 'GET',
-        params
+        method: 'POST',
+        data: {username, password}
     });
 };
 

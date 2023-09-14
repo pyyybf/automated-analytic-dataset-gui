@@ -43,9 +43,9 @@ export const setUserInfo = (newVal) => {
     };
 };
 
-export const login = (params) => {
+export const login = (username, password) => {
     return new Promise((resolve, reject) => {
-        loginAPI(params).then(response => {
+        loginAPI(username, password).then(response => {
             if (response.data.success) {
                 resolve(response.data.content);
             } else {
