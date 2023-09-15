@@ -185,7 +185,9 @@ export default function MultivariateNormalDialog() {
                                 <TableHead>
                                     <TableRow>
                                         {fieldList.map((field, index) =>
-                                            <TableCell key={index} align="center">{field.name}</TableCell>
+                                            <TableCell key={index} align="center">
+                                                {field.name || `Field ${index + 1}`}
+                                            </TableCell>
                                         )}
                                     </TableRow>
                                 </TableHead>
