@@ -36,9 +36,9 @@ export const setShowAddTADialog = (newVal) => {
     };
 };
 
-export const setAccountId = (newVal) => {
+export const setCurrentAccountId = (newVal) => {
     return {
-        type: ACCOUNT_ACTION_TYPES.SET_ACCOUNT_ID,
+        type: ACCOUNT_ACTION_TYPES.SET_CURRENT_ACCOUNT_ID,
         payload: newVal
     };
 };

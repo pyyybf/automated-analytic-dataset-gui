@@ -9,7 +9,7 @@ const ACCOUNT_INITIAL_STATE = {
     username: '',
     firstName: localStorage.getItem('firstName') || '',
     lastName: '',
-    accountId: '',
+    currentAccountId: '',
 };
 
 export const accountReducer = (
@@ -27,8 +27,8 @@ export const accountReducer = (
             return {...state, showConfirmDeleteAccountDialog: payload};
         case ACCOUNT_ACTION_TYPES.SET_SHOW_ADD_TA_DIALOG:
             return {...state, showAddTADialog: payload};
-        case ACCOUNT_ACTION_TYPES.SET_ACCOUNT_ID:
-            return {...state, accountId: payload};
+        case ACCOUNT_ACTION_TYPES.SET_CURRENT_ACCOUNT_ID:
+            return {...state, currentAccountId: payload};
         case ACCOUNT_ACTION_TYPES.SET_USER_INFO:
             if (payload.token) {
                 localStorage.setItem('token', payload.token);

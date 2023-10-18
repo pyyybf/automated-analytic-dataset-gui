@@ -16,7 +16,7 @@ const sha256 = require("js-sha256").sha256;
 export default function ChangePwdDialog() {
     const dispatch = useDispatch();
     const showChangePwdDialog = useSelector(state => state.account.showChangePwdDialog);
-    const accountId = useSelector(state => state.account.accountId);
+    const accountId = useSelector(state => state.account.currentAccountId);
 
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');

@@ -7,7 +7,7 @@ import {ALERT_DURATION} from "@/config";
 export default function ConfirmDeleteDialog(props) {
     const dispatch = useDispatch();
     const showConfirmDeleteAccountDialog = useSelector(state => state.account.showConfirmDeleteAccountDialog);
-    const accountId = useSelector(state => state.account.accountId);
+    const accountId = useSelector(state => state.account.currentAccountId);
 
     const handleDelete = () => {
         deleteAccount(accountId).then(res => {

@@ -55,12 +55,12 @@ export default function Dashboard() {
     };
 
     const handleChangePwd = (id) => {
-        dispatch(setAccountId(id));
+        dispatch(setCurrentAccountId(id));
         dispatch(setShowChangePwdDialog(true));
     };
 
     const handleDelete = (id) => {
-        dispatch(setAccountId(id));
+        dispatch(setCurrentAccountId(id));
         dispatch(setShowConfirmDeleteAccountDialog(true));
     };
 
