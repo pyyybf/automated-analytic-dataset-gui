@@ -34,6 +34,7 @@ export default function LoginDialog() {
         }
         login(username, sha256(password)).then(res => {
             dispatch(setUserInfo({
+                userId: res.id,
                 token: res.role,
                 username: res.username,
                 firstName: res.firstName,

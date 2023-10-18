@@ -7,6 +7,7 @@ const ACCOUNT_INITIAL_STATE = {
     showConfirmResetPwdDialog: false,
     showAddTADialog: false,
     token: localStorage.getItem('token') || '',
+    userId: localStorage.getItem('userId') || '',
     username: '',
     firstName: localStorage.getItem('firstName') || '',
     lastName: '',
@@ -34,9 +35,11 @@ export const accountReducer = (
             return {...state, currentAccountId: payload};
         case ACCOUNT_ACTION_TYPES.SET_USER_INFO:
             if (payload.token) {
+                localStorage.setItem('userId', payload.userId);
                 localStorage.setItem('token', payload.token);
                 localStorage.setItem('firstName', payload.firstName);
             } else {
+                localStorage.removeItem('userId');
                 localStorage.removeItem('token');
                 localStorage.removeItem('firstName');
             }
