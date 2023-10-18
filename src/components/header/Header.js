@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import LoginDialog from "@/components/header/components/loginDialog/LoginDialog";
 import {setShowLoginDialog} from "@/store/account/account.action";
 import SelfMenu from "@/components/header/components/selfMenu/SelfMenu";
+import ChangePwdDialog from "@/components/header/components/changePwdDialog/ChangePwdDialog";
 
 export default function Header() {
     const dispatch = useDispatch();
@@ -86,6 +87,7 @@ export default function Header() {
                 </IconButton>
             </div>
             <LoginDialog/>
+            <ChangePwdDialog/>
         </header>
     );
 }

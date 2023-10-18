@@ -3,14 +3,12 @@ import {styled, alpha} from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PasswordIcon from '@mui/icons-material/Password';
 import {useDispatch, useSelector} from "react-redux";
-import {setUserInfo} from "@/store/account/account.action";
+import {setCurrentAccountId, setShowChangePwdDialog, setUserInfo} from "@/store/account/account.action";
 import {useNavigate} from "react-router-dom";
 
 const StyledMenu = styled((props) => (
@@ -53,6 +51,7 @@ const StyledMenu = styled((props) => (
 export default function SelfMenu() {
     const dispatch = useDispatch();
     const firstName = useSelector(state => state.account.firstName);
+    const userId = useSelector(state => state.account.userId);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -64,6 +63,10 @@ export default function SelfMenu() {
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+    const handleChangePwd = () => {
+        dispatch(setCurrentAccountId(userId));
+        dispatch(setShowChangePwdDialog(true));
     };
     const onSignOut = () => {
         dispatch(setUserInfo({
@@ -86,12 +89,13 @@ export default function SelfMenu() {
             <StyledMenu anchorEl={anchorEl}
                         open={open}
                         onClose={handleClose}>
-                <MenuItem onClick={handleClose} disableRipple>
-                    <EditIcon/>
-                    Edit
+                <MenuItem onClick={handleChangePwd} disableRipple>
+                    <PasswordIcon/>
+                    Change password
                 </MenuItem>
                 <Divider sx={{my: 0.5}}/>
                 <MenuItem onClick={onSignOut} disableRipple>
+                    <LogoutIcon/>
                     Sign out
                 </MenuItem>
             </StyledMenu>
