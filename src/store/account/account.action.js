@@ -6,6 +6,7 @@ import {
     deleteAccountAPI,
     parseAccountFileAPI,
     saveAccountListAPI,
+    resetPasswordAPI,
 } from "@/api/account";
 
 export const setShowLoginDialog = (newVal) => {
@@ -25,6 +26,13 @@ export const setShowChangePwdDialog = (newVal) => {
 export const setShowConfirmDeleteAccountDialog = (newVal) => {
     return {
         type: ACCOUNT_ACTION_TYPES.SET_SHOW_CONFIRM_DELETE_ACCOUNT_DIALOG,
+        payload: newVal
+    };
+};
+
+export const setShowConfirmResetPwdDialog = (newVal) => {
+    return {
+        type: ACCOUNT_ACTION_TYPES.SET_SHOW_CONFIRM_RESET_PWD_DIALOG,
         payload: newVal
     };
 };
@@ -81,6 +89,20 @@ export const getAllAccounts = () => {
 export const updatePassword = (id, oldPassword, newPassword) => {
     return new Promise((resolve, reject) => {
         updatePasswordAPI(id, oldPassword, newPassword).then(response => {
+            if (response.data.success) {
+                resolve(response.data.content);
+            } else {
+                reject(response.data.message);
+            }
+        }).catch(error => {
+            reject(error.message);
+        });
+    });
+};
+
+export const resetPwd = (id) => {
+    return new Promise((resolve, reject) => {
+        resetPasswordAPI(id).then(response => {
             if (response.data.success) {
                 resolve(response.data.content);
             } else {

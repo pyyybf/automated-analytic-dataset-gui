@@ -15,19 +15,20 @@ import {
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import PasswordOutlinedIcon from '@mui/icons-material/PasswordOutlined';
+import LockResetIcon from '@mui/icons-material/LockReset';
 import React, {useEffect, useState} from "react";
 import {setAlert} from "@/store/generator/generator.action";
 import {
     getAllAccounts,
-    setAccountId, setShowAddTADialog,
-    setShowChangePwdDialog,
-    setShowConfirmDeleteAccountDialog
+    setCurrentAccountId,
+    setShowAddTADialog,
+    setShowConfirmDeleteAccountDialog,
+    setShowConfirmResetPwdDialog,
 } from "@/store/account/account.action";
 import {useDispatch} from "react-redux";
-import ChangePwdDialog from "@/components/dashboard/components/changePwdDialog/ChangePwdDialog";
 import ConfirmDeleteDialog from "@/components/dashboard/components/confirmDeleteDialog/ConfirmDeleteDialog";
 import AddTADialog from "@/components/dashboard/components/addTADialog/AddTADialog";
+import ConfirmResetPwdDialog from "@/components/dashboard/components/confirmResetPwdDialog/ConfirmResetPwdDialog";
 
 export default function Dashboard() {
     const dispatch = useDispatch();
@@ -54,9 +55,9 @@ export default function Dashboard() {
         });
     };
 
-    const handleChangePwd = (id) => {
+    const handleResetPwd = (id) => {
         dispatch(setCurrentAccountId(id));
-        dispatch(setShowChangePwdDialog(true));
+        dispatch(setShowConfirmResetPwdDialog(true));
     };
 
     const handleDelete = (id) => {
@@ -120,9 +121,9 @@ export default function Dashboard() {
                                             <TableCell align="center">
                                                 <IconButton color="primary"
                                                             onClick={() => {
-                                                                handleChangePwd(account._id);
+                                                                handleResetPwd(account._id);
                                                             }}>
-                                                    <PasswordOutlinedIcon fontSize="small"/>
+                                                    <LockResetIcon fontSize="small"/>
                                                 </IconButton>
                                                 <IconButton color="error"
                                                             onClick={() => {
@@ -138,8 +139,8 @@ export default function Dashboard() {
                     </TableContainer>
                 </Grid>
             </Grid>
-            <ChangePwdDialog/>
             <ConfirmDeleteDialog onConfirm={getAccountList}/>
+            <ConfirmResetPwdDialog onConfirm={getAccountList}/>
             <AddTADialog onConfirm={getAccountList}/>
         </React.Fragment>
     );

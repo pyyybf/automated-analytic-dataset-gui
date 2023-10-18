@@ -35,6 +35,14 @@ export const updatePasswordAPI = (id, oldPassword, newPassword) => {
     });
 };
 
+export const resetPasswordAPI = (id) => {
+    return HttpRequest.request({
+        url: `${api.accountPre}/resetPwd`,
+        method: 'PUT',
+        data: {id}
+    });
+};
+
 export const deleteAccountAPI = (id) => {
     return HttpRequest.request({
         url: `${api.accountPre}/delete/${id}`,
