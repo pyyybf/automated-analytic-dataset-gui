@@ -21,7 +21,9 @@ export default function CodeDialog() {
     const showCodeDialog = useSelector(state => state.generator.showCodeDialog);
     const code = useSelector(state => state.generator.code);
     const importCode = useSelector(state => state.generator.importCode);
+    const numberOfRows = useSelector(state => state.generator.numberOfRows);
     const fieldList = useSelector(state => state.generator.fieldList);
+    const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
     const assignmentName = useSelector(state => state.assignment.assignmentName);
     const assignmentId = useSelector(state => state.assignment.assignmentId);
 
@@ -48,12 +50,13 @@ export default function CodeDialog() {
             }, ALERT_DURATION);
             return;
         }
-        saveAssignment(assignmentId, assignmentName, code, importCode, fieldList).then(res => {
-            dispatch(setAlert(true, 'Save Successful!', 'success'));
-            setTimeout(() => {
-                dispatch(setAlert(false, 'Save Successful!', 'success'));
-            }, ALERT_DURATION);
-        }).catch(err => {
+        saveAssignment(assignmentId, assignmentName, code, importCode, numberOfRows, fieldList, covarianceMatrix)
+            .then(res => {
+                dispatch(setAlert(true, 'Save Successful!', 'success'));
+                setTimeout(() => {
+                    dispatch(setAlert(false, 'Save Successful!', 'success'));
+                }, ALERT_DURATION);
+            }).catch(err => {
             dispatch(setAlert(true, err));
             setTimeout(() => {
                 dispatch(setAlert(false));

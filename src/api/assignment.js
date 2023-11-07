@@ -4,11 +4,11 @@ const api = {
     assignmentPre: '/api/assignment',
 };
 
-export const saveAssignmentAPI = (id, name, code, importCode, fieldList) => {
+export const saveAssignmentAPI = (id, name, code, importCode, numberOfRows, fieldList, covarianceMatrix) => {
     return HttpRequest.request({
         url: `${api.assignmentPre}/save`,
         method: 'POST',
-        data: {id, name, code, importCode, fieldList}
+        data: {id, name, code, importCode, numberOfRows, fieldList, covarianceMatrix}
     });
 };
 

@@ -20,7 +20,9 @@ import {
     clearGraph,
     setAlert,
     setCode,
+    setCovarianceMatrix,
     setFieldList,
+    setNumberOfRows,
 } from "@/store/generator/generator.action";
 import {
     getAllAssignments,
@@ -69,7 +71,9 @@ export default function Home() {
 
     const handleEdit = (id) => {
         getAssignmentById(id).then(res => {
+            dispatch(setNumberOfRows(res.numberOfRows));
             dispatch(setFieldList(res.fieldList));
+            dispatch(setCovarianceMatrix(res.covarianceMatrix));
             dispatch(setCode(res.code));
             dispatch(setAssignmentName(res.name));
             dispatch(setAssignmentId(res._id));
