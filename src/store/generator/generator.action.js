@@ -194,7 +194,7 @@ export const addResponseVector = (newVal) => {
     };
 };
 
-export const generateCode = (numberOfRows = 1000, fieldList = [], covarianceMatrix = []) => {
+export const generateCode = (numberOfRows = 1000, fieldList = [], covarianceMatrix = {}) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_CODE,
         payload: generate(numberOfRows, fieldList, covarianceMatrix)

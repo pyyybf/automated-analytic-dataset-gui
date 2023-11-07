@@ -449,7 +449,7 @@ const generateResponseVectorPolynomial = (predictorsMap, intercept, interactionT
  * @param covarianceMatrix {key: number[][]}, key is group id, and value is covariance matrix
  * @return {{code: string, importCode: string}}
  */
-export default function generate(numberOfRows = 1000, fieldList = [], covarianceMatrix = []) {
+export default function generate(numberOfRows = 1000, fieldList = [], covarianceMatrix = {}) {
     // get response vector
     const responseVector = fieldList.filter(field => field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE))[0] || null;
 
