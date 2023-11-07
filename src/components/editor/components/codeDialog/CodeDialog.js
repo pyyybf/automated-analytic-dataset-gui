@@ -4,8 +4,9 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogTitle, Grid,
-    IconButton, TextField,
+    DialogTitle,
+    IconButton,
+    TextField,
 } from "@mui/material";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {useDispatch, useSelector} from "react-redux";
@@ -14,7 +15,7 @@ import {setAlert, setCode, setShowCodeDialog} from "@/store/generator/generator.
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import copy from 'copy-to-clipboard';
 import {ALERT_DURATION} from "@/config";
-import {saveAssignment, setAssignmentName} from "@/store/assignment/assignment.action";
+import {saveAssignment, setAssignmentId, setAssignmentName} from "@/store/assignment/assignment.action";
 
 export default function CodeDialog() {
     const dispatch = useDispatch();
@@ -52,6 +53,7 @@ export default function CodeDialog() {
         }
         saveAssignment(assignmentId, assignmentName, code, importCode, numberOfRows, fieldList, covarianceMatrix)
             .then(res => {
+                dispatch(setAssignmentId(res));
                 dispatch(setAlert(true, 'Save Successful!', 'success'));
                 setTimeout(() => {
                     dispatch(setAlert(false, 'Save Successful!', 'success'));
