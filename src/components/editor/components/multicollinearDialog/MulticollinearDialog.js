@@ -55,6 +55,7 @@ export default function MulticollinearDialog() {
             intercept: intercept || 0,
             predictorList,
             epsilonVariance: epsilonVariance || 0,
+            invisible: false,
         }));
         // clean and close dialog
         initDialog();

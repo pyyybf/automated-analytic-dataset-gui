@@ -50,6 +50,7 @@ export default function PolynomialCategoricalDialog() {
             type: FIELD_TYPE_LIST.POLYNOMIAL_CATEGORICAL,
             name: predictorName,
             betas,
+            invisible: false,
         }));
         // clean and close dialog
         initDialog();

@@ -3,6 +3,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setAlert, setCovarianceMatrix, setFieldList} from "@/store/generator/generator.action";
@@ -103,6 +105,11 @@ export default function FieldItem(props) {
         }
         dispatch(setFieldList(newFieldList));
     };
+    const handleVisible = () => {
+        let newFieldList = [...fieldList];
+        newFieldList[props.index].invisible = !newFieldList[props.index].invisible;
+        dispatch(setFieldList(newFieldList));
+    };
 
     return (
         <Item elevation={3}>
@@ -145,6 +152,11 @@ export default function FieldItem(props) {
                             textAlign: 'left'
                         }}>{props.field.name}</h3>
                         <Box sx={{position: 'absolute', right: '24px'}}>
+                            <IconButton aria-label="visible"
+                                        color="info"
+                                        onClick={handleVisible}>
+                                {props.field.invisible ? <VisibilityOffOutlinedIcon/> : <VisibilityOutlinedIcon/>}
+                            </IconButton>
                             <IconButton aria-label="edit"
                                         color="primary"
                                         onClick={() => {

@@ -75,7 +75,8 @@ export default function CategoricalDialog() {
         dispatch(addCategorical({
             type: FIELD_TYPE_LIST.CATEGORICAL,
             name: predictorName,
-            categoryList
+            categoryList,
+            invisible: false,
         }));
         // clean and close dialog
         initDialog();

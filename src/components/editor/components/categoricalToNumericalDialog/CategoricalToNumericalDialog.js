@@ -66,6 +66,7 @@ export default function CategoricalToNumericalDialog() {
             target: categoryList[Number(categoricalPredictorIdx)].name,
             categoricalMapping,
             inplace,
+            invisible: false,
         }));
         // clean and close dialog
         initDialog();

@@ -51,6 +51,7 @@ export default function UniformDialog() {
             name: predictorName,
             lowerBound,
             upperBound,
+            invisible: false,
         }));
         // clean and close dialog
         initDialog();

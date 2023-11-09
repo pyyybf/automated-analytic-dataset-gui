@@ -11,7 +11,7 @@ export default function BetaDialog() {
     const dispatch = useDispatch();
     const showBetaDialog = useSelector(state => state.generator.showBetaDialog);
 
-    const INITIAL_FIELD_LIST = [{type: FIELD_TYPE_LIST.BETA, name: '', alpha: 0, beta: 0}];
+    const INITIAL_FIELD_LIST = [{type: FIELD_TYPE_LIST.BETA, name: '', alpha: 0, beta: 0, invisible: false}];
 
     const [fieldList, setFieldList] = useState([...INITIAL_FIELD_LIST]);
 

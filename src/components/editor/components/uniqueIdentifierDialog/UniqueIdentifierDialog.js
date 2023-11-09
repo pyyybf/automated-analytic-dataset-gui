@@ -47,6 +47,7 @@ export default function UniqueIdentifierDialog() {
             name: predictorName,
             alphanumeric,
             numberOfDigits,
+            invisible: false,
         }));
         // clean and close dialog
         initDialog();

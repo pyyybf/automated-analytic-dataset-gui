@@ -82,6 +82,7 @@ export default function ResponseVectorDialog() {
                 intercept: intercept || 0,
                 epsilonVariance: epsilonVariance || 0,
                 exponent,
+                invisible: false,
             }));
         } else {
             dispatch(addResponseVector({
@@ -92,6 +93,7 @@ export default function ResponseVectorDialog() {
                 interactionTermBetas,
                 epsilonVariance: epsilonVariance || 0,
                 exponent,
+                invisible: false,
             }));
         }
         // clean and close dialog

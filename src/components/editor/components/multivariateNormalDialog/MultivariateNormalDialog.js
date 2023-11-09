@@ -28,7 +28,7 @@ export default function MultivariateNormalDialog() {
     const showMultivariateNormalDialog = useSelector(state => state.generator.showMultivariateNormalDialog);
     const multivariateNormalGroupNum = useSelector(state => state.generator.multivariateNormalGroupNum);
 
-    const INITIAL_FIELD_LIST = [{type: FIELD_TYPE_LIST.MULTIVARIATE_NORMAL, name: '', mean: 0}];
+    const INITIAL_FIELD_LIST = [{type: FIELD_TYPE_LIST.MULTIVARIATE_NORMAL, name: '', mean: 0, invisible: false}];
 
     const [fieldList, setFieldList] = useState([...INITIAL_FIELD_LIST]);
     const [covarianceMatrix, setCovarianceMatrix] = useState([[0]]);
