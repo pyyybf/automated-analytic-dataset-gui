@@ -159,7 +159,8 @@ export default function Home() {
                                                   color={STATE_COLOR_TBL[assignment.state]}/>
                                         </TableCell>
                                         <TableCell align="left">
-                                            <DownloadDataBtn assignmentID={assignment._id}/>
+                                            <DownloadDataBtn assignmentID={assignment._id}
+                                                             assignmentName={assignment.name}/>
                                             {token === 'TA' || token === 'INSTRUCTOR' ? <React.Fragment>
                                                 {assignment.state === 'draft' ?
                                                     <ButtonGroup sx={{marginLeft: '12px'}} variant="text">

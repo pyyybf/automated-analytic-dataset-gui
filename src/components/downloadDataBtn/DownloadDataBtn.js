@@ -49,7 +49,7 @@ export default function DownloadDataBtn(props) {
         }
         setGenerateDataFileLoading(true);
         downloadData(props.assignmentID, format, uscID).then(res => {
-            handleDownload(FILE_CONTENT_CONVERTER[format](res), `data.${format}`);
+            handleDownload(FILE_CONTENT_CONVERTER[format](res), `${props.assignmentName} - Dataset.${format}`);
         }).catch(err => {
             console.log(err);
             dispatch(setAlert(true, 'Fail to generate data file!'));
