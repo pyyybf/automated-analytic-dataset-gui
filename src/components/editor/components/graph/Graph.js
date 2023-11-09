@@ -18,7 +18,7 @@ import {
     setNumberOfRows,
     setShowCodeDialog
 } from "@/store/generator/generator.action";
-import FieldPaper from "./components/fieldItem/FieldPaper";
+import FieldItem from "./components/fieldItem/FieldItem";
 import {RESPONSE_VECTOR_TYPE_PRE} from "@/utils/codeGenerator";
 import {ALERT_DURATION} from "@/config";
 import {setAssignmentId, setAssignmentName} from "@/store/assignment/assignment.action";
@@ -98,7 +98,7 @@ export default function Graph() {
                                     bgcolor: 'transparent',
                                     display: 'grid',
                                 }}>
-                                    <FieldPaper index={index} field={field}></FieldPaper>
+                                    <FieldItem index={index} field={field}></FieldItem>
                                 </Box>
                             </Draggable>
                         ))}
