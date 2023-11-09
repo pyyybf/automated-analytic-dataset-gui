@@ -70,6 +70,11 @@ export default function LoginDialog() {
                            variant="outlined"
                            sx={{marginTop: '12px'}}
                            value={password}
+                           onKeyDown={e => {
+                               if (e.key === 'Enter') {
+                                   handleLogin();
+                               }
+                           }}
                            onChange={e => {
                                setPassword(e.target.value);
                            }}/>
