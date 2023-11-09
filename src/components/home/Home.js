@@ -131,6 +131,8 @@ export default function Home() {
                         <TableHead>
                             <TableRow>
                                 <TableCell align="left" sx={{fontWeight: 'bold'}}>Name</TableCell>
+                                {token === 'TA' || token === 'INSTRUCTOR' ?
+                                    <TableCell align="center" sx={{fontWeight: 'bold'}}>ID</TableCell> : null}
                                 <TableCell align="center" sx={{fontWeight: 'bold'}}>State</TableCell>
                                 <TableCell align="center" sx={{fontWeight: 'bold'}}></TableCell>
                             </TableRow>
@@ -148,6 +150,10 @@ export default function Home() {
                                         <TableCell component="th" scope="row">
                                             {assignment.name}
                                         </TableCell>
+                                        {token === 'TA' || token === 'INSTRUCTOR' ?
+                                            <TableCell component="th" align="center" scope="row">
+                                                {assignment._id}
+                                            </TableCell> : null}
                                         <TableCell align="center">
                                             <Chip label={assignment.state}
                                                   color={STATE_COLOR_TBL[assignment.state]}/>
