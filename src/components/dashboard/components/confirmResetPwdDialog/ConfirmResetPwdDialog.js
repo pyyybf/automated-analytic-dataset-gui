@@ -4,7 +4,7 @@ import {
 } from "@/store/account/account.action";
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
-import {setAlert} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {ALERT_DURATION} from "@/config";
 
 export default function ConfirmResetPwdDialog(props) {

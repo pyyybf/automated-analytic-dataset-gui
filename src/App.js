@@ -13,9 +13,9 @@ import Home from "@/components/home/Home";
 import Dashboard from "@/components/dashboard/Dashboard";
 
 function App() {
-    const alertOpen = useSelector(state => state.generator.alertOpen);
-    const alertText = useSelector(state => state.generator.alertText);
-    const alertType = useSelector(state => state.generator.alertType);
+    const alertOpen = useSelector(state => state.web.alertOpen);
+    const alertText = useSelector(state => state.web.alertText);
+    const alertType = useSelector(state => state.web.alertType);
 
     return (
         <div className="App">

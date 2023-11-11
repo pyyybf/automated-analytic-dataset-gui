@@ -42,3 +42,10 @@ export const updateAssignmentStateAPI = (id, state) => {
         data: {state}
     });
 };
+
+export const deleteAssignmentAPI = (id) => {
+    return HttpRequest.request({
+        url: `${api.assignmentPre}/delete/${id}`,
+        method: 'DELETE',
+    });
+};

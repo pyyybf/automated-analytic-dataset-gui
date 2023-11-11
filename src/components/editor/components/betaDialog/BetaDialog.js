@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
-import {addBeta, setAlert, setShowBetaDialog} from "@/store/generator/generator.action";
+import {addBeta, setShowBetaDialog} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, TextField} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";

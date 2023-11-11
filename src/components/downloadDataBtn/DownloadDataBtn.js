@@ -12,7 +12,7 @@ import {
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import React, {useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setAlert} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {ALERT_DURATION} from "@/config";
 import {handleDownload} from "@/utils/file";
 import {downloadData} from "@/store/assignment/assignment.action";

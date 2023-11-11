@@ -7,7 +7,8 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setAlert, setCovarianceMatrix, setFieldList} from "@/store/generator/generator.action";
+import {setCovarianceMatrix, setFieldList} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {
     CATEGORY_TYPE_LIST,
     FIELD_TYPE_LIST,

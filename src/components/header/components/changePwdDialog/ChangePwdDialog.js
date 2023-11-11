@@ -8,7 +8,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {setShowChangePwdDialog, updatePassword} from "@/store/account/account.action";
 import {useState} from "react";
-import {setAlert} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {ALERT_DURATION} from "@/config";
 
 const sha256 = require("js-sha256").sha256;

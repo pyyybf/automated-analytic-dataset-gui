@@ -18,12 +18,12 @@ import {ALERT_DURATION, HEADER_HEIGHT} from "@/config";
 import {useDispatch, useSelector} from "react-redux";
 import {
     clearGraph,
-    setAlert,
     setCode,
     setCovarianceMatrix,
     setFieldList,
     setNumberOfRows,
 } from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {
     getAllAssignments,
     getAssignmentById,

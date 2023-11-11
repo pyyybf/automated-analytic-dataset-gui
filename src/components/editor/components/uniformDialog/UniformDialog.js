@@ -8,7 +8,8 @@ import {
     TextField,
 } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {addUniqueIdentifier, setAlert, setShowUniformDialog} from "@/store/generator/generator.action";
+import {addUniqueIdentifier, setShowUniformDialog} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {useState} from "react";
 import {FIELD_TYPE_LIST} from "@/utils/codeGenerator";
 import {ALERT_DURATION} from "@/config";

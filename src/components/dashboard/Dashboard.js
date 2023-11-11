@@ -17,7 +17,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import React, {useEffect, useState} from "react";
-import {setAlert} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {
     getAllAccounts,
     setCurrentAccountId,

@@ -1,5 +1,6 @@
 import {ASSIGNMENT_ACTION_TYPES} from "./assignment.type";
 import {
+    deleteAssignmentAPI,
     downloadDataAPI,
     getAllAssignmentsAPI,
     getAssignmentByIdAPI,
@@ -87,6 +88,20 @@ export const downloadData = (id, format, uscID) => {
 export const updateAssignmentState = (id, state) => {
     return new Promise((resolve, reject) => {
         updateAssignmentStateAPI(id, state).then(response => {
+            if (response.data.success) {
+                resolve(response.data.content);
+            } else {
+                reject(response.data.message);
+            }
+        }).catch(error => {
+            reject(error.message);
+        });
+    });
+};
+
+export const deleteAssignment = (id) => {
+    return new Promise((resolve, reject) => {
+        deleteAssignmentAPI(id).then(response => {
             if (response.data.success) {
                 resolve(response.data.content);
             } else {

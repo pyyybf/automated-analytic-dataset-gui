@@ -18,7 +18,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
 import {ALERT_DURATION, BASE_URL} from "@/config";
-import {setAlert} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',

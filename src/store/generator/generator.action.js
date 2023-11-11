@@ -92,15 +92,6 @@ export const setShowCodeDialog = (val) => {
     };
 };
 
-export const setAlert = (open, text = '', type = 'error') => {
-    let payload = {alertOpen: open, alertType: type};
-    if (text !== '') payload.alertText = text;
-    return {
-        type: GENERATOR_ACTION_TYPES.SET_ALERT,
-        payload: payload
-    };
-};
-
 export const setCode = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_CODE,

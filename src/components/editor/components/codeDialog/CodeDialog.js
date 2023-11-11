@@ -11,7 +11,8 @@ import {
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
-import {setAlert, setCode, setShowCodeDialog} from "@/store/generator/generator.action";
+import {setCode, setShowCodeDialog} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import copy from 'copy-to-clipboard';
 import {ALERT_DURATION} from "@/config";

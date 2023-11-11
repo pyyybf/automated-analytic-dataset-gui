@@ -3,7 +3,7 @@ import './Header.css';
 import {Button, IconButton, Tab, Tabs} from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import {useDispatch, useSelector} from "react-redux";
-import {setAlert} from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {ALERT_DURATION, HEADER_HEIGHT} from "@/config";
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from "react";

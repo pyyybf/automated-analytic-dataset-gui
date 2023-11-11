@@ -1,8 +1,8 @@
 import {
     addPolynomialCategorical,
-    setAlert,
     setShowPolynomialCategoricalDialog
 } from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {useDispatch, useSelector} from "react-redux";
 import {CATEGORY_TYPE_LIST, FIELD_TYPE_LIST} from "@/utils/codeGenerator";
 import React, {useState} from "react";

@@ -2,9 +2,9 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
 import {
     addCategoricalToNumerical,
-    setAlert,
     setShowCategoricalToNumericalDialog
 } from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {
     Button,
     Checkbox,

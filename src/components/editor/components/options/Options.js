@@ -3,7 +3,6 @@ import {Button, Box} from "@mui/material";
 import {
     addAddress,
     addName,
-    setAlert,
     setShowBetaDialog,
     setShowCategoricalDialog,
     setShowCategoricalToNumericalDialog,
@@ -14,6 +13,7 @@ import {
     setShowUniformDialog,
     setShowUniqueIdentifierDialog
 } from "@/store/generator/generator.action";
+import {setAlert} from "@/store/web/web.action";
 import {useDispatch, useSelector} from "react-redux";
 import {Container, Draggable} from 'react-smooth-dnd';
 import {NUMERIC_TYPE_LIST, RESPONSE_VECTOR_TYPE_PRE} from "@/utils/codeGenerator";

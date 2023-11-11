@@ -16,9 +16,6 @@ const GENERATOR_INITIAL_STATE = {
     showPolynomialCategoricalDialog: false,
     showResponseVectorDialog: false,
     showCodeDialog: false,
-    alertOpen: false,
-    alertText: '',
-    alertType: 'error',
     code: '',
     importCode: '',
 };
@@ -56,8 +53,6 @@ export const generatorReducer = (
             return {...state, showResponseVectorDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_CODE_DIALOG:
             return {...state, showCodeDialog: payload};
-        case GENERATOR_ACTION_TYPES.SET_ALERT:
-            return {...state, ...payload};
         case GENERATOR_ACTION_TYPES.SET_CODE:
             return {...state, ...payload};
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
