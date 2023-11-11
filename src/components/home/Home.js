@@ -23,8 +23,9 @@ import {
     setFieldList,
     setNumberOfRows,
 } from "@/store/generator/generator.action";
-import {setAlert} from "@/store/web/web.action";
+import {setAlert, setShowConfirmDeleteDialog} from "@/store/web/web.action";
 import {
+    deleteAssignment,
     getAllAssignments,
     getAssignmentById,
     setAssignmentId,
@@ -34,6 +35,7 @@ import {
 } from "@/store/assignment/assignment.action";
 import {useNavigate} from "react-router-dom";
 import DownloadDataBtn from "@/components/downloadDataBtn/DownloadDataBtn";
+import ConfirmDeleteDialog from "@/components/confirmDeleteDialog/ConfirmDeleteDialog";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -44,6 +46,7 @@ export default function Home() {
 
     const [assignments, setAssignments] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [selectedId, setSelectedId] = useState('');
 
     const STATE_COLOR_TBL = {
         published: 'primary',
@@ -85,6 +88,25 @@ export default function Home() {
         }).finally(() => {
             navigate('/editor');
         });
+    };
+    const handleDelete = () => {
+        deleteAssignment(selectedId).then(res => {
+            dispatch(setAlert(true, 'Delete successfully.', 'success'));
+            setTimeout(() => {
+                dispatch(setAlert(false, 'Delete successfully.', 'success'));
+            }, ALERT_DURATION);
+        }).catch(err => {
+            dispatch(setAlert(true, err));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+        }).finally(() => {
+            getAssignmentList();
+        });
+    };
+    const onDelete = (id) => {
+        setSelectedId(id);
+        dispatch(setShowConfirmDeleteDialog(true));
     };
     const handleAdd = () => {
         dispatch(clearGraph());
@@ -170,6 +192,10 @@ export default function Home() {
                                                         <Button onClick={() => {
                                                             handleEdit(assignment._id);
                                                         }}>Edit</Button>
+                                                        <Button color="error"
+                                                                onClick={() => {
+                                                                    onDelete(assignment._id);
+                                                                }}>Delete</Button>
                                                     </ButtonGroup> :
                                                     <Button color="error"
                                                             sx={{marginLeft: '12px'}}
@@ -184,6 +210,7 @@ export default function Home() {
                     </Table>
                 </TableContainer>
             </Grid>
+            <ConfirmDeleteDialog unit="assignment" handleDelete={handleDelete}/>
         </Grid>
     );
 }
