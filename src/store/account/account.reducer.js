@@ -3,7 +3,6 @@ import {ACCOUNT_ACTION_TYPES} from './account.type';
 const ACCOUNT_INITIAL_STATE = {
     showLoginDialog: false,
     showChangePwdDialog: false,
-    showConfirmDeleteAccountDialog: false,
     showConfirmResetPwdDialog: false,
     showAddTADialog: false,
     token: localStorage.getItem('token') || '',
@@ -25,8 +24,6 @@ export const accountReducer = (
             return {...state, showLoginDialog: payload};
         case ACCOUNT_ACTION_TYPES.SET_SHOW_CHANGE_PWD_DIALOG:
             return {...state, showChangePwdDialog: payload};
-        case ACCOUNT_ACTION_TYPES.SET_SHOW_CONFIRM_DELETE_ACCOUNT_DIALOG:
-            return {...state, showConfirmDeleteAccountDialog: payload};
         case ACCOUNT_ACTION_TYPES.SET_SHOW_CONFIRM_RESET_PWD_DIALOG:
             return {...state, showConfirmResetPwdDialog: payload};
         case ACCOUNT_ACTION_TYPES.SET_SHOW_ADD_TA_DIALOG:

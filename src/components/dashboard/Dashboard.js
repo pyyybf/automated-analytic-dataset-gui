@@ -17,16 +17,16 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import React, {useEffect, useState} from "react";
-import {setAlert} from "@/store/web/web.action";
+import {setAlert, setShowConfirmDeleteDialog} from "@/store/web/web.action";
 import {
+    deleteAccount,
     getAllAccounts,
     setCurrentAccountId,
     setShowAddTADialog,
-    setShowConfirmDeleteAccountDialog,
     setShowConfirmResetPwdDialog,
 } from "@/store/account/account.action";
 import {useDispatch} from "react-redux";
-import ConfirmDeleteDialog from "@/components/dashboard/components/confirmDeleteDialog/ConfirmDeleteDialog";
+import ConfirmDeleteDialog from "@/components/confirmDeleteDialog/ConfirmDeleteDialog";
 import AddTADialog from "@/components/dashboard/components/addTADialog/AddTADialog";
 import ConfirmResetPwdDialog from "@/components/dashboard/components/confirmResetPwdDialog/ConfirmResetPwdDialog";
 
@@ -35,6 +35,7 @@ export default function Dashboard() {
 
     const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [accountId, setAccountId] = useState('');
 
     const HOME_COLOR_TBL = {
         INSTRUCTOR: 'warning',
@@ -60,9 +61,25 @@ export default function Dashboard() {
         dispatch(setShowConfirmResetPwdDialog(true));
     };
 
-    const handleDelete = (id) => {
-        dispatch(setCurrentAccountId(id));
-        dispatch(setShowConfirmDeleteAccountDialog(true));
+    const handleDelete = () => {
+        deleteAccount(accountId).then(res => {
+            dispatch(setAlert(true, 'Delete successfully.', 'success'));
+            setTimeout(() => {
+                dispatch(setAlert(false, 'Delete successfully.', 'success'));
+            }, ALERT_DURATION);
+        }).catch(err => {
+            dispatch(setAlert(true, err));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+        }).finally(() => {
+            getAccountList();
+        });
+    };
+
+    const onDelete = (id) => {
+        setAccountId(id);
+        dispatch(setShowConfirmDeleteDialog(true));
     };
 
     const handleAddTA = () => {
@@ -127,7 +144,7 @@ export default function Dashboard() {
                                                 </IconButton>
                                                 <IconButton color="error"
                                                             onClick={() => {
-                                                                handleDelete(account._id);
+                                                                onDelete(account._id);
                                                             }}>
                                                     <DeleteOutlineOutlinedIcon fontSize="small"/>
                                                 </IconButton>
@@ -139,7 +156,7 @@ export default function Dashboard() {
                     </TableContainer>
                 </Grid>
             </Grid>
-            <ConfirmDeleteDialog onConfirm={getAccountList}/>
+            <ConfirmDeleteDialog unit="account" handleDelete={handleDelete}/>
             <ConfirmResetPwdDialog onConfirm={getAccountList}/>
             <AddTADialog onConfirm={getAccountList}/>
         </React.Fragment>

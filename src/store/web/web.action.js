@@ -8,3 +8,10 @@ export const setAlert = (open, text = '', type = 'error') => {
         payload: payload
     };
 };
+
+export const setShowConfirmDeleteDialog = (newVal) => {
+    return {
+        type: WEB_ACTION_TYPES.SET_SHOW_CONFIRM_DELETE_DIALOG,
+        payload: newVal
+    };
+};

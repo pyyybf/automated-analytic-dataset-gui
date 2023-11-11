@@ -23,13 +23,6 @@ export const setShowChangePwdDialog = (newVal) => {
     };
 };
 
-export const setShowConfirmDeleteAccountDialog = (newVal) => {
-    return {
-        type: ACCOUNT_ACTION_TYPES.SET_SHOW_CONFIRM_DELETE_ACCOUNT_DIALOG,
-        payload: newVal
-    };
-};
-
 export const setShowConfirmResetPwdDialog = (newVal) => {
     return {
         type: ACCOUNT_ACTION_TYPES.SET_SHOW_CONFIRM_RESET_PWD_DIALOG,

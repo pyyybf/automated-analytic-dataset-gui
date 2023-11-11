@@ -4,6 +4,7 @@ const WEB_INITIAL_STATE = {
     alertOpen: false,
     alertText: '',
     alertType: 'error',
+    showConfirmDeleteDialog: false,
 };
 
 export const webReducer = (
@@ -15,6 +16,8 @@ export const webReducer = (
     switch (type) {
         case WEB_ACTION_TYPES.SET_ALERT:
             return {...state, ...payload};
+        case WEB_ACTION_TYPES.SET_SHOW_CONFIRM_DELETE_DIALOG:
+            return {...state, showConfirmDeleteDialog: payload};
         default:
             return state;
     }
