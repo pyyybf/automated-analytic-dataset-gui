@@ -47,7 +47,11 @@ export const getAssignmentById = (id) => {
     return new Promise((resolve, reject) => {
         getAssignmentByIdAPI(id).then(response => {
             if (response.data.success) {
-                resolve(response.data.content);
+                resolve({
+                    // TODO
+                    ...response.data.content,
+                    ...response.data.content.dataset,
+                });
             } else {
                 reject(response.data.message);
             }
