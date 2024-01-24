@@ -21,9 +21,9 @@ export default function Header() {
     const location = useLocation();
     const navigate = useNavigate();
     useEffect(() => {
-        setTab(location.pathname);
+        setTab('/' + location.pathname.split('/')[1]);
         // check auth
-        if (location.pathname === '/editor') {
+        if (location.pathname.startsWith('/editor')) {
             if (token !== 'TA' && token !== 'INSTRUCTOR') {
                 dispatch(setAlert(true, 'Please sign in!'));
                 setTimeout(() => {

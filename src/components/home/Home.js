@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {
     Button,
     ButtonGroup,
-    Chip, CircularProgress,
+    CircularProgress,
     Grid,
+    IconButton,
+    MenuItem,
     Paper,
+    Select,
     Table,
     TableBody,
     TableCell,
@@ -30,10 +33,13 @@ import {
     getAssignmentById,
     setAssignmentId,
     setAssignmentName,
+    setImportCode,
+    setQuestions,
     setUscID,
     updateAssignmentState,
 } from "@/store/assignment/assignment.action";
 import {useNavigate} from "react-router-dom";
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DownloadDataBtn from "@/components/downloadDataBtn/DownloadDataBtn";
 import ConfirmDeleteDialog from "@/components/confirmDeleteDialog/ConfirmDeleteDialog";
 
@@ -72,12 +78,16 @@ export default function Home() {
         getAssignmentList();
     }, [token, dispatch]);
 
-    const handleEdit = (id) => {
+    const handleEdit = (id, type) => {
         getAssignmentById(id).then(res => {
-            dispatch(setNumberOfRows(res.numberOfRows));
-            dispatch(setFieldList(res.fieldList));
-            dispatch(setCovarianceMatrix(res.covarianceMatrix));
-            dispatch(setCode(res.code));
+            dispatch(setNumberOfRows(res.dataset.numberOfRows));
+            dispatch(setFieldList(res.dataset.fieldList));
+            dispatch(setCovarianceMatrix(res.dataset.covarianceMatrix));
+            dispatch(setCode(res.dataset.code));
+
+            dispatch(setImportCode(res.template.importCode));
+            dispatch(setQuestions(res.template.questions));
+
             dispatch(setAssignmentName(res.name));
             dispatch(setAssignmentId(res._id));
         }).catch(err => {
@@ -86,7 +96,7 @@ export default function Home() {
                 dispatch(setAlert(false));
             }, ALERT_DURATION);
         }).finally(() => {
-            navigate('/editor');
+            navigate(`/editor/${type}`);
         });
     };
     const handleDelete = () => {
@@ -116,9 +126,10 @@ export default function Home() {
     };
     const handleState = (id, state) => {
         updateAssignmentState(id, state).then(res => {
-            dispatch(setAlert(true, `${state === 'published' ? 'Publish' : 'Withdraw'} successful!`, 'success'));
+            const alertMsg = `${state === 'published' ? 'Publish' : 'Withdraw'} successful!`;
+            dispatch(setAlert(true, alertMsg, 'success'));
             setTimeout(() => {
-                dispatch(setAlert(false, `${state === 'published' ? 'Publish' : 'Withdraw'} successful!`, 'success'));
+                dispatch(setAlert(false, alertMsg, 'success'));
             }, ALERT_DURATION);
             getAssignmentList();
         }).catch(err => {
@@ -177,31 +188,34 @@ export default function Home() {
                                                 {assignment._id}
                                             </TableCell> : null}
                                         <TableCell align="center">
-                                            <Chip label={assignment.state}
-                                                  color={STATE_COLOR_TBL[assignment.state]}/>
+                                            <Select size="small"
+                                                    value={assignment.state}
+                                                    onChange={e => {
+                                                        handleState(assignment._id, e.target.value);
+                                                    }}
+                                                    sx={{width: '100%', textAlign: 'left'}}>
+                                                <MenuItem value="published">Published</MenuItem>
+                                                <MenuItem value="draft">Draft</MenuItem>
+                                            </Select>
                                         </TableCell>
                                         <TableCell align="left">
                                             <DownloadDataBtn assignmentID={assignment._id}
                                                              assignmentName={assignment.name}/>
                                             {token === 'TA' || token === 'INSTRUCTOR' ? <React.Fragment>
-                                                {assignment.state === 'draft' ?
-                                                    <ButtonGroup sx={{marginLeft: '12px'}} variant="text">
-                                                        <Button onClick={() => {
-                                                            handleState(assignment._id, 'published');
-                                                        }}>Publish</Button>
-                                                        <Button onClick={() => {
-                                                            handleEdit(assignment._id);
-                                                        }}>Edit</Button>
-                                                        <Button color="error"
-                                                                onClick={() => {
-                                                                    onDelete(assignment._id);
-                                                                }}>Delete</Button>
-                                                    </ButtonGroup> :
-                                                    <Button color="error"
-                                                            sx={{marginLeft: '12px'}}
+                                                <ButtonGroup sx={{marginLeft: '12px'}} variant="text">
+                                                    <Button onClick={() => {
+                                                        handleEdit(assignment._id, 'dataset');
+                                                    }}>Edit dataset</Button>
+                                                    <Button onClick={() => {
+                                                        handleEdit(assignment._id, 'template');
+                                                    }}>Edit questions</Button>
+                                                </ButtonGroup>
+                                                <IconButton color="error"
                                                             onClick={() => {
-                                                                handleState(assignment._id, 'draft');
-                                                            }}>Withdraw</Button>}
+                                                                onDelete(assignment._id);
+                                                            }}>
+                                                    <DeleteOutlinedIcon fontSize="small"/>
+                                                </IconButton>
                                             </React.Fragment> : null}
                                         </TableCell>
                                     </TableRow>

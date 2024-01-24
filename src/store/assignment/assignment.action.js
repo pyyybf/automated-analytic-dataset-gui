@@ -29,6 +29,20 @@ export const setAssignmentId = (newVal) => {
     };
 };
 
+export const setImportCode = (newVal) => {
+    return {
+        type: ASSIGNMENT_ACTION_TYPES.SET_IMPORT_CODE,
+        payload: newVal
+    };
+};
+
+export const setQuestions = (newVal) => {
+    return {
+        type: ASSIGNMENT_ACTION_TYPES.SET_QUESTIONS,
+        payload: newVal
+    };
+};
+
 export const getAllAssignments = (role) => {
     return new Promise((resolve, reject) => {
         getAllAssignmentsAPI(role).then(response => {
@@ -47,11 +61,7 @@ export const getAssignmentById = (id) => {
     return new Promise((resolve, reject) => {
         getAssignmentByIdAPI(id).then(response => {
             if (response.data.success) {
-                resolve({
-                    // TODO
-                    ...response.data.content,
-                    ...response.data.content.dataset,
-                });
+                resolve(response.data.content);
             } else {
                 reject(response.data.message);
             }

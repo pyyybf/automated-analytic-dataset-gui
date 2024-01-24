@@ -6,11 +6,14 @@ import Editor from "@/components/editor/Editor";
 import {
     Routes,
     Route,
+    Navigate,
 } from "react-router-dom";
 import React from "react";
 import {useSelector} from "react-redux";
 import Home from "@/components/home/Home";
 import Dashboard from "@/components/dashboard/Dashboard";
+import Dataset from "@/components/editor/dataset/Dataset";
+import Template from "@/components/editor/template/Template";
 
 function App() {
     const alertOpen = useSelector(state => state.web.alertOpen);
@@ -32,7 +35,11 @@ function App() {
                 <Grid item xs={12}>
                     <Routes>
                         <Route path="/" element={<Home/>}/>
-                        <Route path="/editor" element={<Editor/>}/>
+                        <Route path="/editor" element={<Editor/>}>
+                            <Route index element={<Navigate replace to="dataset"/>}/>
+                            <Route path="dataset" element={<Dataset/>}/>
+                            <Route path="template" element={<Template/>}/>
+                        </Route>
                         <Route path="/dashboard" element={<Dashboard/>}/>
                     </Routes>
                 </Grid>
