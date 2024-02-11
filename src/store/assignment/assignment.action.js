@@ -71,9 +71,9 @@ export const getAssignmentById = (id) => {
     });
 };
 
-export const saveAssignment = (id, name, code, importCode, numberOfRows, fieldList, covarianceMatrix) => {
+export const saveAssignment = (id, name, dataset, template) => {
     return new Promise((resolve, reject) => {
-        saveAssignmentAPI(id, name, code, importCode, numberOfRows, fieldList, covarianceMatrix).then(response => {
+        saveAssignmentAPI(id, name, dataset, template).then(response => {
             if (response.data.success) {
                 resolve(response.data.content);
             } else {

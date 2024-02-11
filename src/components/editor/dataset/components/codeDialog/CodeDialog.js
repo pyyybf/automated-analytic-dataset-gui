@@ -28,6 +28,9 @@ export default function CodeDialog() {
     const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
     const assignmentName = useSelector(state => state.assignment.assignmentName);
     const assignmentId = useSelector(state => state.assignment.assignmentId);
+    // template
+    const questions = useSelector(state => state.assignment.questions);
+    const importCodeTmpl = useSelector(state => state.assignment.importCode);
 
     const HIDDEN_BTN_STYLE = {
         display: 'none',
@@ -52,7 +55,18 @@ export default function CodeDialog() {
             }, ALERT_DURATION);
             return;
         }
-        saveAssignment(assignmentId, assignmentName, code, importCode, numberOfRows, fieldList, covarianceMatrix)
+        const dataset = {
+            code,
+            importCode,
+            numberOfRows,
+            fieldList,
+            covarianceMatrix,
+        };
+        const template = {
+            questions,
+            importCode: importCodeTmpl,
+        };
+        saveAssignment(assignmentId, assignmentName, dataset, template)
             .then(res => {
                 dispatch(setAssignmentId(res));
                 dispatch(setAlert(true, 'Save Successful!', 'success'));
