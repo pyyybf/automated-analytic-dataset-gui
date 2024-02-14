@@ -36,7 +36,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/editor" element={<Editor/>}>
-                            <Route index element={<Navigate replace to="dataset"/>}/>
+                            <Route index element={<Navigate replace to="template"/>}/>
                             <Route path="dataset" element={<Dataset/>}/>
                             <Route path="template" element={<Template/>}/>
                         </Route>

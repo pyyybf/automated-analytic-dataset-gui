@@ -1,6 +1,7 @@
 import {ASSIGNMENT_ACTION_TYPES} from "./assignment.type";
 import {
     deleteAssignmentAPI,
+    downloadAutoGraderAPI,
     downloadDataAPI,
     getAllAssignmentsAPI,
     getAssignmentByIdAPI,
@@ -118,6 +119,20 @@ export const deleteAssignment = (id) => {
         deleteAssignmentAPI(id).then(response => {
             if (response.data.success) {
                 resolve(response.data.content);
+            } else {
+                reject(response.data.message);
+            }
+        }).catch(error => {
+            reject(error.message);
+        });
+    });
+};
+
+export const downloadAutoGrader = (id) => {
+    return new Promise((resolve, reject) => {
+        downloadAutoGraderAPI(id).then(response => {
+            if (response.status === 200) {
+                resolve(response.data);
             } else {
                 reject(response.data.message);
             }

@@ -6,7 +6,6 @@ import {
     DialogContent,
     DialogTitle,
     IconButton,
-    TextField,
 } from "@mui/material";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {useDispatch, useSelector} from "react-redux";
@@ -16,7 +15,7 @@ import {setAlert} from "@/store/web/web.action";
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import copy from 'copy-to-clipboard';
 import {ALERT_DURATION} from "@/config";
-import {saveAssignment, setAssignmentId, setAssignmentName} from "@/store/assignment/assignment.action";
+import {saveAssignment, setAssignmentId} from "@/store/assignment/assignment.action";
 
 export default function CodeDialog() {
     const dispatch = useDispatch();
@@ -48,13 +47,6 @@ export default function CodeDialog() {
     const [codeStyle, setCodeStyle] = useState(HIDDEN_BTN_STYLE);
 
     const handleSave = () => {
-        if (assignmentName === '') {
-            dispatch(setAlert(true, 'Assignment Name can\'t be empty!'));
-            setTimeout(() => {
-                dispatch(setAlert(false));
-            }, ALERT_DURATION);
-            return;
-        }
         const dataset = {
             code,
             importCode,
@@ -96,14 +88,7 @@ export default function CodeDialog() {
         <Dialog open={showCodeDialog} onClose={handleCloseDialog} maxWidth="md">
             <DialogTitle>Python Code</DialogTitle>
             <DialogContent>
-                <TextField fullWidth size="small"
-                           sx={{marginTop: '6px'}}
-                           label="Assignment Name"
-                           value={assignmentName}
-                           onChange={e => {
-                               dispatch(setAssignmentName(e.target.value));
-                           }}/>
-                <Box sx={{width: '100%', position: 'relative', marginTop: '12px'}}
+                <Box sx={{width: '100%', position: 'relative'}}
                      onMouseEnter={() => {
                          setImportCodeStyle(VISIBLE_BTN_STYLE);
                      }}

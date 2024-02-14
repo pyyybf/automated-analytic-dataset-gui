@@ -1,5 +1,6 @@
 import React from "react";
-import {Grid} from "@mui/material";
+import {Button, Grid} from "@mui/material";
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import {HEADER_HEIGHT} from "@/config";
 import Options from "./components/options/Options";
 import Graph from "./components/graph/Graph";
@@ -13,8 +14,11 @@ import MulticollinearDialog from "./components/multicollinearDialog/Multicolline
 import PolynomialCategoricalDialog from "./components/polynomialCategoricalDialog/PolynomialCategoricalDialog";
 import ResponseVectorDialog from "./components/responseVectorDialog/ResponseVectorDialog";
 import CodeDialog from "./components/codeDialog/CodeDialog";
+import {useNavigate} from "react-router-dom";
 
 export default function Dataset() {
+    const navigate = useNavigate();
+
     return (
         <React.Fragment>
             <Grid container sx={{height: `calc(100vh - ${HEADER_HEIGHT}px)`}}>
@@ -22,7 +26,15 @@ export default function Dataset() {
                     padding: '16px 28px',
                     height: '100%',
                     overflowY: 'scroll',
+                    textAlign: 'left'
                 }}>
+                    <Button startIcon={<ArrowBackOutlinedIcon/>}
+                            sx={{paddingX: '18px'}}
+                            onClick={() => {
+                                navigate('/editor');
+                            }}>
+                        Back to Questions
+                    </Button>
                     <Options/>
                 </Grid>
                 <Grid item xs={12} md={9} sx={{

@@ -49,3 +49,12 @@ export const deleteAssignmentAPI = (id) => {
         method: 'DELETE',
     });
 };
+
+export const downloadAutoGraderAPI = (id) => {
+    return HttpRequest.request({
+        url: `${api.assignmentPre}/autograder`,
+        method: 'POST',
+        data: {id},
+        responseType: 'blob',
+    });
+};
