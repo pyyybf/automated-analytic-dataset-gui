@@ -12,10 +12,10 @@ import {downloadAutoGrader} from "@/store/assignment/assignment.action";
 export default function DownloadZipButton(props) {
     const dispatch = useDispatch();
 
-    const [generateDataFileLoading, setGenerateDataFileLoading] = useState(false);
+    const [generateZipFileLoading, setGenerateZipFileLoading] = useState(false);
 
     const handleGenerateData = () => {
-        setGenerateDataFileLoading(true);
+        setGenerateZipFileLoading(true);
         downloadAutoGrader(props.assignmentID).then(res => {
             const blobUrl = window.URL.createObjectURL(new Blob([res]));
             const link = document.createElement('a');
@@ -32,12 +32,12 @@ export default function DownloadZipButton(props) {
                 dispatch(setAlert(false));
             }, ALERT_DURATION);
         }).finally(() => {
-            setGenerateDataFileLoading(false);
+            setGenerateZipFileLoading(false);
         });
     };
 
     return (
-        <Button startIcon={generateDataFileLoading ? <CircularProgress size="1em" color="inherit"/> : <DownloadIcon/>}
+        <Button startIcon={generateZipFileLoading ? <CircularProgress size="1em" color="inherit"/> : <DownloadIcon/>}
                 onClick={handleGenerateData} variant="outlined" sx={{marginLeft: '12px'}}>Auto-Grader</Button>
     );
 }
