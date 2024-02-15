@@ -36,7 +36,20 @@ export const assignmentReducer = (
         case ASSIGNMENT_ACTION_TYPES.SET_ASSIGNMENT_ID:
             return {...state, assignmentId: payload};
         case ASSIGNMENT_ACTION_TYPES.CLEAR_ASSIGNMENT:
-            return {...ASSIGNMENT_INITIAL_STATE};
+            return {
+                ...ASSIGNMENT_INITIAL_STATE,
+                questions: [{
+                    title: '',
+                    description: '',
+                    subquestions: [{
+                        description: '',
+                        code: 'q_1_1 = ...\nq_1_1',
+                        outputType: 'number',
+                        tolerance: 0,
+                        points: 10,
+                    }],
+                }],
+            };
         default:
             return state;
     }
