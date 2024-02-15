@@ -1,8 +1,20 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Box, Button, FormControl, Grid, InputBase, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {
+    Box,
+    Button,
+    FormControl,
+    Grid,
+    IconButton,
+    InputBase,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
+} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import {useNavigate} from "react-router-dom";
 import {HEADER_HEIGHT} from "@/config";
 import {setQuestions, setImportCode, setAssignmentName} from "@/store/assignment/assignment.action";
@@ -91,6 +103,13 @@ export default function Template() {
                                                flexGrow: 1,
                                                marginTop: '4px',
                                            }}/>
+                                <IconButton size="small" color="error" onClick={e => {
+                                    let newQuestions = [...questions];
+                                    newQuestions.splice(qidx, 1);
+                                    dispatch(setQuestions(newQuestions));
+                                }}>
+                                    <DeleteOutlinedIcon/>
+                                </IconButton>
                             </Box>
                             <InputBase multiline={true} fullWidth
                                        value={question.description}
@@ -151,11 +170,11 @@ export default function Template() {
                                                 sx={{
                                                     width: '8em',
                                                 }}
-                                                value={subquestion.output_type}
+                                                value={subquestion.outputType}
                                                 onChange={e => {
                                                     let newSubquestion = {
                                                         ...subquestion,
-                                                        output_type: e.target.value,
+                                                        outputType: e.target.value,
                                                     };
                                                     updateSubquestion(newSubquestion, subqidx, qidx);
                                                 }}>
@@ -165,7 +184,7 @@ export default function Template() {
                                             <MenuItem value="dict">Dictionary</MenuItem>
                                         </Select>
                                     </FormControl>
-                                    {subquestion.output_type === 'number' ?
+                                    {subquestion.outputType === 'number' ?
                                         <TextField type="number" size="small"
                                                    label="Tolerance"
                                                    sx={{
@@ -180,10 +199,22 @@ export default function Template() {
                                                        };
                                                        updateSubquestion(newSubquestion, subqidx, qidx);
                                                    }}/> : null}
+                                    <IconButton size="small" color="error"
+                                                sx={{marginLeft: '12px'}}
+                                                onClick={e => {
+                                                    let newQuestion = {
+                                                        ...question,
+                                                        subquestions: [...question.subquestions],
+                                                    };
+                                                    newQuestion.subquestions.splice(subqidx, 1);
+                                                    updateQuestion(newQuestion, qidx);
+                                                }}>
+                                        <DeleteOutlinedIcon/>
+                                    </IconButton>
                                 </Box>
                             </Grid>
                         </React.Fragment>)}
-                        <Grid item xs={12} sx={{marginBottom: '12px'}}>
+                        <Grid item xs={12}>
                             <Button startIcon={<AddIcon/>}
                                     size="small"
                                     onClick={e => {
@@ -195,7 +226,7 @@ export default function Template() {
                                         newQuestion.subquestions.push({
                                             description: '',
                                             code: `q_${qidx + 1}_${subqidx} = ...\nq_${qidx + 1}_${subqidx}`,
-                                            output_type: 'number',
+                                            outputType: 'number',
                                             tolerance: 0,
                                             points: 10,
                                         });
@@ -205,6 +236,7 @@ export default function Template() {
                     </React.Fragment>)}
                     <Button variant="outlined"
                             startIcon={<AddIcon/>}
+                            sx={{marginTop: '12px'}}
                             onClick={e => {
                                 let newQuestions = [...questions];
                                 const qidx = newQuestions.length + 1;
@@ -214,7 +246,7 @@ export default function Template() {
                                     subquestions: [{
                                         description: '',
                                         code: `q_${qidx}_1 = ...\nq_${qidx}_1`,
-                                        output_type: 'number',
+                                        outputType: 'number',
                                         tolerance: 0,
                                         points: 10,
                                     }],
