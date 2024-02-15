@@ -16,7 +16,7 @@ export default function DownloadZipButton(props) {
 
     const handleGenerateData = () => {
         setGenerateZipFileLoading(true);
-        downloadAutoGrader(props.assignmentID).then(res => {
+        downloadAutoGrader(props.assignmentId).then(res => {
             const blobUrl = window.URL.createObjectURL(new Blob([res]));
             const link = document.createElement('a');
             link.href = blobUrl;

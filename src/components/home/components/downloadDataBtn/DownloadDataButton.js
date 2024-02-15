@@ -25,7 +25,7 @@ export default function DownloadDataButton(props) {
             return;
         }
         setGenerateDataFileLoading(true);
-        downloadData(props.assignmentID, 'csv', uscID).then(res => {
+        downloadData(props.assignmentId, 'csv', uscID).then(res => {
             handleDownload(res, `${props.assignmentName} - Dataset.csv`);
         }).catch(err => {
             console.log(err);

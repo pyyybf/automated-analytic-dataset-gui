@@ -48,7 +48,7 @@ export default function DownloadDataBtn(props) {
             return;
         }
         setGenerateDataFileLoading(true);
-        downloadData(props.assignmentID, format, uscID).then(res => {
+        downloadData(props.assignmentId, format, uscID).then(res => {
             handleDownload(FILE_CONTENT_CONVERTER[format](res), `${props.assignmentName} - Dataset.${format}`);
         }).catch(err => {
             console.log(err);

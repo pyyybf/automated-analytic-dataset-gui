@@ -192,10 +192,10 @@ export default function Home() {
                                                   color={STATE_COLOR_TBL[assignment.state]}/>
                                         </TableCell>
                                         <TableCell align="left">
-                                            <DownloadDataButton assignmentID={assignment._id}
+                                            <DownloadDataButton assignmentId={assignment._id}
                                                                 assignmentName={assignment.name}/>
                                             {token === 'TA' || token === 'INSTRUCTOR' ? <React.Fragment>
-                                                <DownloadZipButton assignmentID={assignment._id}
+                                                <DownloadZipButton assignmentId={assignment._id}
                                                                    assignmentName={assignment.name}/>
                                                 {assignment.state === 'Draft' ? <React.Fragment>
                                                         <Button color="primary"
