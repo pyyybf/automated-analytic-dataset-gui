@@ -15,10 +15,18 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
 import {useNavigate} from "react-router-dom";
-import {HEADER_HEIGHT} from "@/config";
-import {setQuestions, setImportCode, setAssignmentName} from "@/store/assignment/assignment.action";
+import {ALERT_DURATION, HEADER_HEIGHT} from "@/config";
+import {
+    setQuestions,
+    setImportCode,
+    setAssignmentName,
+    saveAssignment,
+    setAssignmentId
+} from "@/store/assignment/assignment.action";
 import CodeCell from "@/components/editor/template/codeCell/CodeCell";
+import {setAlert} from "@/store/web/web.action";
 
 export default function Template() {
     const dispatch = useDispatch();
@@ -28,6 +36,11 @@ export default function Template() {
     const assignmentName = useSelector(state => state.assignment.assignmentName);
     const importCode = useSelector(state => state.assignment.importCode);
     const questions = useSelector(state => state.assignment.questions);
+    const code = useSelector(state => state.generator.code);
+    const importCodeData = useSelector(state => state.generator.importCode);
+    const numberOfRows = useSelector(state => state.generator.numberOfRows);
+    const fieldList = useSelector(state => state.generator.fieldList);
+    const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
 
     const READ_DATASET_CODE = `# Please read the dataset in this cell\ndf = pd.read_csv("${assignmentName} - Dataset.csv")\ndf`;
 
@@ -41,6 +54,33 @@ export default function Template() {
         let newQuestion = {...questions[qidx]};
         newQuestion.subquestions[subqidx] = newSubquestion;
         updateQuestion(newQuestion, qidx);
+    };
+
+    const handleSave = () => {
+        const dataset = {
+            code,
+            importCode: importCodeData,
+            numberOfRows,
+            fieldList,
+            covarianceMatrix,
+        };
+        const template = {
+            questions,
+            importCode,
+        };
+        saveAssignment(assignmentId, assignmentName, dataset, template)
+            .then(res => {
+                dispatch(setAssignmentId(res));
+                dispatch(setAlert(true, 'Save Successful!', 'success'));
+                setTimeout(() => {
+                    dispatch(setAlert(false, 'Save Successful!', 'success'));
+                }, ALERT_DURATION);
+            }).catch(err => {
+            dispatch(setAlert(true, err));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+        });
     };
 
     return (
@@ -78,6 +118,9 @@ export default function Template() {
                             onClick={() => {
                                 navigate('/editor/dataset');
                             }}>Define dataset</Button>
+                    <Button startIcon={<SaveIcon/>} variant="contained"
+                            sx={{marginLeft: '12px'}}
+                            onClick={handleSave}>Save</Button>
                 </Box>
                 <CodeCell code={importCode} onChange={(newVal) => {
                     dispatch(setImportCode(newVal));
