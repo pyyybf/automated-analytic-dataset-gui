@@ -26,6 +26,7 @@ import {
 } from "@/store/generator/generator.action";
 import {setAlert, setShowConfirmDeleteDialog} from "@/store/web/web.action";
 import {
+    clearAssignment,
     deleteAssignment,
     getAllAssignments,
     getAssignmentById,
@@ -120,8 +121,9 @@ export default function Home() {
     };
     const handleAdd = () => {
         dispatch(clearGraph());
-        dispatch(setAssignmentName(''));
-        dispatch(setAssignmentId(''));
+        // dispatch(setAssignmentName(''));
+        // dispatch(setAssignmentId(''));
+        dispatch(clearAssignment());
         navigate('/editor');
     };
     const handleState = (id, newState) => {

@@ -44,6 +44,12 @@ export const setQuestions = (newVal) => {
     };
 };
 
+export const clearAssignment = () => {
+    return {
+        type: ASSIGNMENT_ACTION_TYPES.CLEAR_ASSIGNMENT,
+    };
+};
+
 export const getAllAssignments = (role) => {
     return new Promise((resolve, reject) => {
         getAllAssignmentsAPI(role).then(response => {
