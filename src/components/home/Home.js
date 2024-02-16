@@ -84,7 +84,7 @@ export default function Home() {
             dispatch(setNumberOfRows(res.dataset.numberOfRows));
             dispatch(setFieldList(res.dataset.fieldList));
             dispatch(setCovarianceMatrix(res.dataset.covarianceMatrix));
-            dispatch(setCode(res.dataset.code));
+            dispatch(setCode(res.dataset.code, res.dataset.importCode));
 
             dispatch(setImportCode(res.template.importCode));
             dispatch(setQuestions(res.template.questions));

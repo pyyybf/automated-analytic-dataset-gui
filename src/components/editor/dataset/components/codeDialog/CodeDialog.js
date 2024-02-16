@@ -132,7 +132,7 @@ export default function CodeDialog() {
                     <CodeEditor value={code}
                                 language="python"
                                 onChange={e => {
-                                    dispatch(setCode(e.target.value));
+                                    dispatch(setCode(e.target.value, importCode));
                                 }}
                                 data-color-mode="light"
                                 padding={15}

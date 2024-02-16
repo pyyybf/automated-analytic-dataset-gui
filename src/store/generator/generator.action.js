@@ -92,11 +92,12 @@ export const setShowCodeDialog = (val) => {
     };
 };
 
-export const setCode = (newVal) => {
+export const setCode = (newCode, newImportCode) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_CODE,
         payload: {
-            code: newVal
+            code: newCode,
+            importCode: newImportCode,
         }
     };
 };
