@@ -10,7 +10,8 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField
+    TextField,
+    Tooltip,
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
@@ -146,13 +147,15 @@ export default function Template() {
                                                flexGrow: 1,
                                                marginTop: '4px',
                                            }}/>
-                                <IconButton size="small" color="error" onClick={e => {
-                                    let newQuestions = [...questions];
-                                    newQuestions.splice(qidx, 1);
-                                    dispatch(setQuestions(newQuestions));
-                                }}>
-                                    <DeleteOutlinedIcon/>
-                                </IconButton>
+                                <Tooltip title="Delete question">
+                                    <IconButton size="small" color="error" onClick={e => {
+                                        let newQuestions = [...questions];
+                                        newQuestions.splice(qidx, 1);
+                                        dispatch(setQuestions(newQuestions));
+                                    }}>
+                                        <DeleteOutlinedIcon/>
+                                    </IconButton>
+                                </Tooltip>
                             </Box>
                             <InputBase multiline={true} fullWidth
                                        value={question.description}
@@ -242,18 +245,20 @@ export default function Template() {
                                                        };
                                                        updateSubquestion(newSubquestion, subqidx, qidx);
                                                    }}/> : null}
-                                    <IconButton size="small" color="error"
-                                                sx={{marginLeft: '12px'}}
-                                                onClick={e => {
-                                                    let newQuestion = {
-                                                        ...question,
-                                                        subquestions: [...question.subquestions],
-                                                    };
-                                                    newQuestion.subquestions.splice(subqidx, 1);
-                                                    updateQuestion(newQuestion, qidx);
-                                                }}>
-                                        <DeleteOutlinedIcon/>
-                                    </IconButton>
+                                    <Tooltip title="Delete sub-question">
+                                        <IconButton size="small" color="error"
+                                                    sx={{marginLeft: '12px'}}
+                                                    onClick={e => {
+                                                        let newQuestion = {
+                                                            ...question,
+                                                            subquestions: [...question.subquestions],
+                                                        };
+                                                        newQuestion.subquestions.splice(subqidx, 1);
+                                                        updateQuestion(newQuestion, qidx);
+                                                    }}>
+                                            <DeleteOutlinedIcon/>
+                                        </IconButton>
+                                    </Tooltip>
                                 </Box>
                             </Grid>
                         </React.Fragment>)}

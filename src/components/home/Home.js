@@ -12,7 +12,8 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    TextField
+    TextField,
+    Tooltip,
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import {ALERT_DURATION, HEADER_HEIGHT} from "@/config";
@@ -38,6 +39,8 @@ import {
     updateAssignmentState,
 } from "@/store/assignment/assignment.action";
 import {useNavigate} from "react-router-dom";
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ConfirmDeleteDialog from "@/components/confirmDeleteDialog/ConfirmDeleteDialog";
@@ -121,8 +124,6 @@ export default function Home() {
     };
     const handleAdd = () => {
         dispatch(clearGraph());
-        // dispatch(setAssignmentName(''));
-        // dispatch(setAssignmentId(''));
         dispatch(clearAssignment());
         navigate('/editor');
     };
@@ -200,32 +201,41 @@ export default function Home() {
                                                 <DownloadZipButton assignmentId={assignment._id}
                                                                    assignmentName={assignment.name}/>
                                                 {assignment.state === 'Draft' ? <React.Fragment>
-                                                        <Button color="primary"
-                                                                sx={{marginLeft: '12px'}}
-                                                                onClick={() => {
-                                                                    handleState(assignment._id, 'Published');
-                                                                }}
-                                                        >Publish</Button>
-                                                        <IconButton color="primary"
+                                                        <Tooltip title="Publish">
+                                                            <IconButton color="primary"
+                                                                        sx={{marginLeft: '12px'}}
+                                                                        onClick={() => {
+                                                                            handleState(assignment._id, 'Published');
+                                                                        }}>
+                                                                <CheckCircleOutlinedIcon fontSize="small"/>
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                        <Tooltip title="Edit">
+                                                            <IconButton color="info"
+                                                                        onClick={() => {
+                                                                            handleEdit(assignment._id, 'template');
+                                                                        }}>
+                                                                <EditOutlinedIcon fontSize="small"/>
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                        <Tooltip title="Delete">
+                                                            <IconButton color="error"
+                                                                        onClick={() => {
+                                                                            onDelete(assignment._id);
+                                                                        }}>
+                                                                <DeleteOutlinedIcon fontSize="small"/>
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    </React.Fragment> :
+                                                    <Tooltip title="Withdraw">
+                                                        <IconButton color="warning"
                                                                     sx={{marginLeft: '12px'}}
                                                                     onClick={() => {
-                                                                        handleEdit(assignment._id, 'template');
+                                                                        handleState(assignment._id, 'Draft');
                                                                     }}>
-                                                            <EditOutlinedIcon fontSize="small"/>
+                                                            <CancelOutlinedIcon fontSize="small"/>
                                                         </IconButton>
-                                                        <IconButton color="error"
-                                                                    onClick={() => {
-                                                                        onDelete(assignment._id);
-                                                                    }}>
-                                                            <DeleteOutlinedIcon fontSize="small"/>
-                                                        </IconButton>
-                                                    </React.Fragment> :
-                                                    <Button color="error"
-                                                            sx={{marginLeft: '12px'}}
-                                                            onClick={() => {
-                                                                handleState(assignment._id, 'Draft');
-                                                            }}
-                                                    >Withdraw</Button>}
+                                                    </Tooltip>}
                                             </React.Fragment> : null}
                                         </TableCell>
                                     </TableRow>
