@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     Box,
     Button,
+    Fab,
     FormControl,
     Grid,
     IconButton,
@@ -11,9 +12,11 @@ import {
     MenuItem,
     Select,
     TextField,
+    Toolbar,
     Tooltip,
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
@@ -84,6 +87,17 @@ export default function Template() {
         });
     };
 
+    const handleBackToTop = (e) => {
+        const anchor = (e.target.ownerDocument || document).querySelector(
+            '#back-to-top-anchor',
+        );
+        if (anchor) {
+            anchor.scrollIntoView({
+                block: 'center',
+            });
+        }
+    };
+
     return (
         <Grid container
               direction="row"
@@ -95,6 +109,7 @@ export default function Template() {
                   textAlign: 'left',
                   paddingBottom: '36px',
               }}>
+            <Toolbar id="back-to-top-anchor"/>
             <Grid item xs={12} sm={10} md={8} lg={6}>
                 <Box sx={{
                     width: '100%',
@@ -303,6 +318,17 @@ export default function Template() {
                             }}>Add a question</Button>
                 </Grid>
             </Grid>
+            <Fab size="medium" color="primary"
+                 sx={{
+                     position: 'absolute',
+                     bottom: 36,
+                     right: 36,
+                 }}
+                 onClick={e => {
+                     handleBackToTop(e);
+                 }}>
+                <ArrowUpwardIcon/>
+            </Fab>
         </Grid>
     );
 }
