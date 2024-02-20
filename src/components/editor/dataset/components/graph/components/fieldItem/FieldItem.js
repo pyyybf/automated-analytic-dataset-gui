@@ -16,6 +16,7 @@ import {
     RESPONSE_VECTOR_TYPE_PRE
 } from "@/utils/codeGenerator";
 import {ALERT_DURATION} from "@/config";
+import './FieldItem.css';
 
 export const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -113,7 +114,7 @@ export default function FieldItem(props) {
     };
 
     return (
-        <Item elevation={3}>
+        <Item elevation={3} sx={{minWidth:'340px'}}>
             <Box sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -127,7 +128,7 @@ export default function FieldItem(props) {
                         <TextField size="small"
                                    variant="standard"
                                    value={currentName}
-                                   sx={{width: '47%'}}
+                                   // sx={{width: '47%'}}
                                    onChange={e => {
                                        setCurrentName(e.target.value);
                                    }}></TextField>
@@ -147,11 +148,21 @@ export default function FieldItem(props) {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                        <h3 style={{
-                            width: 'calc(100% - 80px)',
-                            overflowX: 'auto',
-                            textAlign: 'left'
-                        }}>{props.field.name}</h3>
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: 'calc(100% - 140px)'
+                        }}>
+                            <span className="column-drag-handle">
+                                &#x2630;
+                            </span>
+                            <h3 style={{
+                                display: 'inline',
+                                overflowX: 'scroll',
+                                textAlign: 'left',
+                                marginLeft: '16px',
+                            }}>{props.field.name}</h3>
+                        </Box>
                         <Box sx={{position: 'absolute', right: '24px'}}>
                             <IconButton aria-label="visible"
                                         color="info"

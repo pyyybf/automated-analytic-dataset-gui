@@ -85,8 +85,9 @@ export default function Graph() {
                       backgroundColor: '#f5f5f5',
                       minHeight: '100%',
                   }}>
-                <Grid item xs={12} sm={6} md={4}>
-                    <Container groupName="1" onDrop={onDrop} style={{height: '100%'}}>
+                <Grid item xs={12} sm={6} md={4} sx={{minWidth: '350px'}}>
+                    <Container groupName="1" dragHandleSelector=".column-drag-handle"
+                               onDrop={onDrop} style={{height: '100%'}}>
                         {fieldList.map((field, index) => (
                             <Draggable key={index}
                                        style={{
