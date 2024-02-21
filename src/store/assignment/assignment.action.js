@@ -5,6 +5,7 @@ import {
     downloadDataAPI,
     getAllAssignmentsAPI,
     getAssignmentByIdAPI,
+    runNotebookAPI,
     saveAssignmentAPI,
     updateAssignmentStateAPI
 } from "@/api/assignment";
@@ -40,6 +41,13 @@ export const setImportCode = (newVal) => {
 export const setQuestions = (newVal) => {
     return {
         type: ASSIGNMENT_ACTION_TYPES.SET_QUESTIONS,
+        payload: newVal
+    };
+};
+
+export const setOutputs = (newVal) => {
+    return {
+        type: ASSIGNMENT_ACTION_TYPES.SET_OUTPUTS,
         payload: newVal
     };
 };
@@ -147,3 +155,18 @@ export const downloadAutoGrader = (id) => {
         });
     });
 };
+
+export const runNotebook = (id, importCode, questions) => {
+    return new Promise((resolve, reject) => {
+        runNotebookAPI(id, importCode, questions).then(response => {
+            if (response.data.success) {
+                resolve(response.data.content);
+            } else {
+                reject(response.data.message);
+            }
+        }).catch(error => {
+            reject(error.message);
+        });
+    });
+};
+

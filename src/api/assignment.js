@@ -58,3 +58,11 @@ export const downloadAutoGraderAPI = (id) => {
         responseType: 'blob',
     });
 };
+
+export const runNotebookAPI = (id, importCode, questions) => {
+    return HttpRequest.request({
+        url: `${api.assignmentPre}/run`,
+        method: 'POST',
+        data: {id, importCode, questions},
+    });
+};

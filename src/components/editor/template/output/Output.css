@@ -1,0 +1,51 @@
+.output {
+    font-family: monospace;
+    display: inline-block;
+    width: 100%;
+    overflow-x: scroll;
+    margin: 1.2em 0;
+    /*padding: 0;*/
+    /*white-space: pre;*/
+}
+
+.output div table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    /*margin-top: -30px;*/
+}
+
+.output div table thead tr {
+    background-color: #2f6835;
+    color: #ffffff;
+    text-align: left;
+}
+
+.output div table th,
+.output div table td {
+    padding: 4px 16px;
+}
+
+.output div table th {
+    text-align: left;
+}
+
+.output div table tbody th,
+.output div table tbody td {
+    text-align: right;
+}
+
+.output div table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.output div table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.output div table tbody tr:last-of-type {
+    border-bottom: 1.5px solid #2f6835;
+}
+
+.output div table tbody tr:hover {
+    background-color: #f1f1f1;
+}

@@ -34,6 +34,7 @@ import {
     setAssignmentId,
     setAssignmentName,
     setImportCode,
+    setOutputs,
     setQuestions,
     setUscID,
     updateAssignmentState,
@@ -91,6 +92,11 @@ export default function Home() {
 
             dispatch(setImportCode(res.template.importCode));
             dispatch(setQuestions(res.template.questions));
+            dispatch(setOutputs({
+                questionOutputs: [],
+                importCodeOutput: '',
+                fetchDatasetOutput: '',
+            }));
 
             dispatch(setAssignmentName(res.name));
             dispatch(setAssignmentId(res._id));

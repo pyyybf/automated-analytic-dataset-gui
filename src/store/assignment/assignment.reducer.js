@@ -16,6 +16,9 @@ const ASSIGNMENT_INITIAL_STATE = {
         }],
     }],
     importCode: '# Please import all the necessary Python packages in this cell\nimport pandas as pd',
+    questionOutputs: [],
+    importCodeOutput: '',
+    fetchDatasetOutput: '',
 };
 
 export const assignmentReducer = (
@@ -35,6 +38,8 @@ export const assignmentReducer = (
             return {...state, assignmentName: payload};
         case ASSIGNMENT_ACTION_TYPES.SET_ASSIGNMENT_ID:
             return {...state, assignmentId: payload};
+        case ASSIGNMENT_ACTION_TYPES.SET_OUTPUTS:
+            return {...state, ...payload};
         case ASSIGNMENT_ACTION_TYPES.CLEAR_ASSIGNMENT:
             return {
                 ...ASSIGNMENT_INITIAL_STATE,

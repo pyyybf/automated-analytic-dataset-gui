@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     Box,
     Button,
+    CircularProgress,
     Fab,
     FormControl,
     Grid,
@@ -19,17 +20,21 @@ import AddIcon from '@mui/icons-material/Add';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SaveIcon from '@mui/icons-material/Save';
 import {useNavigate} from "react-router-dom";
 import {ALERT_DURATION, HEADER_HEIGHT} from "@/config";
 import {
+    runNotebook,
     setQuestions,
     setImportCode,
     setAssignmentName,
     saveAssignment,
-    setAssignmentId
+    setAssignmentId,
+    setOutputs,
 } from "@/store/assignment/assignment.action";
 import CodeCell from "@/components/editor/template/codeCell/CodeCell";
+import Output from "@/components/editor/template/output/Output";
 import {setAlert} from "@/store/web/web.action";
 
 export default function Template() {
@@ -40,13 +45,20 @@ export default function Template() {
     const assignmentName = useSelector(state => state.assignment.assignmentName);
     const importCode = useSelector(state => state.assignment.importCode);
     const questions = useSelector(state => state.assignment.questions);
+
+    const questionOutputs = useSelector(state => state.assignment.questionOutputs);
+    const importCodeOutput = useSelector(state => state.assignment.importCodeOutput);
+    const fetchDatasetOutput = useSelector(state => state.assignment.fetchDatasetOutput);
+
     const code = useSelector(state => state.generator.code);
     const importCodeData = useSelector(state => state.generator.importCode);
     const numberOfRows = useSelector(state => state.generator.numberOfRows);
     const fieldList = useSelector(state => state.generator.fieldList);
     const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
 
-    const READ_DATASET_CODE = `# Please read the dataset in this cell\ndf = pd.read_csv("${assignmentName} - Dataset.csv")\ndf`;
+    const [running, setRunning] = useState(false);
+
+    const READ_DATASET_CODE = `# Please read the dataset in this cell\ndf = pd.read_csv("${assignmentName} - Dataset.csv")\ndf.head()`;
 
     const updateQuestion = (newQuestion, qidx) => {
         let newQuestions = [...questions];
@@ -98,6 +110,25 @@ export default function Template() {
         }
     };
 
+    const handleRun = () => {
+        setRunning(true);
+        runNotebook(assignmentId, importCode, questions).then(res => {
+            dispatch(setOutputs({
+                questionOutputs: res.questions,
+                importCodeOutput: res.importCode,
+                fetchDatasetOutput: res.fetchDataset,
+            }));
+        }).catch(err => {
+            console.log(err)
+            dispatch(setAlert(true, err));
+            setTimeout(() => {
+                dispatch(setAlert(false));
+            }, ALERT_DURATION);
+        }).finally(() => {
+            setRunning(false);
+        });
+    };
+
     return (
         <Grid container
               direction="row"
@@ -141,7 +172,9 @@ export default function Template() {
                 <CodeCell code={importCode} onChange={(newVal) => {
                     dispatch(setImportCode(newVal));
                 }}/>
+                {importCodeOutput ? <Output content={importCodeOutput}/> : null}
                 <CodeCell code={READ_DATASET_CODE} disabled/>
+                {fetchDatasetOutput ? <Output content={fetchDatasetOutput}/> : null}
                 <Grid container>
                     {questions.map((question, qidx) => <React.Fragment key={qidx}>
                         <Grid item xs={12} sx={{marginBottom: '12px'}}>
@@ -212,6 +245,8 @@ export default function Template() {
                                     };
                                     updateSubquestion(newSubquestion, subqidx, qidx);
                                 }}/>
+                                {questionOutputs?.[qidx]?.[subqidx] ?
+                                    <Output content={questionOutputs?.[qidx]?.[subqidx]}/> : null}
                                 <Box sx={{marginY: '12px'}}>
                                     <TextField size="small" type="number"
                                                label="Points"
@@ -329,6 +364,31 @@ export default function Template() {
                  }}>
                 <ArrowUpwardIcon/>
             </Fab>
+            <Box sx={{
+                position: 'absolute',
+                bottom: 108,
+                right: 36,
+            }}>
+                <Tooltip title="Run all cells" placement="top">
+                    <Fab size="medium"
+                         color="primary"
+                         disabled={running}
+                         onClick={handleRun}>
+                        <PlayArrowIcon/>
+                    </Fab>
+                </Tooltip>
+                {running && (
+                    <CircularProgress
+                        size={60}
+                        sx={{
+                            position: 'absolute',
+                            top: -6,
+                            left: -6,
+                            zIndex: 1,
+                        }}
+                    />
+                )}
+            </Box>
         </Grid>
     );
 }
