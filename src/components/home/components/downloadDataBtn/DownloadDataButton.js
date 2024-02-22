@@ -39,8 +39,9 @@ export default function DownloadDataButton(props) {
     };
 
     return (
-        <Button startIcon={generateDataFileLoading ? <CircularProgress size="1em" color="inherit"/> :
-            <DownloadIcon sx={{fontSize: '0.5em'}}/>}
+        <Button disabled={generateDataFileLoading}
+                startIcon={generateDataFileLoading ? <CircularProgress size="1em" color="inherit"/> :
+                    <DownloadIcon sx={{fontSize: '0.5em'}}/>}
                 onClick={handleGenerateData} variant="outlined">Dataset</Button>
     );
 }
