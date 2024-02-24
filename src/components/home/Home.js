@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+    Box,
     Button,
     Chip,
     CircularProgress,
@@ -176,7 +177,7 @@ export default function Home() {
                                 {token === 'TA' || token === 'INSTRUCTOR' ?
                                     <TableCell align="center" sx={{fontWeight: 'bold'}}>ID</TableCell> : null}
                                 <TableCell align="center" sx={{fontWeight: 'bold'}}>State</TableCell>
-                                <TableCell align="center" sx={{fontWeight: 'bold'}}></TableCell>
+                                <TableCell align="center" sx={{fontWeight: 'bold'}}>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -200,48 +201,57 @@ export default function Home() {
                                             <Chip size="small" label={assignment.state}
                                                   color={STATE_COLOR_TBL[assignment.state]}/>
                                         </TableCell>
-                                        <TableCell align="left">
-                                            <DownloadDataButton assignmentId={assignment._id}
-                                                                assignmentName={assignment.name}/>
+                                        <TableCell align="left"
+                                                   sx={{
+                                                       display: 'flex',
+                                                       flexWrap: 'wrap',
+                                                       gap: '12px',
+                                                   }}>
+                                            <Box display="inline-block">
+                                                <DownloadDataButton assignmentId={assignment._id}
+                                                                    assignmentName={assignment.name}/>
+                                            </Box>
                                             {token === 'TA' || token === 'INSTRUCTOR' ? <React.Fragment>
-                                                <DownloadZipButton assignmentId={assignment._id}
-                                                                   assignmentName={assignment.name}/>
-                                                {assignment.state === 'Draft' ? <React.Fragment>
-                                                        <Tooltip title="Publish">
-                                                            <IconButton color="primary"
-                                                                        sx={{marginLeft: '12px'}}
+                                                <Box display="inline-block">
+                                                    <DownloadZipButton assignmentId={assignment._id}
+                                                                       assignmentName={assignment.name}/>
+                                                </Box>
+                                                <Box display="inline-block">
+                                                    {assignment.state === 'Draft' ? <React.Fragment>
+                                                            <Tooltip title="Publish">
+                                                                <IconButton color="primary"
+                                                                            onClick={() => {
+                                                                                handleState(assignment._id, 'Published');
+                                                                            }}>
+                                                                    <CheckCircleOutlinedIcon fontSize="small"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            <Tooltip title="Edit">
+                                                                <IconButton color="info"
+                                                                            onClick={() => {
+                                                                                handleEdit(assignment._id, 'template');
+                                                                            }}>
+                                                                    <EditOutlinedIcon fontSize="small"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            <Tooltip title="Delete">
+                                                                <IconButton color="error"
+                                                                            onClick={() => {
+                                                                                onDelete(assignment._id);
+                                                                            }}>
+                                                                    <DeleteOutlinedIcon fontSize="small"/>
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </React.Fragment> :
+                                                        <Tooltip title="Withdraw">
+                                                            <IconButton color="warning"
                                                                         onClick={() => {
-                                                                            handleState(assignment._id, 'Published');
+                                                                            handleState(assignment._id, 'Draft');
                                                                         }}>
-                                                                <CheckCircleOutlinedIcon fontSize="small"/>
+                                                                <CancelOutlinedIcon fontSize="small"/>
                                                             </IconButton>
-                                                        </Tooltip>
-                                                        <Tooltip title="Edit">
-                                                            <IconButton color="info"
-                                                                        onClick={() => {
-                                                                            handleEdit(assignment._id, 'template');
-                                                                        }}>
-                                                                <EditOutlinedIcon fontSize="small"/>
-                                                            </IconButton>
-                                                        </Tooltip>
-                                                        <Tooltip title="Delete">
-                                                            <IconButton color="error"
-                                                                        onClick={() => {
-                                                                            onDelete(assignment._id);
-                                                                        }}>
-                                                                <DeleteOutlinedIcon fontSize="small"/>
-                                                            </IconButton>
-                                                        </Tooltip>
-                                                    </React.Fragment> :
-                                                    <Tooltip title="Withdraw">
-                                                        <IconButton color="warning"
-                                                                    sx={{marginLeft: '12px'}}
-                                                                    onClick={() => {
-                                                                        handleState(assignment._id, 'Draft');
-                                                                    }}>
-                                                            <CancelOutlinedIcon fontSize="small"/>
-                                                        </IconButton>
-                                                    </Tooltip>}
+                                                        </Tooltip>}
+                                                </Box>
                                             </React.Fragment> : null}
                                         </TableCell>
                                     </TableRow>

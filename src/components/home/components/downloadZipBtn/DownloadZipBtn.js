@@ -39,6 +39,6 @@ export default function DownloadZipButton(props) {
     return (
         <Button disabled={generateZipFileLoading}
                 startIcon={generateZipFileLoading ? <CircularProgress size="1em" color="inherit"/> : <DownloadIcon/>}
-                onClick={handleGenerateData} variant="outlined" sx={{marginLeft: '12px'}}>Auto-Grader</Button>
+                onClick={handleGenerateData} variant="outlined">Auto-Grader</Button>
     );
 }
