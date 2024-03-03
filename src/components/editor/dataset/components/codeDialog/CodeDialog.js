@@ -30,6 +30,7 @@ export default function CodeDialog() {
     // template
     const questions = useSelector(state => state.assignment.questions);
     const importCodeTmpl = useSelector(state => state.assignment.importCode);
+    const fetchDatasetCode = useSelector(state => state.assignment.fetchDatasetCode);
 
     const HIDDEN_BTN_STYLE = {
         display: 'none',
@@ -57,6 +58,7 @@ export default function CodeDialog() {
         const template = {
             questions,
             importCode: importCodeTmpl,
+            fetchDatasetCode,
         };
         saveAssignment(assignmentId, assignmentName, dataset, template)
             .then(res => {

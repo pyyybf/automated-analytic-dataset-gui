@@ -59,10 +59,10 @@ export const downloadAutoGraderAPI = (id) => {
     });
 };
 
-export const runNotebookAPI = (id, importCode, questions) => {
+export const runNotebookAPI = (id, importCode, fetchDatasetCode, questions) => {
     return HttpRequest.request({
         url: `${api.assignmentPre}/run`,
         method: 'POST',
-        data: {id, importCode, questions},
+        data: {id, importCode, fetchDatasetCode, questions},
     });
 };

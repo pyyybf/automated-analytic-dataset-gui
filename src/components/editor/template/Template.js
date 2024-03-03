@@ -32,6 +32,7 @@ import {
     saveAssignment,
     setAssignmentId,
     setOutputs,
+    setFetchDatasetCode,
 } from "@/store/assignment/assignment.action";
 import CodeCell from "@/components/editor/template/codeCell/CodeCell";
 import Output from "@/components/editor/template/output/Output";
@@ -44,6 +45,7 @@ export default function Template() {
     const assignmentId = useSelector(state => state.assignment.assignmentId);
     const assignmentName = useSelector(state => state.assignment.assignmentName);
     const importCode = useSelector(state => state.assignment.importCode);
+    const fetchDatasetCode = useSelector(state => state.assignment.fetchDatasetCode);
     const questions = useSelector(state => state.assignment.questions);
 
     const questionOutputs = useSelector(state => state.assignment.questionOutputs);
@@ -57,8 +59,6 @@ export default function Template() {
     const covarianceMatrix = useSelector(state => state.generator.covarianceMatrix);
 
     const [running, setRunning] = useState(false);
-
-    const READ_DATASET_CODE = `# Please read the dataset in this cell\ndf = pd.read_csv("${assignmentName} - Dataset.csv")\ndf.head()`;
 
     const updateQuestion = (newQuestion, qidx) => {
         let newQuestions = [...questions];
@@ -83,6 +83,7 @@ export default function Template() {
         const template = {
             questions,
             importCode,
+            fetchDatasetCode,
         };
         saveAssignment(assignmentId, assignmentName, dataset, template)
             .then(res => {
@@ -112,7 +113,7 @@ export default function Template() {
 
     const handleRun = () => {
         setRunning(true);
-        runNotebook(assignmentId, importCode, questions).then(res => {
+        runNotebook(assignmentId, importCode, fetchDatasetCode, questions).then(res => {
             dispatch(setOutputs({
                 questionOutputs: res.questions,
                 importCodeOutput: res.importCode,
@@ -169,11 +170,15 @@ export default function Template() {
                             sx={{marginLeft: '12px'}}
                             onClick={handleSave}>Save</Button>
                 </Box>
-                <CodeCell code={importCode} onChange={(newVal) => {
-                    dispatch(setImportCode(newVal));
-                }}/>
+                <CodeCell code={importCode}
+                          onChange={(newVal) => {
+                              dispatch(setImportCode(newVal));
+                          }}/>
                 {importCodeOutput ? <Output content={importCodeOutput}/> : null}
-                <CodeCell code={READ_DATASET_CODE} disabled/>
+                <CodeCell code={fetchDatasetCode}
+                          onChange={(newVal) => {
+                              dispatch(setFetchDatasetCode(newVal));
+                          }}/>
                 {fetchDatasetOutput ? <Output content={fetchDatasetOutput}/> : null}
                 <Grid container>
                     {questions.map((question, qidx) => <React.Fragment key={qidx}>

@@ -38,6 +38,13 @@ export const setImportCode = (newVal) => {
     };
 };
 
+export const setFetchDatasetCode = (newVal) => {
+    return {
+        type: ASSIGNMENT_ACTION_TYPES.SET_FETCH_DATASET_CODE,
+        payload: newVal
+    };
+};
+
 export const setQuestions = (newVal) => {
     return {
         type: ASSIGNMENT_ACTION_TYPES.SET_QUESTIONS,
@@ -156,9 +163,9 @@ export const downloadAutoGrader = (id) => {
     });
 };
 
-export const runNotebook = (id, importCode, questions) => {
+export const runNotebook = (id, importCode, fetchDatasetCode, questions) => {
     return new Promise((resolve, reject) => {
-        runNotebookAPI(id, importCode, questions).then(response => {
+        runNotebookAPI(id, importCode, fetchDatasetCode, questions).then(response => {
             if (response.data.success) {
                 resolve(response.data.content);
             } else {

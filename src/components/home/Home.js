@@ -34,6 +34,7 @@ import {
     getAssignmentById,
     setAssignmentId,
     setAssignmentName,
+    setFetchDatasetCode,
     setImportCode,
     setOutputs,
     setQuestions,
@@ -64,6 +65,9 @@ export default function Home() {
         Published: 'primary',
         Draft: 'default',
     };
+    const HEADER_STYLE = {
+        fontWeight: 'bold',
+    };
 
     const getAssignmentList = () => {
         setLoading(true);
@@ -92,6 +96,7 @@ export default function Home() {
             dispatch(setCode(res.dataset.code, res.dataset.importCode));
 
             dispatch(setImportCode(res.template.importCode));
+            dispatch(setFetchDatasetCode(res.template.fetchDatasetCode));
             dispatch(setQuestions(res.template.questions));
             dispatch(setOutputs({
                 questionOutputs: [],
@@ -173,17 +178,18 @@ export default function Home() {
                     <Table sx={{minWidth: 500}}>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left" sx={{fontWeight: 'bold'}}>Name</TableCell>
+                                <TableCell align="left" sx={HEADER_STYLE}>Name</TableCell>
                                 {token === 'TA' || token === 'INSTRUCTOR' ?
-                                    <TableCell align="center" sx={{fontWeight: 'bold'}}>ID</TableCell> : null}
-                                <TableCell align="center" sx={{fontWeight: 'bold'}}>State</TableCell>
-                                <TableCell align="center" sx={{fontWeight: 'bold'}}>Actions</TableCell>
+                                    <TableCell align="center" sx={HEADER_STYLE}>ID</TableCell> : null}
+                                <TableCell align="center" sx={HEADER_STYLE}>State</TableCell>
+                                <TableCell align="center" sx={HEADER_STYLE}>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {loading ?
                                 <TableRow>
-                                    <TableCell colSpan={3} sx={{textAlign: 'center'}}>
+                                    <TableCell colSpan={token === 'TA' || token === 'INSTRUCTOR' ? 4 : 3}
+                                               sx={{textAlign: 'center'}}>
                                         <CircularProgress/>
                                     </TableCell>
                                 </TableRow>

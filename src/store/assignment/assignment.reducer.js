@@ -16,6 +16,7 @@ const ASSIGNMENT_INITIAL_STATE = {
         }],
     }],
     importCode: '# Please import all the necessary Python packages in this cell\nimport pandas as pd',
+    fetchDatasetCode: '# Please read the dataset in this cell\ndf = pd.read_csv("Dataset.csv")\ndf.head()',
     questionOutputs: [],
     importCodeOutput: '',
     fetchDatasetOutput: '',
@@ -34,6 +35,8 @@ export const assignmentReducer = (
             return {...state, questions: payload};
         case ASSIGNMENT_ACTION_TYPES.SET_IMPORT_CODE:
             return {...state, importCode: payload};
+        case ASSIGNMENT_ACTION_TYPES.SET_FETCH_DATASET_CODE:
+            return {...state, fetchDatasetCode: payload};
         case ASSIGNMENT_ACTION_TYPES.SET_ASSIGNMENT_NAME:
             return {...state, assignmentName: payload};
         case ASSIGNMENT_ACTION_TYPES.SET_ASSIGNMENT_ID:
