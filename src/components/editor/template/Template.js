@@ -3,9 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     Box,
     Button,
+    Checkbox,
     CircularProgress,
     Fab,
     FormControl,
+    FormControlLabel,
     Grid,
     IconButton,
     InputBase,
@@ -210,7 +212,7 @@ export default function Template() {
                                     </IconButton>
                                 </Tooltip>
                             </Box>
-                            <InputBase multiline={true} fullWidth
+                            <InputBase multiline fullWidth
                                        value={question.description}
                                        placeholder={`Enter the description of Question ${qidx + 1}`}
                                        onChange={e => {
@@ -233,7 +235,7 @@ export default function Template() {
                                 }}>Q{qidx + 1}.{subqidx + 1}</b>
                             </Grid>
                             <Grid item xs={10} sm={11}>
-                                <InputBase multiline={true} fullWidth
+                                <InputBase multiline fullWidth
                                            value={subquestion.description}
                                            placeholder={`Enter the description of Q${qidx + 1}.${subqidx + 1}`}
                                            onChange={e => {
@@ -243,13 +245,38 @@ export default function Template() {
                                                };
                                                updateSubquestion(newSubquestion, subqidx, qidx);
                                            }}/>
-                                <CodeCell code={subquestion.code} onChange={(newVal) => {
-                                    let newSubquestion = {
-                                        ...subquestion,
-                                        code: newVal,
-                                    };
-                                    updateSubquestion(newSubquestion, subqidx, qidx);
-                                }}/>
+                                <FormControlLabel label="Manual Grading"
+                                                  control={
+                                                      <Checkbox checked={subquestion.manual}
+                                                                onChange={e => {
+                                                                    let newSubquestion = {
+                                                                        ...subquestion,
+                                                                        manual: e.target.checked,
+                                                                    };
+                                                                    if ((!e.target.checked) && newSubquestion.outputType === 'text') {
+                                                                        newSubquestion.outputType = 'number';
+                                                                    }
+                                                                    updateSubquestion(newSubquestion, subqidx, qidx);
+                                                                }}/>
+                                                  }/>
+                                {subquestion.outputType === 'text' ?
+                                    <InputBase multiline fullWidth
+                                               value={subquestion.code}
+                                               placeholder={`Enter the solution of Q${qidx + 1}.${subqidx + 1}`}
+                                               onChange={e => {
+                                                   let newSubquestion = {
+                                                       ...subquestion,
+                                                       code: e.target.value,
+                                                   };
+                                                   updateSubquestion(newSubquestion, subqidx, qidx);
+                                               }}/> :
+                                    <CodeCell code={subquestion.code} onChange={(newVal) => {
+                                        let newSubquestion = {
+                                            ...subquestion,
+                                            code: newVal,
+                                        };
+                                        updateSubquestion(newSubquestion, subqidx, qidx);
+                                    }}/>}
                                 {questionOutputs?.[qidx]?.[subqidx] ?
                                     <Output content={questionOutputs?.[qidx]?.[subqidx]}/> : null}
                                 <Box sx={{marginY: '12px'}}>
@@ -283,6 +310,8 @@ export default function Template() {
                                             <MenuItem value="string">String</MenuItem>
                                             <MenuItem value="dataframe">DataFrame</MenuItem>
                                             <MenuItem value="dict">Dictionary</MenuItem>
+                                            <MenuItem value="plot">Plot</MenuItem>
+                                            {subquestion.manual ? <MenuItem value="text">Text</MenuItem> : null}
                                         </Select>
                                     </FormControl>
                                     {subquestion.outputType === 'number' ?
@@ -323,7 +352,6 @@ export default function Template() {
                                     onClick={e => {
                                         let newQuestion = {
                                             ...question,
-                                            description: e.target.value,
                                         };
                                         const subqidx = newQuestion.subquestions.length + 1;
                                         newQuestion.subquestions.push({
