@@ -310,6 +310,7 @@ export default function Template() {
                                             <MenuItem value="string">String</MenuItem>
                                             <MenuItem value="dataframe">DataFrame</MenuItem>
                                             <MenuItem value="dict">Dictionary</MenuItem>
+                                            <MenuItem value="list">List</MenuItem>
                                             <MenuItem value="plot">Plot</MenuItem>
                                             {subquestion.manual ? <MenuItem value="text">Text</MenuItem> : null}
                                         </Select>
