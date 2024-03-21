@@ -130,21 +130,17 @@ export const addUniqueIdentifier = (newVal) => {
     };
 };
 
-export const addName = () => {
+export const addName = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_NAME,
         payload: [{type: FIELD_TYPE_LIST.NAME, name: 'Name'}]
     };
 };
 
-export const addAddress = (number) => {
+export const addAddress = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_ADDRESS,
-        payload: [
-            {type: FIELD_TYPE_LIST.ADDRESS_ADDRESS, name: 'Address', groupNum: number},
-            {type: FIELD_TYPE_LIST.ADDRESS_CITY, name: 'City', groupNum: number},
-            {type: FIELD_TYPE_LIST.ADDRESS_STATE, name: 'State', groupNum: number}
-        ]
+        payload: [newVal]
     };
 };
 
