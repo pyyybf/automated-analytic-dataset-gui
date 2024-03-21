@@ -15,6 +15,16 @@ import Dashboard from "@/components/dashboard/Dashboard";
 import Dataset from "@/components/editor/dataset/Dataset";
 import Template from "@/components/editor/template/Template";
 
+console.log(`
+%c __                                      
+%c/\\ \\                                     
+%c\\ \\ \\____  _ __   __  __    ___     __   
+%c \\ \\ '__\`\\/\\\`'__\\/\\ \\/\\ \\  /'___\\ /'__\`\\ 
+%c  \\ \\ \\L\\ \\ \\ \\/ \\ \\ \\_\\ \\/\\ \\__//\\  __/ 
+%c   \\ \\_,__/\\ \\_\\  \\ \\____/\\ \\____\\ \\____\\
+%c    \\/___/  \\/_/   \\/___/  \\/____/\\/____/
+`, 'color:#ef5350', 'color:#ffa726', 'color:#ffee58', 'color:#66bb6a', 'color:#26c6da', 'color:#42a5f5', 'color:#5c6bc0')
+
 function App() {
     const alertOpen = useSelector(state => state.web.alertOpen);
     const alertText = useSelector(state => state.web.alertText);
