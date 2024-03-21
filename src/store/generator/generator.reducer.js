@@ -66,6 +66,7 @@ export const generatorReducer = (
             return {...state, ...payload};
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
         case GENERATOR_ACTION_TYPES.ADD_NAME:
+        case GENERATOR_ACTION_TYPES.ADD_ADDRESS:
         case GENERATOR_ACTION_TYPES.ADD_DATE:
         case GENERATOR_ACTION_TYPES.ADD_UNIFORM:
         case GENERATOR_ACTION_TYPES.ADD_BETA:
@@ -75,8 +76,6 @@ export const generatorReducer = (
         case GENERATOR_ACTION_TYPES.ADD_POLYNOMIAL_CATEGORICAL:
         case GENERATOR_ACTION_TYPES.ADD_RESPONSE_VECTOR:
             return {...state, fieldList: [...state.fieldList, ...payload]};
-        case GENERATOR_ACTION_TYPES.ADD_ADDRESS:
-            return {...state, fieldList: [...state.fieldList, ...payload], addressGroupNum: state.addressGroupNum + 1};
         case GENERATOR_ACTION_TYPES.ADD_MULTIVARIATE_NORMAL:
             return {
                 ...state,

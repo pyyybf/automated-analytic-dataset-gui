@@ -16,6 +16,7 @@ import ResponseVectorDialog from "./components/dialogs/responseVectorDialog/Resp
 import CodeDialog from "./components/dialogs/codeDialog/CodeDialog";
 import {useNavigate} from "react-router-dom";
 import DateDialog from "@/components/editor/dataset/components/dialogs/dateDialog/DateDialog";
+import AddressDialog from "@/components/editor/dataset/components/dialogs/addressDialog/AddressDialog";
 
 export default function Dataset() {
     const navigate = useNavigate();
@@ -46,6 +47,7 @@ export default function Dataset() {
                 </Grid>
             </Grid>
             <UniqueIdentifierDialog/>
+            <AddressDialog/>
             <DateDialog/>
             <MultivariateNormalDialog/>
             <UniformDialog/>

@@ -248,6 +248,24 @@ const generateUniqueIdentifier = (name = '', alphanumeric = 'alphanumeric', numb
 };
 
 /**
+ * generate a set of address
+ *
+ * @param street
+ * @param city
+ * @param state
+ * @param zip
+ * @return {string}
+ */
+const generateAddress = (street = '', city = '', state = '', zip = '') => {
+    const funcPrefix = 'ad.update_predictor_address(';
+    let code = `${funcPrefix}street_predictor_name="${street}",`;
+    code += `\n${' '.repeat(funcPrefix.length)}city_predictor_name="${city}",`;
+    code += `\n${' '.repeat(funcPrefix.length)}state_predictor_name="${state}",`;
+    code += `\n${' '.repeat(funcPrefix.length)}zip_predictor_name="${zip}")`;
+    return code;
+};
+
+/**
  * generate a date
  *
  * @param name
@@ -473,13 +491,31 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     const responseVector = fieldList.filter(field => field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE))[0] || null;
 
     // init dataframe and import code
-    let code = `ad = AnalyticsDataframe(${numberOfRows}, ${fieldList.length - 1}, ${stringArray(fieldList.filter(field => !field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE)).map(field => field.name))}, "${responseVector.name}", seed=seed)\n`;
+    let fieldNameList = [];
+    for (let field of fieldList) {
+        if (field.type.startsWith(RESPONSE_VECTOR_TYPE_PRE)) continue;
+        if (field.type === FIELD_TYPE_LIST.ADDRESS) {
+            fieldNameList.push(field.street);
+            fieldNameList.push(field.city);
+            fieldNameList.push(field.state);
+            fieldNameList.push(field.zip);
+        } else {
+            fieldNameList.push(field.name);
+        }
+    }
+    let code = `ad = AnalyticsDataframe(${numberOfRows}, ${fieldNameList.length}, ${stringArray(fieldNameList)}, "${responseVector.name}", seed=seed)\n`;
     let importCode = [IMPORT_ANALYTICS_DF];
 
     // unique identifier
     const uniqueIdentifierList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.UNIQUE_IDENTIFIER);
     for (let uniqueIdentifier of uniqueIdentifierList) {
         code += `\n${generateUniqueIdentifier(uniqueIdentifier.name, uniqueIdentifier.alphanumeric, uniqueIdentifier.numberOfDigits)}`;
+    }
+
+    // address
+    const addressList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.ADDRESS);
+    for (let address of addressList) {
+        code += `\n${generateAddress(address.street, address.city, address.state, address.zip)}`;
     }
 
     // date
@@ -530,29 +566,6 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     if (betaList.length > 0) {
         importCode.push(IMPORT_NUMPY);
         code += `\n${generateBeta(names, alphas, betas)}`;
-    }
-
-    // category: name & address (address+city+state)
-    const categoryList = fieldList.filter(field => CATEGORY_TYPE_LIST.includes(field.type));
-    let addressList = {};
-    for (let category of categoryList) {
-        if (category.type === FIELD_TYPE_LIST.NAME) {
-            const {categoryNames, probVector} = randomName();
-            code += `\n${generateCategorical(category.name, categoryNames, probVector)}`;
-        } else if (category.type.startsWith('ADDRESS_')) {
-            if (!addressList.hasOwnProperty(`GROUP_${category.groupNum}`)) {
-                addressList[`GROUP_${category.groupNum}`] = randomAddress();
-            }
-            const type = category.type.split('_')[1].toLowerCase();
-            code += `\n${generateCategorical(category.name, addressList[`GROUP_${category.groupNum}`].categoryNames.map(item => item[type]), addressList[`GROUP_${category.groupNum}`].probVector)}`;
-        } else {
-            let categoryNames = [], probVector = [];
-            for (let item of category.categoryList) {
-                categoryNames.push(item.name);
-                probVector.push(Number(item.prob));
-            }
-            code += `\n${generateCategorical(category.name, categoryNames, normalize(probVector))}`;
-        }
     }
 
     // multicollinear
