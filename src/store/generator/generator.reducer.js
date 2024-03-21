@@ -7,6 +7,9 @@ const GENERATOR_INITIAL_STATE = {
     addressGroupNum: 1,
     multivariateNormalGroupNum: 1,
     showUniqueIdentifierDialog: false,
+    showNameDialog: false,
+    showAddressDialog: false,
+    showDateDialog: false,
     showMultivariateNormalDialog: false,
     showUniformDialog: false,
     showBetaDialog: false,
@@ -35,6 +38,12 @@ export const generatorReducer = (
             return {...state, covarianceMatrix: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_UNIQUE_IDENTIFIER_DIALOG:
             return {...state, showUniqueIdentifierDialog: payload};
+        case GENERATOR_ACTION_TYPES.SET_SHOW_NAME_DIALOG:
+            return {...state, showNameDialog: payload};
+        case GENERATOR_ACTION_TYPES.SET_SHOW_ADDRESS_DIALOG:
+            return {...state, showAddressDialog: payload};
+        case GENERATOR_ACTION_TYPES.SET_SHOW_DATE_DIALOG:
+            return {...state, showDateDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_MULTIVARIATE_NORMAL_DIALOG:
             return {...state, showMultivariateNormalDialog: payload};
         case GENERATOR_ACTION_TYPES.SET_SHOW_UNIFORM_DIALOG:
@@ -57,6 +66,7 @@ export const generatorReducer = (
             return {...state, ...payload};
         case GENERATOR_ACTION_TYPES.ADD_UNIQUE_IDENTIFIER:
         case GENERATOR_ACTION_TYPES.ADD_NAME:
+        case GENERATOR_ACTION_TYPES.ADD_DATE:
         case GENERATOR_ACTION_TYPES.ADD_UNIFORM:
         case GENERATOR_ACTION_TYPES.ADD_BETA:
         case GENERATOR_ACTION_TYPES.ADD_CATEGORICAL:

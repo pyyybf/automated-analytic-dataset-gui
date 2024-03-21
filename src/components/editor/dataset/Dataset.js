@@ -15,6 +15,7 @@ import PolynomialCategoricalDialog from "./components/dialogs/polynomialCategori
 import ResponseVectorDialog from "./components/dialogs/responseVectorDialog/ResponseVectorDialog";
 import CodeDialog from "./components/dialogs/codeDialog/CodeDialog";
 import {useNavigate} from "react-router-dom";
+import DateDialog from "@/components/editor/dataset/components/dialogs/dateDialog/DateDialog";
 
 export default function Dataset() {
     const navigate = useNavigate();
@@ -45,6 +46,7 @@ export default function Dataset() {
                 </Grid>
             </Grid>
             <UniqueIdentifierDialog/>
+            <DateDialog/>
             <MultivariateNormalDialog/>
             <UniformDialog/>
             <BetaDialog/>

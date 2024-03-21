@@ -2,12 +2,16 @@ import React from 'react';
 import {Button, Box} from "@mui/material";
 import {
     addAddress,
+    addDate,
     addName,
+    setShowAddressDialog,
     setShowBetaDialog,
     setShowCategoricalDialog,
     setShowCategoricalToNumericalDialog,
+    setShowDateDialog,
     setShowMultiCollinearDialog,
     setShowMultivariateNormalDialog,
+    setShowNameDialog,
     setShowPolynomialCategoricalDialog,
     setShowResponseVectorDialog,
     setShowUniformDialog,
@@ -31,29 +35,35 @@ export default function Options() {
         paddingY: '12px',
     };
     const BUTTON_LIST = [
-        // categorical
-        {
-            text: 'Unique Identifier',
-            onClick: () => {
-                dispatch(setShowUniqueIdentifierDialog(true));
-            }
-        },
-        {
-            text: 'Category - General',
-            onClick: () => {
-                dispatch(setShowCategoricalDialog(true));
-            }
-        },
+        // {
+        //     text: 'Unique Identifier',
+        //     onClick: () => {
+        //         dispatch(setShowUniqueIdentifierDialog(true));
+        //     }
+        // },
         {
             text: 'Name',
             onClick: () => {
-                dispatch(addName());
+                dispatch(setShowNameDialog(true));
             }
         },
         {
             text: 'Address',
             onClick: () => {
-                dispatch(addAddress(addressGroupNum));
+                dispatch(setShowAddressDialog(true));
+            }
+        },
+        {
+            text: 'Date',
+            onClick: () => {
+                dispatch(setShowDateDialog(true));
+            }
+        },
+        // categorical
+        {
+            text: 'Category - General',
+            onClick: () => {
+                dispatch(setShowCategoricalDialog(true));
             }
         },
         // numerical

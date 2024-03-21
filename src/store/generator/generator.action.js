@@ -29,6 +29,27 @@ export const setShowUniqueIdentifierDialog = (val) => {
     };
 };
 
+export const setShowNameDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_NAME_DIALOG,
+        payload: val
+    };
+};
+
+export const setShowAddressDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_ADDRESS_DIALOG,
+        payload: val
+    };
+};
+
+export const setShowDateDialog = (val) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.SET_SHOW_DATE_DIALOG,
+        payload: val
+    };
+};
+
 export const setShowMultivariateNormalDialog = (val) => {
     return {
         type: GENERATOR_ACTION_TYPES.SET_SHOW_MULTIVARIATE_NORMAL_DIALOG,
@@ -124,6 +145,13 @@ export const addAddress = (number) => {
             {type: FIELD_TYPE_LIST.ADDRESS_CITY, name: 'City', groupNum: number},
             {type: FIELD_TYPE_LIST.ADDRESS_STATE, name: 'State', groupNum: number}
         ]
+    };
+};
+
+export const addDate = (newVal) => {
+    return {
+        type: GENERATOR_ACTION_TYPES.ADD_DATE,
+        payload: [newVal]
     };
 };
 

@@ -2,6 +2,7 @@ const MAX_ROW_LEN = 113;  // for md
 const TAB_SPACE = '    ';
 const IMPORT_ANALYTICS_DF = 'from analyticsdf.analyticsdataframe import AnalyticsDataframe';
 const IMPORT_NUMPY = 'import numpy as np';
+const IMPORT_DATETIME = 'from datetime import datetime';
 const ADDRESS_LIST = [
     {
         address: "123 Main St",
@@ -66,6 +67,8 @@ export const FIELD_TYPE_LIST = {
     MULTICOLLINEAR: 'MULTICOLLINEAR',
     MULTIVARIATE_NORMAL: 'MULTIVARIATE_NORMAL',
     NAME: 'NAME',
+    ADDRESS: 'ADDRESS',
+    DATE: 'DATE',
     POLYNOMIAL_CATEGORICAL: 'POLYNOMIAL_CATEGORICAL',
     RESPONSE_VECTOR_LINEAR: 'RESPONSE_VECTOR_LINEAR',
     RESPONSE_VECTOR_POLYNOMIAL: 'RESPONSE_VECTOR_POLYNOMIAL',
@@ -242,6 +245,22 @@ const generateDef = (funcName, params, body, result) => {
  */
 const generateUniqueIdentifier = (name = '', alphanumeric = 'alphanumeric', numberOfDigits = 6) => {
     return `# need an unique identifier ${name}`;
+};
+
+/**
+ * generate a date
+ *
+ * @param name
+ * @param fromDate
+ * @param toDate
+ * @return {string}
+ */
+const generateDate = (name = '', fromDate = [1970, 1, 1], toDate = [1970, 1, 1]) => {
+    const funcPrefix = 'ad.update_predictor_date(';
+    let code = `${funcPrefix}predictor_name="${name}",`;
+    code += `\n${' '.repeat(funcPrefix.length)}from_date=datetime(${fromDate.join(', ')}),`;
+    code += `\n${' '.repeat(funcPrefix.length)}to_date=datetime(${toDate.join(', ')}))`;
+    return code;
 };
 
 /**
@@ -461,6 +480,15 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     const uniqueIdentifierList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.UNIQUE_IDENTIFIER);
     for (let uniqueIdentifier of uniqueIdentifierList) {
         code += `\n${generateUniqueIdentifier(uniqueIdentifier.name, uniqueIdentifier.alphanumeric, uniqueIdentifier.numberOfDigits)}`;
+    }
+
+    // date
+    const dateList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.DATE);
+    if (dateList.length > 0) {
+        importCode.push(IMPORT_DATETIME);
+    }
+    for (let date of dateList) {
+        code += `\n${generateDate(date.name, date.fromDate, date.toDate)}`;
     }
 
     // multivariate normal
