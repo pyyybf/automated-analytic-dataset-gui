@@ -266,6 +266,17 @@ const generateAddress = (street = '', city = '', state = '', zip = '') => {
 };
 
 /**
+ * generate a name
+ *
+ * @param name
+ * @param nameType
+ * @return {string}
+ */
+const generateName = (name = '', nameType = 'Person') => {
+    return `ad.update_predictor_${nameType.toLowerCase()}_name(predictor_name="${name}")`;
+};
+
+/**
  * generate a date
  *
  * @param name
@@ -510,6 +521,12 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
     const uniqueIdentifierList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.UNIQUE_IDENTIFIER);
     for (let uniqueIdentifier of uniqueIdentifierList) {
         code += `\n${generateUniqueIdentifier(uniqueIdentifier.name, uniqueIdentifier.alphanumeric, uniqueIdentifier.numberOfDigits)}`;
+    }
+
+    // name
+    const nameList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.NAME);
+    for (let name of nameList) {
+        code += `\n${generateName(name.name, name.nameType)}`;
     }
 
     // address

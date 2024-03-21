@@ -133,7 +133,7 @@ export const addUniqueIdentifier = (newVal) => {
 export const addName = (newVal) => {
     return {
         type: GENERATOR_ACTION_TYPES.ADD_NAME,
-        payload: [{type: FIELD_TYPE_LIST.NAME, name: 'Name'}]
+        payload: [newVal]
     };
 };
 
