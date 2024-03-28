@@ -37,7 +37,7 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <BrowserRouter basename={BASE_FRONTEND_URL}>
+                <BrowserRouter>
                     <App/>
                 </BrowserRouter>
             </ThemeProvider>
