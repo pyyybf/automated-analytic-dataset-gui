@@ -1,53 +1,19 @@
 {
-  "name": "automated-analytic-dataset-gui",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.13.7",
-    "@mui/material": "^5.13.7",
-    "@mui/x-date-pickers": "^6.19.8",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@uiw/react-textarea-code-editor": "^2.1.7",
-    "axios": "^1.4.0",
-    "copy-to-clipboard": "^3.3.3",
-    "craco": "^0.0.3",
-    "dayjs": "^1.11.10",
-    "js-sha256": "^0.10.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^8.1.1",
-    "react-router-dom": "^6.15.0",
-    "react-scripts": "5.0.1",
-    "react-smooth-dnd": "^0.11.1",
-    "redux": "^4.2.1",
-    "web-vitals": "^2.1.4"
-  },
+  "name": "automated-analytic-dataset-gui-deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
+    "start": "node index.js",
+    "build": "cd view && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "echo | gcloud app deploy"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "panyue",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
   }
 }
