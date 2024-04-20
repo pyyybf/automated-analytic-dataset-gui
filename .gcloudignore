@@ -16,4 +16,4 @@
 # Node.js dependencies:
 node_modules/
 
-view/
+view/node_modules/
