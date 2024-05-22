@@ -585,6 +585,17 @@ export default function generate(numberOfRows = 1000, fieldList = [], covariance
         code += `\n${generateBeta(names, alphas, betas)}`;
     }
 
+    // categorical
+    const categoryList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.CATEGORICAL);
+    for (let category of categoryList) {
+        let categoryNames = [], probVector = [];
+        for (let item of category.categoryList) {
+            categoryNames.push(item.name);
+            probVector.push(Number(item.prob));
+        }
+        code += `\n${generateCategorical(category.name, categoryNames, normalize(probVector))}`;
+    }
+
     // multicollinear
     const multicollinearList = fieldList.filter(field => field.type === FIELD_TYPE_LIST.MULTICOLLINEAR);
     for (let multicollinear of multicollinearList) {
