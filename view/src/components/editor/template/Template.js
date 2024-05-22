@@ -361,6 +361,7 @@ export default function Template() {
                                             outputType: 'number',
                                             tolerance: 0,
                                             points: 10,
+                                            manual: false,
                                         });
                                         updateQuestion(newQuestion, qidx);
                                     }}>Add a sub-question</Button>
@@ -381,6 +382,7 @@ export default function Template() {
                                         outputType: 'number',
                                         tolerance: 0,
                                         points: 10,
+                                        manual: false,
                                     }],
                                 });
                                 dispatch(setQuestions(newQuestions));
