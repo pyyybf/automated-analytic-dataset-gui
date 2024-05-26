@@ -9,8 +9,11 @@ import {
     FormControlLabel,
     FormHelperText,
     Grid,
+    InputLabel,
+    MenuItem,
     Radio,
     RadioGroup,
+    Select,
     Table,
     TableBody,
     TableCell,
@@ -51,6 +54,29 @@ export default function ResponseVectorDialog() {
         setShowInteractionTermBetas(false);
         setInteractionTermBetas([]);
         setExponent('');
+    };
+    const checkPredictor = (field, newChecked) => {
+        let newPredictorList = {...predictorList};
+        newPredictorList[field.name] = {
+            ...newPredictorList[field.name],
+            checked: newChecked,
+        };
+        if (!newPredictorList[field.name].hasOwnProperty('polynomialOrder')) {
+            newPredictorList[field.name].polynomialOrder = 1;
+        }
+        if (!newPredictorList[field.name].hasOwnProperty('beta')) {
+            newPredictorList[field.name].beta = ['', '', '', ''];
+        }
+        setPredictorList(newPredictorList);
+        let checkedLen = 0;
+        for (let name in newPredictorList) {
+            checkedLen += (newPredictorList[name].checked ? newPredictorList[name].polynomialOrder : 0);
+        }
+        let newInteractionTermBetas = [];
+        for (let i = 0; i < checkedLen; i++) {
+            newInteractionTermBetas.push(new Array(checkedLen).fill(0));
+        }
+        setInteractionTermBetas(newInteractionTermBetas);
     };
     const handleSubmit = () => {
         // validate
@@ -128,70 +154,9 @@ export default function ResponseVectorDialog() {
                            onChange={e => {
                                setPredictorName(e.target.value);
                            }}></TextField>
-                {showInteractionTermBetas ?
+                {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ?
                     <React.Fragment>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={2} sx={{marginTop: '60px'}}>
-                                {numericalFieldList.filter(field => predictorList[field.name]?.checked).map((field, index) =>
-                                    <Grid container sx={{height: '60px'}} key={index}>
-                                        <Grid item xs={12} sx={{margin: 'auto'}}>{field.name}</Grid>
-                                    </Grid>
-                                )}
-                            </Grid>
-                            <Grid item xs={12} md={9} lg={10} sx={{overflowX: 'scroll'}}>
-                                <Table stickyHeader sx={{marginTop: '12px'}}>
-                                    <TableHead>
-                                        <TableRow sx={{border: 'none'}}>
-                                            {numericalFieldList.filter(field => predictorList[field.name]?.checked).map((field, index) =>
-                                                <TableCell align="center" key={index}>{field.name}</TableCell>
-                                            )}
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {numericalFieldList.filter(field => predictorList[field.name]?.checked).map((row, index) =>
-                                            <TableRow key={index}
-                                                      sx={{
-                                                          border: '1px lightgray solid',
-                                                          height: '60px',
-                                                          padding: '0'
-                                                      }}>
-                                                {numericalFieldList.filter(field => predictorList[field.name]?.checked).map((col, colIndex) =>
-                                                    <TableCell key={colIndex}
-                                                               component="td"
-                                                               scope="row"
-                                                               align="center"
-                                                               sx={{
-                                                                   border: '1px lightgray solid',
-                                                                   padding: '0 12px'
-                                                               }}>
-                                                        <TextField size="small"
-                                                                   variant="standard"
-                                                                   type="number"
-                                                                   value={interactionTermBetas[index]?.[colIndex] || ''}
-                                                                   onChange={e => {
-                                                                       let newInteractionTermBetas = [];
-                                                                       for (let row of interactionTermBetas) {
-                                                                           newInteractionTermBetas.push([...row]);
-                                                                       }
-                                                                       newInteractionTermBetas[index][colIndex] = e.target.value;
-                                                                       setInteractionTermBetas(newInteractionTermBetas);
-                                                                   }}/>
-                                                    </TableCell>
-                                                )}
-                                            </TableRow>)}
-                                    </TableBody>
-                                </Table>
-                            </Grid>
-                        </Grid>
-                        <Button sx={{marginTop: '12px', float: 'right'}}
-                                onClick={() => {
-                                    setShowInteractionTermBetas(false);
-                                }}>Back to Coefficients</Button>
-                    </React.Fragment>
-                    :
-                    <React.Fragment>
-                        <h5>Coefficients {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? '' : 'and orders of the polynomial'} of
-                            the linear model</h5>
+                        <h5>Coefficients of the linear model</h5>
                         <Grid container spacing={1}>
                             <Grid item sm={4}
                                   sx={{
@@ -212,82 +177,228 @@ export default function ResponseVectorDialog() {
                                 <Grid item sm={1}>
                                     <Checkbox checked={predictorList[field.name]?.checked || false}
                                               onChange={e => {
-                                                  let newPredictorList = {...predictorList};
-                                                  newPredictorList[field.name] = {
-                                                      ...newPredictorList[field.name],
-                                                      checked: e.target.checked,
-                                                  };
-                                                  setPredictorList(newPredictorList);
-                                                  // change Interaction Term Betas
-                                                  let checkedLen = 0;
-                                                  for (let name in newPredictorList) {
-                                                      checkedLen += newPredictorList[name].checked ? 1 : 0;
-                                                  }
-                                                  let newInteractionTermBetas = [];
-                                                  for (let i = 0; i < checkedLen; i++) {
-                                                      newInteractionTermBetas.push(new Array(checkedLen).fill(0));
-                                                  }
-                                                  setInteractionTermBetas(newInteractionTermBetas);
+                                                  checkPredictor(field, e.target.checked);
+                                                  // updateInteractionTermBetas();
                                               }}/>
                                 </Grid>
                                 <Grid item sm={3}
                                       sx={{
                                           marginTop: '12px',
                                       }}>{field.name}</Grid>
-                                <Grid item sm={type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? 8 : 4}>
+                                <Grid item sm={8}>
                                     <TextField fullWidth
                                                size="small"
                                                label="Beta"
                                                type="number"
-                                               value={predictorList[field.name]?.beta || ''}
+                                               value={predictorList[field.name]?.beta?.[0] || ''}
                                                onChange={e => {
                                                    let newPredictorList = {...predictorList};
-                                                   if (newPredictorList.hasOwnProperty(field.name)) {
-                                                       newPredictorList[field.name].beta = e.target.value;
-                                                   } else {
+                                                   if (!newPredictorList.hasOwnProperty(field.name)) {
                                                        newPredictorList[field.name] = {
-                                                           beta: e.target.value,
+                                                           beta: ['', '', '', ''],
                                                        };
+                                                   } else if (!newPredictorList[field.name].hasOwnProperty('beta')) {
+                                                       newPredictorList[field.name].beta = ['', '', '', ''];
                                                    }
+                                                   newPredictorList[field.name].beta[0] = e.target.value;
                                                    setPredictorList(newPredictorList);
                                                }}></TextField>
                                 </Grid>
-                                {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? null :
-                                    <Grid item sm={4}>
+                            </Grid>)}
+                    </React.Fragment>
+                    :
+                    showInteractionTermBetas ?
+                        <React.Fragment>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} md={2} sx={{marginTop: '60px'}}>
+                                    {numericalFieldList.filter(field => predictorList[field.name]?.checked).map((field, index) =>
+                                        <React.Fragment key={index}>
+                                            <Grid container sx={{height: '60px'}}>
+                                                <Grid item xs={12} sx={{margin: 'auto'}}>{field.name}</Grid>
+                                            </Grid>
+                                            {Array.from({length: (predictorList[field.name]?.polynomialOrder ? predictorList[field.name]?.polynomialOrder : 1) - 1}).map((_, order) =>
+                                                <Grid container sx={{height: '60px'}} key={order}>
+                                                    <Grid item xs={12}
+                                                          sx={{margin: 'auto'}}>{field.name}<sup>{order + 2}</sup></Grid>
+                                                </Grid>
+                                            )}
+                                        </React.Fragment>
+                                    )}
+                                </Grid>
+                                <Grid item xs={12} md={9} lg={10} sx={{overflowX: 'scroll'}}>
+                                    <Table stickyHeader sx={{marginTop: '12px'}}>
+                                        <TableHead>
+                                            <TableRow sx={{border: 'none'}}>
+                                                {numericalFieldList.filter(field => predictorList[field.name]?.checked).map((field, index) =>
+                                                    <React.Fragment key={index}>
+                                                        <TableCell align="center">{field.name}</TableCell>
+                                                        {Array.from({length: (predictorList[field.name]?.polynomialOrder ? predictorList[field.name]?.polynomialOrder : 1) - 1}).map((_, order) =>
+                                                            <TableCell align="center"
+                                                                       key={order}>{field.name}<sup>{order + 2}</sup></TableCell>
+                                                        )}
+                                                    </React.Fragment>
+                                                )}
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {interactionTermBetas.map((row, index) =>
+                                                <TableRow key={index}
+                                                          sx={{
+                                                              border: '1px lightgray solid',
+                                                              height: '60px',
+                                                              padding: '0'
+                                                          }}>
+                                                    {interactionTermBetas.map((col, colIndex) =>
+                                                        <TableCell key={colIndex}
+                                                                   component="td"
+                                                                   scope="row"
+                                                                   align="center"
+                                                                   sx={{
+                                                                       border: '1px lightgray solid',
+                                                                       padding: '0 12px'
+                                                                   }}>
+                                                            <TextField size="small"
+                                                                       variant="standard"
+                                                                       type="number"
+                                                                       value={interactionTermBetas[index]?.[colIndex] || ''}
+                                                                       onChange={e => {
+                                                                           let newInteractionTermBetas = [];
+                                                                           for (let row of interactionTermBetas) {
+                                                                               newInteractionTermBetas.push([...row]);
+                                                                           }
+                                                                           newInteractionTermBetas[index][colIndex] = e.target.value;
+                                                                           setInteractionTermBetas(newInteractionTermBetas);
+                                                                       }}/>
+                                                        </TableCell>
+                                                    )}
+                                                </TableRow>)}
+                                        </TableBody>
+                                    </Table>
+                                </Grid>
+                            </Grid>
+                            <Button sx={{marginTop: '12px', float: 'right'}}
+                                    onClick={() => {
+                                        setShowInteractionTermBetas(false);
+                                    }}>Back to Coefficients</Button>
+                        </React.Fragment>
+                        :
+                        <React.Fragment>
+                            <h5>Coefficients and orders of the polynomial of the linear model</h5>
+                            <Grid container spacing={1}>
+                                <Grid item sm={4}
+                                      sx={{
+                                          marginTop: '12px',
+                                      }}>Intercept</Grid>
+                                <Grid item sm={8}>
+                                    <TextField fullWidth
+                                               size="small"
+                                               type="number"
+                                               value={intercept}
+                                               onChange={e => {
+                                                   setIntercept(e.target.value);
+                                               }}></TextField>
+                                </Grid>
+                            </Grid>
+                            {numericalFieldList.map((field, index) =>
+                                <Grid container spacing={1} sx={{marginTop: '12px'}} key={index}>
+                                    <Grid item sm={1}>
+                                        <Checkbox checked={predictorList[field.name]?.checked || false}
+                                                  onChange={e => {
+                                                      checkPredictor(field, e.target.checked);
+                                                      // updateInteractionTermBetas();
+                                                  }}/>
+                                    </Grid>
+                                    <Grid item sm={3}
+                                          sx={{
+                                              marginTop: '12px',
+                                          }}>{field.name}</Grid>
+                                    <Grid item sm={5}>
                                         <TextField fullWidth
                                                    size="small"
-                                                   label="Polynomial Order"
+                                                   label="Beta"
                                                    type="number"
-                                                   InputProps={{
-                                                       inputProps: {
-                                                           max: 4,
-                                                           min: 1
-                                                       }
-                                                   }}
-                                                   value={predictorList[field.name]?.polynomialOrder || ''}
+                                                   value={predictorList[field.name]?.beta?.[0] || ''}
                                                    onChange={e => {
                                                        let newPredictorList = {...predictorList};
                                                        if (!newPredictorList.hasOwnProperty(field.name)) {
-                                                           newPredictorList[field.name] = {};
+                                                           newPredictorList[field.name] = {
+                                                               beta: ['', '', '', ''],
+                                                           };
+                                                       } else if (!newPredictorList[field.name].hasOwnProperty('beta')) {
+                                                           newPredictorList[field.name].beta = ['', '', '', ''];
                                                        }
-                                                       const newVal = Number(e.target.value);
-                                                       if (e.target.value === '' || (newVal <= 4 && newVal >= 1)) {
-                                                           newPredictorList[field.name].polynomialOrder = e.target.value;
-                                                       } else if (newVal > 4) {
-                                                           newPredictorList[field.name].polynomialOrder = 4;
-                                                       } else if (newVal < 1) {
-                                                           newPredictorList[field.name].polynomialOrder = 1;
-                                                       }
+                                                       newPredictorList[field.name].beta[0] = e.target.value;
                                                        setPredictorList(newPredictorList);
                                                    }}></TextField>
-                                    </Grid>}
-                            </Grid>)}
-                        {type === FIELD_TYPE_LIST.RESPONSE_VECTOR_LINEAR ? null :
+                                    </Grid>
+                                    <Grid item sm={3}>
+                                        <FormControl fullWidth>
+                                            <InputLabel>Polynomial Order</InputLabel>
+                                            <Select value={predictorList[field.name]?.polynomialOrder || 1}
+                                                    label="Polynomial Order"
+                                                    size="small"
+                                                    onChange={e => {
+                                                        let newPredictorList = {...predictorList};
+                                                        if (!newPredictorList.hasOwnProperty(field.name)) {
+                                                            newPredictorList[field.name] = {};
+                                                        }
+                                                        newPredictorList[field.name].polynomialOrder = Number(e.target.value);
+                                                        setPredictorList(newPredictorList);
+                                                        let checkedLen = 0;
+                                                        for (let name in newPredictorList) {
+                                                            checkedLen += (newPredictorList[name].checked ? newPredictorList[name].polynomialOrder : 0);
+                                                        }
+                                                        let newInteractionTermBetas = [];
+                                                        for (let i = 0; i < checkedLen; i++) {
+                                                            newInteractionTermBetas.push(new Array(checkedLen).fill(0));
+                                                        }
+                                                        setInteractionTermBetas(newInteractionTermBetas);
+                                                    }}>
+                                                <MenuItem value={1}>1</MenuItem>
+                                                <MenuItem value={2}>2</MenuItem>
+                                                <MenuItem value={3}>3</MenuItem>
+                                                <MenuItem value={4}>4</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                    {Array.from({length: (predictorList[field.name]?.polynomialOrder ? predictorList[field.name]?.polynomialOrder : 1) - 1}).map((_, order) =>
+                                        <React.Fragment key={order}>
+                                            <Grid item sm={1}></Grid>
+                                            <Grid item sm={3}
+                                                  sx={{
+                                                      marginTop: '12px',
+                                                  }}>{field.name}<sup>{order + 2}</sup></Grid>
+                                            <Grid item sm={5}>
+                                                <TextField fullWidth
+                                                           key={order}
+                                                           size="small"
+                                                           label="Beta"
+                                                           type="number"
+                                                           sx={{marginTop: '6px'}}
+                                                           value={predictorList[field.name]?.beta?.[order + 1] || ''}
+                                                           onChange={e => {
+                                                               let newPredictorList = {...predictorList};
+                                                               if (!newPredictorList.hasOwnProperty(field.name)) {
+                                                                   newPredictorList[field.name] = {
+                                                                       beta: ['', '', '', ''],
+                                                                   };
+                                                               } else if (!newPredictorList[field.name].hasOwnProperty('beta')) {
+                                                                   newPredictorList[field.name].beta = ['', '', '', ''];
+                                                               }
+                                                               newPredictorList[field.name].beta[order + 1] = e.target.value;
+                                                               setPredictorList(newPredictorList);
+                                                           }}></TextField>
+                                            </Grid>
+                                            <Grid item sm={3}></Grid>
+                                        </React.Fragment>
+                                    )}
+                                </Grid>)}
                             <Button sx={{marginTop: '12px', float: 'right'}}
                                     onClick={() => {
                                         setShowInteractionTermBetas(true);
-                                    }}>Enter Interaction Term Betas</Button>}
-                    </React.Fragment>}
+                                    }}>Enter Interaction Term Betas</Button>
+                        </React.Fragment>
+                }
                 <TextField fullWidth
                            size="small"
                            type="number"

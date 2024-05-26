@@ -432,7 +432,7 @@ const generateResponseVectorLinear = (predictorsMap, intercept, epsilonVariance,
     let predictorList = [], beta = [intercept];
     for (let key in predictorsMap) {
         predictorList.push(key);
-        beta.push(predictorsMap[key].beta || 0);
+        beta.push(predictorsMap[key].beta?.[0] || 0);
     }
 
     let code = `predictor_name_list = ${stringArray(predictorList)}`;
@@ -466,7 +466,9 @@ const generateResponseVectorPolynomial = (predictorsMap, intercept, interactionT
     let predictorList = [], beta = [intercept], polynomialOrder = [];
     for (let key in predictorsMap) {
         predictorList.push(key);
-        beta.push(predictorsMap[key].beta || 0);
+        for (let i = 0; i < predictorsMap[key].polynomialOrder; i++) {
+            beta.push(predictorsMap[key].beta[i]);
+        }
         polynomialOrder.push(predictorsMap[key].polynomialOrder || 1);
     }
 
