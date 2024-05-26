@@ -69,7 +69,7 @@ export default function NameDialog() {
                             onChange={e => {
                                 setNameType(e.target.value);
                             }}>
-                        {NAME_TYPE_LIST.map(item => <MenuItem value={item}>{item}</MenuItem>)}
+                        {NAME_TYPE_LIST.map(item => <MenuItem key={item} value={item}>{item}</MenuItem>)}
                     </Select>
                 </FormControl>
                 <TextField fullWidth sx={{marginTop: '12px'}}
