@@ -11,6 +11,7 @@ const ASSIGNMENT_INITIAL_STATE = {
             description: '',
             code: 'q_1_1 = ...\nq_1_1',
             outputType: 'number',
+            manual: false,
             tolerance: 0,
             points: 10,
         }],
